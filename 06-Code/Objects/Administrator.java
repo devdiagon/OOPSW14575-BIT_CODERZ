@@ -1,4 +1,4 @@
-public class Chicken{
+public class Administrator{
 	private int id;
 	private String name;
 	private String email;
