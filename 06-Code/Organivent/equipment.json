@@ -1,0 +1,12 @@
+[
+  {
+    "type": "Camera",
+    "cost": 20.0,
+    "quantity": 5
+  },
+  {
+    "type": "cellphone",
+    "cost": 250.41,
+    "quantity": 3
+  }
+]

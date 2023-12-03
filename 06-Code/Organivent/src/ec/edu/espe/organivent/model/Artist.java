@@ -41,9 +41,11 @@ public class Artist {
 
     
     
-    public void setEntryTime(Schedule entryTime);
+    public void setEntryTime(Schedule entryTime){
+    }
 
-    public void setDepartureTime(Schedule departureTime);
+    public void setDepartureTime(Schedule departureTime){
+    }
     
     
 }

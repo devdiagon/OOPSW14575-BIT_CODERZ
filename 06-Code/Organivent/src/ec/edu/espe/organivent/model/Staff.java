@@ -1,22 +1,26 @@
 package ec.edu.espe.organivent.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Usuario
  */
 public class Staff {
-
+    
+    private int id;
     private String type;
     private Workday workday;
-    private Employee[] employees;
+    private ArrayList<Employee> employees;
     private float totalStaffCost;
 
     @Override
     public String toString() {
-        return "Staff{" + "type=" + type + ", workday=" + workday + ", employees=" + employees + ", totalStaffCost=" + totalStaffCost + '}';
+        return "Staff{ id=" + getId() + "type=" + getType() + ", workday=" + getWorkday() + ", employees=" + getEmployees() + ", totalStaffCost=" + getTotalStaffCost() + '}';
     }
 
-    public Staff(String type, Workday workday, Employee[] employees, float totalStaffCost) {
+    public Staff(int id, String type, Workday workday, ArrayList<Employee> employees, float totalStaffCost) {
+        this.id = id;
         this.type = type;
         this.workday = workday;
         this.employees = employees;
@@ -39,11 +43,11 @@ public class Staff {
         this.workday = workday;
     }
 
-    public Employee[] getEmployees() {
+    public ArrayList<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(Employee[] employees) {
+    public void setEmployees(ArrayList<Employee> employees) {
         this.employees = employees;
     }
 
@@ -55,11 +59,24 @@ public class Staff {
         this.totalStaffCost = totalStaffCost;
     }
     
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     
 
-    public void asingWorkday(Workday workday);
+    public void asingWorkday(Workday workday){
+    }
 
-    public void addEmployee(Employee employee);
+    public void addEmployee(Employee employee){
+    }
 
-    public float calculateCost(Workday workday);
+    public float calculateCost(Workday workday){
+        
+        return (0);
+    }
 }

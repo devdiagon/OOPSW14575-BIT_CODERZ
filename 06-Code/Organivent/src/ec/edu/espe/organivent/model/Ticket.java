@@ -69,5 +69,6 @@ public class Ticket {
     
     
 
-    public void setEventTime(Schedule eventTime);
+    public void setEventTime(Schedule eventTime){
+    }
 }

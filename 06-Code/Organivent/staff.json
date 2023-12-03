@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "type": "Security",
+    "workday": {
+      "workdayId": 2,
+      "entryTime": {
+        "year": 2023,
+        "month": 12,
+        "day": 1,
+        "hours": 9,
+        "minutes": 30
+      },
+      "departureTime": {
+        "year": 2023,
+        "month": 12,
+        "day": 1,
+        "hours": 11,
+        "minutes": 30
+      },
+      "hoursWorked": 2.0
+    },
+    "employees": [
+      {
+        "id": 4,
+        "name": "Luis",
+        "hourlyWage": 32.36
+      },
+      {
+        "id": 3,
+        "name": "Marco",
+        "hourlyWage": 32.36
+      }
+    ],
+    "totalStaffCost": 2014.0
+  }
+]

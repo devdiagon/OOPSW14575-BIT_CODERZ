@@ -1,5 +1,7 @@
 package ec.edu.espe.organivent.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Usuario
@@ -9,18 +11,18 @@ public class Event {
     private int id;
     private Schedule startTime;
     private Schedule endTime;
-    private Artist artist;
+    private String artist;
     private float estimatedCost;
-    private Staff[] staff;
-    private Equipment[] equipment;
-    private EventPlace place;
+    private ArrayList<Staff> staff;
+    private ArrayList<Equipment> equipment;
+    private String place;
 
     @Override
     public String toString() {
         return "Event{" + "id=" + id + ", startTime=" + startTime + ", endTime=" + endTime + ", artist=" + artist + ", estimatedCost=" + estimatedCost + ", staff=" + staff + ", equipment=" + equipment + ", place=" + place + '}';
     }
 
-    public Event(int id, Schedule startTime, Schedule endTime, Artist artist, float estimatedCost, Staff[] staff, Equipment[] equipment, EventPlace place) {
+    public Event(int id, Schedule startTime, Schedule endTime, String artist, float estimatedCost, ArrayList<Staff> staff, ArrayList<Equipment> equipment, String place) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -39,11 +41,11 @@ public class Event {
         this.id = id;
     }
 
-    public Artist getArtist() {
+    public String getArtist() {
         return artist;
     }
 
-    public void setArtist(Artist artist) {
+    public void setArtist(String artist) {
         this.artist = artist;
     }
 
@@ -55,41 +57,47 @@ public class Event {
         this.estimatedCost = estimatedCost;
     }
 
-    public Staff[] getStaff() {
+    public ArrayList<Staff> getStaff() {
         return staff;
     }
 
-    public void setStaff(Staff[] staff) {
+    public void setStaff(ArrayList<Staff> staff) {
         this.staff = staff;
     }
 
-    public Equipment[] getEquipment() {
+    public ArrayList<Equipment> getEquipment() {
         return equipment;
     }
 
-    public void setEquipment(Equipment[] equipment) {
+    public void setEquipment(ArrayList<Equipment> equipment) {
         this.equipment = equipment;
     }
 
-    public EventPlace getPlace() {
+    public String getPlace() {
         return place;
     }
 
-    public void setPlace(EventPlace place) {
+    public void setPlace(String place) {
         this.place = place;
     }
     
     
 
-    public void addStaff(Staff staff);
+    public void addStaff(Staff staff){
+    }
 
-    public void setEventPlace(EventPlace eventPlace);
+    public void setEventPlace(EventPlace eventPlace){
+    }
 
-    public void setArtistForEvent(Artist artist);
+    public void setArtistForEvent(Artist artist){
+    }
 
-    public void addEquipment(Equipment equipment);
+    public void addEquipment(Equipment equipment){
+    }
 
-    public void setStartTime(Schedule startTime);
+    public void setStartTime(Schedule startTime){
+    }
 
-    public void setEndTime(Schedule endTime);
+    public void setEndTime(Schedule endTime){
+    }
 }

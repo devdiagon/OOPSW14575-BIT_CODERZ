@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Mike",
+    "hourlyWage": 30.5
+  },
+  {
+    "id": 2,
+    "name": "Pepe",
+    "hourlyWage": 32.36
+  },
+  {
+    "id": 3,
+    "name": "Marco",
+    "hourlyWage": 32.36
+  },
+  {
+    "id": 4,
+    "name": "Luis",
+    "hourlyWage": 32.36
+  },
+  {
+    "id": 5,
+    "name": "Carolina",
+    "hourlyWage": 32.36
+  },
+  {
+    "id": 6,
+    "name": "Mateo",
+    "hourlyWage": 32.36
+  },
+  {
+    "id": 7,
+    "name": "Jose",
+    "hourlyWage": 32.36
+  },
+  {
+    "id": 8,
+    "name": "Lucia",
+    "hourlyWage": 32.36
+  },
+  {
+    "id": 9,
+    "name": "Fernanda",
+    "hourlyWage": 32.36
+  },
+  {
+    "id": 10,
+    "name": "Claudio",
+    "hourlyWage": 32.36
+  }
+]

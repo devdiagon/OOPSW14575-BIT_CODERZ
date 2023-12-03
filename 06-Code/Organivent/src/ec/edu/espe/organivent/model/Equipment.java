@@ -47,5 +47,6 @@ public class Equipment {
 
     
     
-    public void purchaseEquipment();
+    public void purchaseEquipment(){
+    }
 }

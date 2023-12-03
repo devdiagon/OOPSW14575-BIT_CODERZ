@@ -6,27 +6,27 @@ package ec.edu.espe.organivent.model;
  */
 public class Employee {
 
-    private int employeeId;
+    private int id;
     private String name;
     private float hourlyWage;
 
     @Override
     public String toString() {
-        return "Employee{" + "employeeId=" + employeeId + ", name=" + name + ", hourlyWage=" + hourlyWage + '}';
+        return "Employee{" + "employeeId=" + id + ", name=" + name + ", hourlyWage=" + hourlyWage + '}';
     }
 
     public Employee(int employeeId, String name, float hourlyWage) {
-        this.employeeId = employeeId;
+        this.id = employeeId;
         this.name = name;
         this.hourlyWage = hourlyWage;
     }
 
     public int getEmployeeId() {
-        return employeeId;
+        return id;
     }
 
     public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+        this.id = employeeId;
     }
 
     public String getName() {

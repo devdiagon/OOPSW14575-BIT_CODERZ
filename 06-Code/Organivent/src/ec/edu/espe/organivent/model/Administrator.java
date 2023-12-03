@@ -58,12 +58,16 @@ public class Administrator {
     
     
 
-    public void addEvent(Event event);
+    public void addEvent(Event event){
+    }
 
-    public void modifyEvent(int eventId);
+    public void modifyEvent(int eventId){
+    }
 
-    public void removeEvent();
+    public void removeEvent(){
+    }
 
-    public void reviewEvent(int eventId);
+    public void reviewEvent(int eventId){
+    }
     
 }
