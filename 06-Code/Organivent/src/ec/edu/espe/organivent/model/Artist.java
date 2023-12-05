@@ -6,6 +6,7 @@ package ec.edu.espe.organivent.model;
  */
 public class Artist {
 
+    private static boolean header=false;
     private String name;
     private float hiringCost;
     private Schedule entryTime;
@@ -13,7 +14,13 @@ public class Artist {
 
     @Override
     public String toString() {
-        return "Artist{" + "name=" + name + ", hiringCost=" + hiringCost + ", entryTime=" + entryTime + ", departureTime=" + departureTime + '}';
+        if (!header){
+            String headers = "          Name               |Hiring Cost| Entry Time      | Departure Time|\n" +
+                             "       ----------------------------------------------------------------------";
+            System.out.print(headers);
+            header = true;               
+        }
+        return String.format("%-20s | %-10.2f| %-16s| %-16s|", name, hiringCost, entryTime,departureTime);
     }
 
     public Artist(String name, float hiringCost, Schedule entryTime, Schedule departureTime) {

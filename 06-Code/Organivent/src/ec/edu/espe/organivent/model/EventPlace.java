@@ -13,7 +13,7 @@ public class EventPlace {
 
     @Override
     public String toString() {
-        return "EventPlace{" + "name=" + name + ", adress=" + adress + ", rentCost=" + rentCost + ", capacity=" + capacity + '}';
+        return String.format("%-30s|%-30s|%-10.2f|%-14d", name,adress,rentCost,capacity);
     }
 
     public EventPlace(String name, String adress, float rentCost, int capacity) {

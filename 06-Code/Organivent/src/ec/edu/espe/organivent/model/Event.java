@@ -19,7 +19,7 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event{" + "id=" + id + ", startTime=" + startTime + ", endTime=" + endTime + ", artist=" + artist + ", estimatedCost=" + estimatedCost + ", staff=" + staff + ", equipment=" + equipment + ", place=" + place + '}';
+        return String.format("%-6d |%-14s| %-14s| %-14s| %-10.2f| %-14s|%-14s|%-14s|", id,startTime, endTime, artist, estimatedCost, staff, equipment, place);
     }
 
     public Event(int id, Schedule startTime, Schedule endTime, String artist, float estimatedCost, ArrayList<Staff> staff, ArrayList<Equipment> equipment, String place) {

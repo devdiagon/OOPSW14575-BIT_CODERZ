@@ -22,10 +22,12 @@ public class ManageEmployee {
          Scanner scanner = new Scanner(System.in);
         int option;
         do {
-            System.out.println("----- Employee Manager -----");
-            System.out.println("| 1.- See the current employees");
-            System.out.println("| 2.- Add a new employee");
-            System.out.println("| 3.- Return");
+            System.out.println("----------- Employee Manager ------------");
+            System.out.println("_________________________________________");
+            System.out.println("|   1.- See the current employees       |");
+            System.out.println("|   2.- Add a new employee              |");
+            System.out.println("|   3.- Return                          |");
+            System.out.println("_______________________________________");
             System.out.println("Select an option (1-3): ");
             option = scanner.nextInt();
             switch (option) {

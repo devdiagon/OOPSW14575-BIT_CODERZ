@@ -14,7 +14,7 @@ public class Schedule {
 
     @Override
     public String toString() {
-        return "Schedule{" + "year=" + year + ", month=" + month + ", day=" + day + ", hours=" + hours + ", minutes=" + minutes + '}';
+        return "{" + year + "/" + month + "/" + day + "  " + hours + ":"  + minutes + '}';
     }
 
     public Schedule(int year, int month, int day, int hours, int minutes) {

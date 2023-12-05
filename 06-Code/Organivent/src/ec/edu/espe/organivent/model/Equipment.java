@@ -5,14 +5,22 @@ package ec.edu.espe.organivent.model;
  * @author Usuario
  */
 public class Equipment {
-
+    
+    private static boolean header = false;
     private String type;
     private float cost;
     private int quantity;
 
     @Override
     public String toString() {
-        return "Equipment{" + "type=" + type + ", cost=" + cost + ", quantity=" + quantity + '}';
+        if (!header){
+            String headers = "             Type               | Cost    | Quantity|\n" +
+                             "          -------------------------------------------";
+            System.out.print(headers);
+            header = true;            
+        }
+            
+        return String.format("%-20s | %-8.2f| %-8d|", type, cost, quantity);
     }
 
     public Equipment(String type, float cost, int quantity) {

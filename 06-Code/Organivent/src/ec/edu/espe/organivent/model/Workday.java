@@ -13,7 +13,7 @@ public class Workday {
 
     @Override
     public String toString() {
-        return "Workday{" + "workdayId=" + getWorkdayId() + ", entryTime=" + getEntryTime() + ", departureTime=" + getDepartureTime() + '}';
+        return getWorkdayId() + " in" + getEntryTime() + " out" + getDepartureTime();
     }
 
     public Workday(int workdayId, Schedule entryTime, Schedule departureTime) {

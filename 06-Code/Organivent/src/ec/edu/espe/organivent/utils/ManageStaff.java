@@ -24,10 +24,12 @@ public class ManageStaff {
          Scanner scanner = new Scanner(System.in);
         int option;
         do {
-            System.out.println("----- Staff Manager -----");
-            System.out.println("| 1.- See the current Staff List");
-            System.out.println("| 2.- Add a new staff group");
-            System.out.println("| 3.- Return");
+            System.out.println("------------- Staff Manager -------------");
+            System.out.println("-----------------------------------------");
+            System.out.println("|    1.- See the current Staff List     |");
+            System.out.println("|    2.- Add a new staff group          |");
+            System.out.println("|    3.- Return                         |");
+            System.out.println("_________________________________________");
             System.out.println("Select an option (1-3): ");
             option = scanner.nextInt();
             switch (option) {

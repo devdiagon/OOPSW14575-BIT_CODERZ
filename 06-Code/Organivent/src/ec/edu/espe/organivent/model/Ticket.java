@@ -15,7 +15,7 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" + "id=" + id + ", value=" + value + ", code=" + code + ", seat=" + seat + ", eventTime=" + eventTime + ", eventPlace=" + eventPlace + '}';
+        return String.format("%-8d |%-7d| %-7.2f| %-14s| %-14s| %-14s|", id,code,value,seat,eventTime,eventPlace);
     }
 
     public Ticket(int id, float value, int code, String seat, Schedule eventTime, String eventPlace) {

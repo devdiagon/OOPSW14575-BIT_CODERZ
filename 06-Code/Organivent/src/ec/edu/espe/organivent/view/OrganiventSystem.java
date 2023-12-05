@@ -68,8 +68,8 @@ public class OrganiventSystem {
             System.out.println("|    4.- Manage place            |");
             System.out.println("|    5.- Manage equipment        |");
             System.out.println("|    6.- Manage workdays         |");
-            System.out.println("|    7.- Manage events           ║");
-            System.out.println("|    8.- Exit                    ║");
+            System.out.println("|    7.- Manage events           |");
+            System.out.println("|    8.- Exit                    |");
             System.out.println("__________________________________");
             System.out.println("");
             System.out.println("Select an option (1-8): ");

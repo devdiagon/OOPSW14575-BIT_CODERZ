@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class Staff {
     
+    private static boolean header = false;
     private int id;
     private String type;
     private Workday workday;
@@ -16,7 +17,7 @@ public class Staff {
 
     @Override
     public String toString() {
-        return "Staff{ id=" + getId() + "type=" + getType() + ", workday=" + getWorkday() + ", employees=" + getEmployees() + ", totalStaffCost=" + getTotalStaffCost() + '}';
+        return String.format("%-5d | %-15s | %-14s| %-15s |%8.2f|", id,type,workday,employees,totalStaffCost);
     }
 
     public Staff(int id, String type, Workday workday, ArrayList<Employee> employees, float totalStaffCost) {

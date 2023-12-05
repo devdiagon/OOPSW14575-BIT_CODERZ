@@ -13,14 +13,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        if (!header) {
-            String headers = "          ID    | Name                | Hourly Wage|\n" +
-                             "          -----------------------------------------";
-            System.out.print(headers);
-            header = true;
-        }
-
-        return String.format("%-5d | %-20s | %.2f|", id, name, hourlyWage);
+        return String.format("%-3d | %-20s | %3.2f|", id, name, hourlyWage);
     }
 
     public Employee(int employeeId, String name, float hourlyWage) {

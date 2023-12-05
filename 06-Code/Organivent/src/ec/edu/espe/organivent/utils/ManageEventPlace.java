@@ -22,10 +22,12 @@ public class ManageEventPlace {
          Scanner scanner = new Scanner(System.in);
         int option;
         do {
-            System.out.println("----- Event Place Manager -----");
-            System.out.println("| 1.- See the current event places");
-            System.out.println("| 2.- Add a new event place");
-            System.out.println("| 3.- Return");
+            System.out.println("---------- Event Place Manager ------------");
+            System.out.println("-------------------------------------------");
+            System.out.println("|    1.- See the current event places     |");
+            System.out.println("|    2.- Add a new event place            |");
+            System.out.println("|    3.- Return                           |");
+            System.out.println("___________________________________________");
             System.out.println("Select an option (1-3): ");
             option = scanner.nextInt();
             switch (option) {
