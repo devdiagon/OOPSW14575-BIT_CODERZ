@@ -6,13 +6,21 @@ package ec.edu.espe.organivent.model;
  */
 public class Employee {
 
+    private static boolean header = false;
     private int id;
     private String name;
     private float hourlyWage;
 
     @Override
     public String toString() {
-        return "Employee{" + "employeeId=" + id + ", name=" + name + ", hourlyWage=" + hourlyWage + '}';
+        if (!header) {
+            String headers = "          ID    | Name                | Hourly Wage|\n" +
+                             "          -----------------------------------------";
+            System.out.print(headers);
+            header = true;
+        }
+
+        return String.format("%-5d | %-20s | %.2f|", id, name, hourlyWage);
     }
 
     public Employee(int employeeId, String name, float hourlyWage) {

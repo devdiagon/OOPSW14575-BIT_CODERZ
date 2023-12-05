@@ -59,15 +59,19 @@ public class OrganiventSystem {
         Scanner scanner = new Scanner(System.in);
         int option;
         do {
-            System.out.println("----- Administrator Menu -----");
-            System.out.println("| 1.- Manage employees");
-            System.out.println("| 2.- Manage staff");
-            System.out.println("| 3.- Manage artists");
-            System.out.println("| 4.- Manage place");
-            System.out.println("| 5.- Manage equipment");
-            System.out.println("| 6.- Manage workdays");
-            System.out.println("| 7.- Manage events");
-            System.out.println("| 8.- Exit");
+            System.out.println("----- ADMINISTRATOR MENU -----");
+            System.out.println("-------------------------------");
+            System.out.println("__________________________________");
+            System.out.println("|    1.- Manage employees        |");
+            System.out.println("|    2.- Manage staff            |");
+            System.out.println("|    3.- Manage artists          |");
+            System.out.println("|    4.- Manage place            |");
+            System.out.println("|    5.- Manage equipment        |");
+            System.out.println("|    6.- Manage workdays         |");
+            System.out.println("|    7.- Manage events           ║");
+            System.out.println("|    8.- Exit                    ║");
+            System.out.println("__________________________________");
+            System.out.println("");
             System.out.println("Select an option (1-8): ");
             option = scanner.nextInt();
             switch (option) {

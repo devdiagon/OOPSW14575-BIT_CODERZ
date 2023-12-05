@@ -11,7 +11,6 @@ import ec.edu.espe.organivent.model.EventPlace;
 import ec.edu.espe.organivent.model.Schedule;
 import ec.edu.espe.organivent.model.Staff;
 import ec.edu.espe.organivent.model.Workday;
-import static ec.edu.espe.organivent.view.OrganiventSystem.addEvent;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
