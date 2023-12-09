@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "userName": "Frektip",
+    "password": "lajakie_es*bonita",
+    "name": "Frederick Santiago Tipan Moreno",
+    "email": "fredericktimo@gmail.com",
+    "phoneNumber": 982639344
+  },
+  {
+    "id": 2,
+    "userName": "Samysaurus",
+    "password": "heloos",
+    "name": "Samantha Tipan",
+    "email": "samy@gmail.com",
+    "phoneNumber": 84791654
+  },
+  {
+    "id": 3,
+    "userName": "Tiago",
+    "password": "maquina_deguerra99",
+    "name": "Edgar Tipan",
+    "email": "edarino@gmail.com",
+    "phoneNumber": 9817354
+  }
+]
