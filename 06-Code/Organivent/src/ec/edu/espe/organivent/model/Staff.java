@@ -1,6 +1,7 @@
 package ec.edu.espe.organivent.model;
 
 import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -8,16 +9,21 @@ import java.util.Scanner;
 
 /**
  *
- * @author Usuario
+ * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
  */
 public class Staff {
     
-    private static boolean header = false;
     private int id;
     private String type;
     private Workday workday;
     private ArrayList<Employee> employees;
     private float totalStaffCost;
+    
+    public static ArrayList<Staff> getFromFile(){
+        Type type = new TypeToken<ArrayList<Staff>>(){}.getType();
+        ArrayList<Staff> staffList = ManageJson.readFile("staff.json",type);
+        return staffList;
+    }
     
     public static void menu(ArrayList<Staff> staffList){
          Scanner scanner = new Scanner(System.in);
@@ -30,7 +36,7 @@ public class Staff {
             System.out.println("|    3.- Return                         |");
             System.out.println("_________________________________________");
             System.out.println("Select an option (1-3): ");
-            option = scanner.nextInt();
+            option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
                     seeStaff(staffList);
@@ -39,7 +45,7 @@ public class Staff {
                     scanner.nextLine();
                     break;
                 case 2:
-                    staffList.add(addStaff());
+                    staffList.add(addStaff(staffList.size()));
                     ManageJson.writeFile("staff.json",staffList);
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
@@ -54,69 +60,106 @@ public class Staff {
     
     }
     
-    public static Staff addStaff(){
-        
-        Type type = new TypeToken<ArrayList<Employee>>(){}.getType();
-        ArrayList<Employee> employeeList = ManageJson.readFile("employees.json",type);
-        
-        type = new TypeToken<ArrayList<Workday>>(){}.getType();
-        ArrayList<Workday> wordayList = ManageJson.readFile("workdays.json",type);
-        
+    private static Staff addStaff(int listSize){
+
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Employee> employeesinEvent = new ArrayList<>();
-        
-        
-        int addMore = 1;
-        int searchId = 0;
-        float costPerHour = 0;
-        float totalStaffCost = 0;
-        Workday workday = null;
-        
-        System.out.println("Enter the staff id:");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+
         System.out.println("Enter the staff type:");
         String staffType = scanner.nextLine();
-        System.out.println("Enter the workday ID for the staff:");
-        searchId = scanner.nextInt();
-        scanner.nextLine();
         
-        for(Workday currentWorkday : wordayList) {
-            if(currentWorkday.getWorkdayId()== searchId){
-                workday = currentWorkday ;
-            }
-        }
+        Workday workday = Workday.searchForWorkday();
+        ArrayList<Employee> employees = Employee.enterEmployees();
         
-        
-        do{
-            System.out.println("Insert the Employee Id to add");
-            searchId = scanner.nextInt();
-            scanner.nextLine();
-            
-            for(Employee currentEmployee : employeeList) {
-                if(currentEmployee.getEmployeeId() == searchId){
-                    employeesinEvent.add(currentEmployee);
-                    
-                    costPerHour = ((currentEmployee.getHourlyWage()) * (workday.gethoursWorked()));
-                    totalStaffCost += costPerHour;
-                }
-            }
+        float totalStaffCost = calculateTotalCost(employees,workday.gethoursWorked());
 
-            System.out.println("Want to add another Employee? 1) Yes - 2) No");
-            addMore = scanner.nextInt();
-            scanner.nextLine();
-        }while(addMore == 1);
-        
-
-        return new Staff(id,staffType, workday, employeesinEvent, totalStaffCost);
+        return new Staff(listSize+1,staffType, workday, employees, totalStaffCost);
     }
     
     
-    public static void seeStaff(ArrayList<Staff> staffList){
+    private static float calculateTotalCost(ArrayList<Employee> employees, float hoursWorked){
+        float costPerHour = 0;
+        float totalStaffCost = 0;
+        
+        for(Employee currentEmployee : employees) {
+            costPerHour = ((currentEmployee.getHourlyWage()) * hoursWorked);
+            totalStaffCost += costPerHour;
+        }
+        
+        return totalStaffCost;
+    }
+   
+    private static void seeStaff(ArrayList<Staff> staffList){
         
          for(Staff currentStaff : staffList) {
             System.out.print("\nStaff: " + currentStaff);
         }
+    }
+    
+    public static ArrayList<Staff> enterStaff(){
+        ArrayList<Staff> staffInEvent = new ArrayList<>();
+        
+        int searchId;
+        int addMore=1;
+        boolean passed=false;
+        int sizeCount=0;
+        
+        do{
+            sizeCount=0;
+            System.out.println("Insert the Staff group Id to add");
+            searchId = HandleInput.insertInteger();
+            
+            for(Staff currentStaff : staffInEvent) {
+                if(currentStaff.getId() == searchId){
+                    System.out.println("The Id: " + searchId + " is already in this event");
+                    passed=false;
+                    break;
+                }
+                sizeCount++;
+            }
+            if(sizeCount==staffInEvent.size()){
+                addMore = addStaffInEvent(staffInEvent,searchId);
+            }
+        }while(passed==false && addMore == 1);
+        
+        return staffInEvent;
+    }
+    
+    public static int addStaffInEvent(ArrayList<Staff> staffInEvent, int searchId){
+        
+        ArrayList<Staff> staffList = Staff.getFromFile();
+        
+        int addMore=1;
+        boolean passed=false;
+        int sizeCount=0;
+        
+        do{
+            for(Staff currentStaff : staffList) {
+                if(currentStaff.getId() == searchId){
+                    staffInEvent.add(currentStaff);
+                    passed=true;
+                    System.out.println("Want to add another Staff group? 1) Yes - 2) No");
+                    addMore = HandleInput.insertInteger();
+                    break;
+                }
+                sizeCount++;
+            }
+            if(sizeCount==staffList.size()){
+                System.out.println("The Id: " + searchId + " was not found");
+                passed=true;
+            }
+        }while(passed==false && addMore == 1);
+        
+        return addMore;
+    }
+    
+    public static float calculateStaffGroupCost(ArrayList<Staff> staffInEvent){
+        float totalCost=0;
+        
+        for(Staff currentStaff : staffInEvent) {
+            totalCost += currentStaff.getTotalStaffCost();
+        }
+        
+        return totalCost;
     }
 
     @Override

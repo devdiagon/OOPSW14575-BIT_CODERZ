@@ -48,15 +48,5 @@
     "id": 10,
     "name": "Claudio",
     "hourlyWage": 32.36
-  },
-  {
-    "id": 1,
-    "name": "Gabriel",
-    "hourlyWage": 2.0
-  },
-  {
-    "id": 10,
-    "name": "Ronnie",
-    "hourlyWage": 8.0
   }
 ]

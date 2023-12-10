@@ -1,6 +1,7 @@
 package ec.edu.espe.organivent.model;
 
 import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -18,6 +19,12 @@ public class Administrator {
     private String name;
     private String email;
     private int phoneNumber;
+    
+    public static ArrayList<Administrator> getFromFile(){
+        Type type = new TypeToken<ArrayList<Administrator>>(){}.getType();
+        ArrayList<Administrator> administratorList = ManageJson.readFile("administrators.json",type);
+        return administratorList;
+    }
 
     public static Administrator registerAdministrator(ArrayList<Administrator> administratorList){
         
@@ -92,22 +99,17 @@ public class Administrator {
     }
     
     private static int validatePhoneNumber(){
-        Scanner scanner = new Scanner(System.in);
         boolean passed=true;
         int phoneToCheck=0;
  
         do{
-            try{
-                phoneToCheck = Integer.parseInt(scanner.nextLine());
-                if(phoneToCheck < 100000000 || phoneToCheck > 999999999 ){
-                    System.out.println("Invalid phone number");
-                    System.out.println("Enter your Phone Number");
-                    passed=false;
-                }else{
-                    passed=true;
-                }
-            }catch (Exception e){
-                System.out.println("Enter a valid number please: ");
+            phoneToCheck = HandleInput.insertInteger();
+            if(phoneToCheck < 100000000 || phoneToCheck > 999999999 ){
+                System.out.println("Invalid phone number");
+                System.out.println("Enter your Phone Number");
+                passed=false;
+            }else{
+                passed=true;
             }
         }while(passed==false);
         
@@ -150,31 +152,15 @@ public class Administrator {
     }
     
     private static void AdministratorMenu(){
+
+        ArrayList<Employee> employeeList = Employee.getFromFile();
+        ArrayList<Artist> artistList = Artist.getFromFile();
+        ArrayList<EventPlace> eventPlaceList = EventPlace.getFromFile();
+        ArrayList<Equipment> equipmentList = Equipment.getFromFile();
+        ArrayList<Workday> wordayList = Workday.getFromFile();
+        ArrayList<Staff> staffList = Staff.getFromFile();
+        ArrayList<Event> eventList = Event.getFromFile();
         
-        Type type = new TypeToken<ArrayList<Administrator>>(){}.getType();
-        
-        type = new TypeToken<ArrayList<Employee>>(){}.getType();
-        ArrayList<Employee> employeeList = ManageJson.readFile("employees.json",type);
-        
-        type = new TypeToken<ArrayList<Artist>>(){}.getType();
-        ArrayList<Artist> artistList = ManageJson.readFile("artists.json",type);
-        
-        type = new TypeToken<ArrayList<EventPlace>>(){}.getType();
-        ArrayList<EventPlace> eventPlaceList = ManageJson.readFile("event_places.json",type);
-        
-        type = new TypeToken<ArrayList<Equipment>>(){}.getType();
-        ArrayList<Equipment> equipmentList = ManageJson.readFile("equipment.json",type);
-        
-       type = new TypeToken<ArrayList<Workday>>(){}.getType();
-        ArrayList<Workday> wordayList = ManageJson.readFile("workdays.json",type);
-        
-       type = new TypeToken<ArrayList<Staff>>(){}.getType();
-        ArrayList<Staff> staffList = ManageJson.readFile("staff.json",type);
-        
-        type = new TypeToken<ArrayList<Event>>(){}.getType();
-        ArrayList<Event> eventList = ManageJson.readFile("events.json",type);
-        
-        Scanner scanner = new Scanner(System.in);
         int option;
         
         do {
@@ -192,7 +178,7 @@ public class Administrator {
             System.out.println("__________________________________");
             System.out.println("");
             System.out.println("Select an option (1-8): ");
-            option = scanner.nextInt();
+            option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
                     Employee.menu(employeeList);

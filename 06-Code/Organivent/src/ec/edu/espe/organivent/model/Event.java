@@ -1,6 +1,7 @@
 package ec.edu.espe.organivent.model;
 
 import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -21,6 +22,12 @@ public class Event {
     private ArrayList<Equipment> equipment;
     private String place;
     
+    public static ArrayList<Event> getFromFile(){
+        Type type = new TypeToken<ArrayList<Event>>(){}.getType();
+        ArrayList<Event> eventList = ManageJson.readFile("events.json",type);
+        return eventList;
+    }
+    
     public static void menu(ArrayList<Event> eventList){
          Scanner scanner = new Scanner(System.in);
         int option;
@@ -32,7 +39,7 @@ public class Event {
             System.out.println("|     3.- Return                                |");
             System.out.println("_________________________________________________");
             System.out.println("Select an option (1-3): ");
-            option = scanner.nextInt();
+            option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
                     seeEvent(eventList);
@@ -41,7 +48,7 @@ public class Event {
                     scanner.nextLine();
                     break;
                 case 2:
-                    eventList.add(addEvent());
+                    eventList.add(addEvent(eventList.size()));
                     ManageJson.writeFile("events.json",eventList);
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
@@ -56,117 +63,29 @@ public class Event {
     
     }
     
-    public static Event addEvent(){
-        Scanner scanner = new Scanner(System.in);
-        int addMore=1;
-        int searchId=0;
-        String searchEquipment;
+    public static Event addEvent(int listSize){
         float estimatedCost = 0;
-        float costPerUnit = 0;
-        
-        System.out.println("Enter the event ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
         
         System.out.println("Enter the event start time::");
-        Schedule starTime = createSchedule();
+        Schedule starTime = Schedule.createEntrySchedule();
         System.out.println("Enter the event end time:");
-        Schedule endTime = createSchedule();
+        Schedule endTime = Schedule.createDepartureSchedule(starTime);
         
-        Type type = new TypeToken<ArrayList<Artist>>(){}.getType();
-        ArrayList<Artist> artistList = ManageJson.readFile("artists.json",type);
+        Artist artist = Artist.searchForArtist();
+        estimatedCost += artist.getHiringCost();
         
-        System.out.println("Enter the artist's name:");
-        String artist = scanner.nextLine();
-        for(Artist currentArtist : artistList) {
-            if(currentArtist.getName().equals(artist)){
-                artist = currentArtist.getName();
-                estimatedCost += currentArtist.getHiringCost();
-            }
-        }
+        EventPlace eventPlace = EventPlace.searchForPlace();
+        estimatedCost += eventPlace.getRentCost();
         
-        type = new TypeToken<ArrayList<EventPlace>>(){}.getType();
-        ArrayList<EventPlace> eventPlaceList = ManageJson.readFile("event_places.json",type);
+        ArrayList<Staff> staffInEvent = Staff.enterStaff();
+        estimatedCost += Staff.calculateStaffGroupCost(staffInEvent);
         
-        System.out.println("Enter the place where the event is going to be:");
-        String eventPlace = scanner.nextLine();
-        for(EventPlace currentEventPlace : eventPlaceList) {
-            if(currentEventPlace.getName().equals(eventPlace)){
-                eventPlace = currentEventPlace.getName() ;
-                estimatedCost += currentEventPlace.getRentCost();
-            }
-        }
+        ArrayList<Equipment> equipmentInEvent = Equipment.enterEquipment();
+        estimatedCost += Equipment.calculateTotalEquipmentCost(equipmentInEvent);
         
-        type = new TypeToken<ArrayList<Staff>>(){}.getType();
-        ArrayList<Staff> staffList = ManageJson.readFile("staff.json",type);
-        ArrayList<Staff> staffinEvent = new ArrayList<>();
-        
-        do{
-            System.out.println("Insert the Staff Id to add");
-            searchId = scanner.nextInt();
-            scanner.nextLine();
-            
-            for(Staff currentStaff : staffList) {
-                if(currentStaff.getId() == searchId){
-                    staffinEvent.add(currentStaff);
-                    estimatedCost += currentStaff.getTotalStaffCost();
-                }
-            }
-
-            System.out.println("Want to add another Staff Group? 1) Yes - 2) No");
-            addMore = scanner.nextInt();
-            scanner.nextLine();
-        }while(addMore == 1);
-        
-        type = new TypeToken<ArrayList<Equipment>>(){}.getType();
-        ArrayList<Equipment> equipmentList = ManageJson.readFile("equipment.json",type);
-        ArrayList<Equipment> equipmentinEvent = new ArrayList<>();
-        
-        do{
-            System.out.println("Insert the Equipment Type to add");
-            searchEquipment = scanner.nextLine();
-            
-            for(Equipment currentEquipment : equipmentList) {
-                if(currentEquipment.getType().equals(searchEquipment)){
-                    equipmentinEvent.add(currentEquipment);
-                    
-                    costPerUnit = ((currentEquipment.getCost()) * (currentEquipment.getQuantity()));
-                    estimatedCost += costPerUnit;
-                }
-            }
-
-            System.out.println("Want to add another Equipment? 1) Yes - 2) No");
-            addMore = scanner.nextInt();
-            scanner.nextLine();
-        }while(addMore == 1);
-        
-        return new Event(id,starTime, endTime, artist, estimatedCost, staffinEvent, equipmentinEvent, eventPlace);
+        return new Event(listSize+1,starTime, endTime, artist.getName(), estimatedCost, staffInEvent, equipmentInEvent, eventPlace.getName());
         
     }
-    
-    public static Schedule createSchedule() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("   Enter the year:");
-        int year = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("   Enter the month:");
-        int month = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("   Enter the day:");
-        int day = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("   Enter the hour:");
-        int hour = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("   Enter the minutes:");
-        int minutes = scanner.nextInt();
-        scanner.nextLine();
-
-        return new Schedule(year, month, day, hour, minutes);
-    }
-   
-    
     
     public static void seeEvent(ArrayList<Event> eventList){
          Scanner scanner = new Scanner(System.in);
@@ -176,7 +95,7 @@ public class Event {
          for(Event currentEvent : eventList) {
              if(id == currentEvent.getId()){
                 System.out.print("\nEvent: " + currentEvent);
-             }
+            }
         }
     }
 

@@ -1,12 +1,15 @@
 package ec.edu.espe.organivent.model;
 
+import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  *
- * @author Usuario
+ * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
  */
 public class Artist {
 
@@ -15,6 +18,12 @@ public class Artist {
     private float hiringCost;
     private Schedule entryTime;
     private Schedule departureTime;
+    
+    public static ArrayList<Artist> getFromFile(){
+        Type type = new TypeToken<ArrayList<Artist>>(){}.getType();
+        ArrayList<Artist> artistList = ManageJson.readFile("artists.json",type);
+        return artistList;
+    }
     
     public static void menu(ArrayList<Artist> artistList){
          Scanner scanner = new Scanner(System.in);
@@ -27,7 +36,7 @@ public class Artist {
             System.out.println("|    3.- Return                     |");
             System.out.println("_____________________________________");
             System.out.println("Select an option (1-3): ");
-            option = scanner.nextInt();
+            option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
                     seeArtists(artistList);
@@ -51,49 +60,57 @@ public class Artist {
     
     }
     
-    public static Artist addArtist(){
+    private static Artist addArtist(){
         
         Scanner scanner = new Scanner(System.in);
         
         System.out.println("Enter the artist's name:");
         String name = scanner.nextLine();
         System.out.println("Enter the artist's hiring cost:");
-        float hiringCost = scanner.nextFloat();
+        float hiringCost = HandleInput.insertFloat();
         System.out.println("Enter the entry time: ");
-        Schedule entryTime = createSchedule();
+        Schedule entryTime = Schedule.createEntrySchedule();
         System.out.println("Enter the departure time");
-        Schedule departureTime = createSchedule();
+        Schedule departureTime = Schedule.createDepartureSchedule(entryTime);
 
         return new Artist(name, hiringCost, entryTime, departureTime);
     }
     
-    public static Schedule createSchedule() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("   Enter the year:");
-        int year = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("   Enter the month:");
-        int month = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("   Enter the day:");
-        int day = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("   Enter the hour:");
-        int hour = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("   Enter the minutes:");
-        int minutes = scanner.nextInt();
-        scanner.nextLine();
-
-        return new Schedule(year, month, day, hour, minutes);
-    }
-    
-    public static void seeArtists(ArrayList<Artist> artistList){
+    private static void seeArtists(ArrayList<Artist> artistList){
         
          for(Artist currentArtist : artistList) {
             System.out.print("\nArtist: " + currentArtist);
         }
+    }
+    
+    public static Artist searchForArtist(){
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Artist> artistList = getFromFile();
+        
+        Artist artist =null;
+        String searchName;
+        boolean passed=false;
+        int sizeCount=0;
+        
+        do{
+            System.out.println("Enter the artist's name:");
+            searchName = scanner.nextLine();
+            
+            for(Artist currentArtist : artistList) {
+                if(currentArtist.getName().equals(searchName)){
+                    searchName = currentArtist.getName();
+                    passed=true;
+                    break;
+                }
+                sizeCount++;
+            }
+            
+            if(sizeCount==artistList.size()){
+                System.out.println("The artist: " + searchName + " was not found");
+            }
+        }while(passed==false);
+        
+        return artist;
     }
 
     @Override

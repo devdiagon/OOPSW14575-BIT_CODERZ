@@ -1,11 +1,9 @@
 package ec.edu.espe.organivent.view;
 
-import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.organivent.model.Administrator;
+import ec.edu.espe.organivent.utils.HandleInput;
 import java.util.ArrayList;
-import java.util.Scanner;
 import ec.edu.espe.organivent.utils.ManageJson;
-import java.lang.reflect.Type;
 
 /**
  *
@@ -15,11 +13,10 @@ public class OrganiventSystem {
 
     public static void main(String[] args) {
         
-        Type type = new TypeToken<ArrayList<Administrator>>(){}.getType();
-        ArrayList<Administrator> administratorList = ManageJson.readFile("administrators.json",type);
+        ArrayList<Administrator> administratorList = Administrator.getFromFile();
         
-        Scanner scanner = new Scanner(System.in);
         int option;
+        
         do{
             System.out.println("----- ORGANIVENT SYSTEM -----");
             System.out.println("-----------------------------");
@@ -30,7 +27,7 @@ public class OrganiventSystem {
             System.out.println("_____________________________");
             System.out.println("");
             System.out.println("Select an option (1-3): ");
-            option = scanner.nextInt();
+            option = HandleInput.insertInteger();
             switch (option){
                 case 1:
                     Administrator.logIn(administratorList);

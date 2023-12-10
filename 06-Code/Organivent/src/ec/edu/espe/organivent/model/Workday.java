@@ -1,6 +1,7 @@
 package ec.edu.espe.organivent.model;
 
 import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Usuario
+ * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
  */
 public class Workday {
 
@@ -16,6 +17,12 @@ public class Workday {
     private Schedule entryTime;
     private Schedule departureTime;
     private float hoursWorked;
+    
+    public static ArrayList<Workday> getFromFile(){
+        Type type = new TypeToken<ArrayList<Workday>>(){}.getType();
+        ArrayList<Workday> wordayList = ManageJson.readFile("workdays.json",type);
+        return wordayList;
+    }
     
     public static void menu(ArrayList<Workday> workdayList){
          Scanner scanner = new Scanner(System.in);
@@ -28,7 +35,7 @@ public class Workday {
             System.out.println("|      3.- Return                     |");
             System.out.println("_______________________________________");
             System.out.println("Select an option (1-3): ");
-            option = scanner.nextInt();
+            option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
                     seeWorkday(workdayList);
@@ -37,7 +44,7 @@ public class Workday {
                     scanner.nextLine();
                     break;
                 case 2:
-                    workdayList.add(addWorkday());
+                    workdayList.add(addWorkday(workdayList.size()));
                     ManageJson.writeFile("workdays.json",workdayList);
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
@@ -52,49 +59,51 @@ public class Workday {
     
     }
     
-    public static Workday addWorkday() {
-        Scanner scanner = new Scanner(System.in);
+    public static Workday addWorkday(int listSize) {
 
-        System.out.println("Enter the workday ID:");
-        int workdayId = scanner.nextInt();
         System.out.println("Enter the workday start time:");
-        Schedule entryTime = createSchedule();
+        Schedule entryTime = Schedule.createEntrySchedule();
         System.out.println("Enter the workday departure time:");
-        Schedule departureTime = createSchedule();
+        Schedule departureTime = Schedule.createDepartureSchedule(entryTime);
 
-        Workday workday = new Workday(workdayId, entryTime, departureTime);
+        Workday workday = new Workday(listSize+1, entryTime, departureTime);
 
         return workday;
     }
-    
-    public static Schedule createSchedule() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("   Enter the year:");
-        int year = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("   Enter the month:");
-        int month = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("   Enter the day:");
-        int day = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("   Enter the hour:");
-        int hour = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("   Enter the minutes:");
-        int minutes = scanner.nextInt();
-        scanner.nextLine();
-
-        return new Schedule(year, month, day, hour, minutes);
-    }
-    
     
     public static void seeWorkday(ArrayList<Workday> workdayList){
         
          for(Workday currentWorkday : workdayList) {
             System.out.print("\nWorkday: " + currentWorkday);
         }
+    }
+    
+    public static Workday searchForWorkday(){
+        ArrayList<Workday> wordayList = getFromFile();
+        Workday workday=null;
+        int searchId=0;
+        boolean passed=false;
+        int sizeCount=0;
+        
+        do{
+            System.out.println("Enter the workday ID for the staff:");
+            searchId = HandleInput.insertInteger();
+            
+             for(Workday currentWorkday : wordayList) {
+                if(currentWorkday.getWorkdayId()== searchId){
+                    workday = currentWorkday;
+                    passed=true;
+                    break;
+                }
+                sizeCount++;
+            }
+            
+            if(sizeCount==wordayList.size()){
+                System.out.println("The Id: " + searchId + " was not found");
+            }
+        }while(passed==false);
+        
+        return workday;
     }
 
     @Override

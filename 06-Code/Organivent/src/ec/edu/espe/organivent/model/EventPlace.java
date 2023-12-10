@@ -1,12 +1,15 @@
 package ec.edu.espe.organivent.model;
 
+import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  *
- * @author Usuario
+ * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
  */
 public class EventPlace {
 
@@ -14,6 +17,12 @@ public class EventPlace {
     private String adress;
     private float rentCost;
     private int capacity;
+    
+    public static ArrayList<EventPlace> getFromFile(){
+        Type type = new TypeToken<ArrayList<EventPlace>>(){}.getType();
+        ArrayList<EventPlace> eventPlaceList = ManageJson.readFile("event_places.json",type);
+        return eventPlaceList;
+    }
     
      public static void menu(ArrayList<EventPlace> eventPlaceList){
          Scanner scanner = new Scanner(System.in);
@@ -26,7 +35,7 @@ public class EventPlace {
             System.out.println("|    3.- Return                           |");
             System.out.println("___________________________________________");
             System.out.println("Select an option (1-3): ");
-            option = scanner.nextInt();
+            option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
                     seeEventPlaces(eventPlaceList);
@@ -59,9 +68,9 @@ public class EventPlace {
         System.out.println("Enter the place's adress:");
         String adress = scanner.nextLine();
         System.out.println("Enter the place's rent cost:");
-        float rentCost = scanner.nextFloat();
+        float rentCost = HandleInput.insertFloat();
         System.out.println("Enter the place's capacity:");
-        int capacity = scanner.nextInt();
+        int capacity = HandleInput.insertInteger();
 
         return new EventPlace(name, adress, rentCost, capacity);
     }
@@ -72,6 +81,37 @@ public class EventPlace {
          for(EventPlace currentEventPlace : eventPlaceList) {
             System.out.print("\nEvent Place: " + currentEventPlace);
         }
+    }
+    
+    public static EventPlace searchForPlace(){
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<EventPlace> eventPlaceList = getFromFile();
+        
+        EventPlace eventPlace=null;
+        String searchName;
+        boolean passed=false;
+        int sizeCount=0;
+        
+        do{
+            System.out.println("Enter the place where the event is going to be:");
+            searchName = scanner.nextLine();
+            
+            for(EventPlace currentEventPlace : eventPlaceList) {
+                if(currentEventPlace.getName().equals(searchName)){
+                    searchName = currentEventPlace.getName() ;
+                    passed=true;
+                    break;
+                }
+                sizeCount++;
+            }
+            
+            if(sizeCount==eventPlaceList.size()){
+                System.out.println("The place: " + searchName + " was not found");
+            }
+        }while(passed==false);
+        
+        
+        return eventPlace;
     }
 
     @Override
