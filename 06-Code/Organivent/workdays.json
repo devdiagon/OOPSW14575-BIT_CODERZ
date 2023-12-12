@@ -1,20 +1,38 @@
 [
   {
     "workdayId": 1,
-      "entryTime": {
-        "year": 2023,
-        "month": 12,
-        "day": 1,
-        "hours": 9,
-        "minutes": 30
-      },
-      "departureTime": {
-        "year": 2023,
-        "month": 12,
-        "day": 1,
-        "hours": 11,
-        "minutes": 30
-      },
-      "hoursWorked":2
-    }
+    "entryTime": {
+      "year": 2023,
+      "month": 12,
+      "day": 1,
+      "hours": 9,
+      "minutes": 30
+    },
+    "departureTime": {
+      "year": 2023,
+      "month": 12,
+      "day": 1,
+      "hours": 11,
+      "minutes": 30
+    },
+    "hoursWorked": 2.0
+  },
+  {
+    "workdayId": 2,
+    "entryTime": {
+      "year": 2023,
+      "month": 3,
+      "day": 18,
+      "hours": 18,
+      "minutes": 0
+    },
+    "departureTime": {
+      "year": 2023,
+      "month": 3,
+      "day": 18,
+      "hours": 23,
+      "minutes": 0
+    },
+    "hoursWorked": 5.0
+  }
 ]

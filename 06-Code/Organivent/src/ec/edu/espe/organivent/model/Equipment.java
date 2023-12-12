@@ -152,15 +152,8 @@ public class Equipment {
     }
 
     @Override
-    public String toString() {
-        if (!header){
-            String headers = "             Type               | Cost    | Quantity|\n" +
-                             "          -------------------------------------------";
-            System.out.print(headers);
-            header = true;            
-        }
-            
-        return String.format("%-20s | %-8.2f| %-8d|", type, cost, quantity);
+    public String toString() {   
+        return String.format("\n%-20s | %-8.2f| %-8d|\n", type, cost, quantity);
     }
 
     public Equipment(String type, float cost, int quantity) {

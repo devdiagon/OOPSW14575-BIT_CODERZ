@@ -48,5 +48,15 @@
     "id": 10,
     "name": "Claudio",
     "hourlyWage": 32.36
+  },
+  {
+    "id": 11,
+    "name": "Diego Carrera",
+    "hourlyWage": 6.0
+  },
+  {
+    "id": 12,
+    "name": "Ronnie Rodriguez",
+    "hourlyWage": 6.0
   }
 ]

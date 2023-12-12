@@ -34,5 +34,23 @@
       "hours": 11,
       "minutes": 35
     }
+  },
+  {
+    "name": "Camilo ",
+    "hiringCost": 25000.0,
+    "entryTime": {
+      "year": 2023,
+      "month": 3,
+      "day": 18,
+      "hours": 16,
+      "minutes": 0
+    },
+    "departureTime": {
+      "year": 2023,
+      "month": 3,
+      "day": 18,
+      "hours": 23,
+      "minutes": 0
+    }
   }
 ]

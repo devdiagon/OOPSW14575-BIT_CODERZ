@@ -23,5 +23,30 @@
     "name": "Frederick Santiago Tipan Moreno",
     "email": "fredericktimo@gmail.com",
     "phoneNumber": 982636344
+  },
+  {
+    "id": 2,
+    "userName": "MiguelVivanco2409",
+    "password": [
+      -9,
+      -109,
+      -102,
+      11,
+      81,
+      -95,
+      102,
+      4,
+      30,
+      101,
+      -103,
+      117,
+      21,
+      106,
+      116,
+      15
+    ],
+    "name": "Miguel Vivanco",
+    "email": "razamiguel24@yaho.es",
+    "phoneNumber": 984237004
   }
 ]

@@ -137,7 +137,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return String.format("%-3d | %-20s | %3.2f|", id, name, hourlyWage);
+        return String.format("\n%-3d | %-20s | %-3.2f|\n", id, name, hourlyWage);
     }
 
     public Employee(int employeeId, String name, float hourlyWage) {

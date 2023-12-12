@@ -164,7 +164,7 @@ public class Staff {
 
     @Override
     public String toString() {
-        return String.format("%-5d | %-15s | %-14s| %-15s |%8.2f|", id,type,workday,employees,totalStaffCost);
+        return String.format("%-5d | %-15s | %-14s|\n%-15s \nStaff Cost: %-8.2f", id,type,workday,employees,totalStaffCost);
     }
 
     public Staff(int id, String type, Workday workday, ArrayList<Employee> employees, float totalStaffCost) {

@@ -130,5 +130,69 @@
       }
     ],
     "place": "Casa de la Cultura"
+  },
+  {
+    "id": 3,
+    "startTime": {
+      "year": 2023,
+      "month": 3,
+      "day": 18,
+      "hours": 18,
+      "minutes": 0
+    },
+    "endTime": {
+      "year": 2023,
+      "month": 3,
+      "day": 18,
+      "hours": 23,
+      "minutes": 0
+    },
+    "artist": "Camilo ",
+    "estimatedCost": 50124.0,
+    "staff": [
+      {
+        "id": 2,
+        "type": "Sellers",
+        "workday": {
+          "workdayId": 1,
+          "entryTime": {
+            "year": 2023,
+            "month": 12,
+            "day": 1,
+            "hours": 9,
+            "minutes": 30
+          },
+          "departureTime": {
+            "year": 2023,
+            "month": 12,
+            "day": 1,
+            "hours": 11,
+            "minutes": 30
+          },
+          "hoursWorked": 2.0
+        },
+        "employees": [
+          {
+            "id": 11,
+            "name": "Diego Carrera",
+            "hourlyWage": 6.0
+          },
+          {
+            "id": 12,
+            "name": "Ronnie Rodriguez",
+            "hourlyWage": 6.0
+          }
+        ],
+        "totalStaffCost": 24.0
+      }
+    ],
+    "equipment": [
+      {
+        "type": "Camera",
+        "cost": 20.0,
+        "quantity": 5
+      }
+    ],
+    "place": "Coliseo General Rumiñahui"
   }
 ]

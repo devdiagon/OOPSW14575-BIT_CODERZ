@@ -99,9 +99,11 @@ public class Event {
     }
 
     @Override
-    public String toString() {
-        return String.format("%-6d |%-14s| %-14s| %-14s| %-10.2f| %-14s|%-14s|%-14s|", id,startTime, endTime, artist, estimatedCost, staff, equipment, place);
-    }
+public String toString() {
+    return String.format("\nID: %-6d\nArtist: %-14s\nPlace: %-14s\nStartTime: %-14s\nEndTime: %-14s\nEstimatedCost: %-10.2f\nStaff: %-14s\nEquipment: %-14s\n",
+id, artist, place, startTime, endTime, estimatedCost, staff, equipment);
+}
+
 
     public Event(int id, Schedule startTime, Schedule endTime, String artist, float estimatedCost, ArrayList<Staff> staff, ArrayList<Equipment> equipment, String place) {
         this.id = id;

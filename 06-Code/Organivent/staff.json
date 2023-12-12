@@ -33,5 +33,40 @@
       }
     ],
     "totalStaffCost": 2014.0
+  },
+  {
+    "id": 2,
+    "type": "Sellers",
+    "workday": {
+      "workdayId": 1,
+      "entryTime": {
+        "year": 2023,
+        "month": 12,
+        "day": 1,
+        "hours": 9,
+        "minutes": 30
+      },
+      "departureTime": {
+        "year": 2023,
+        "month": 12,
+        "day": 1,
+        "hours": 11,
+        "minutes": 30
+      },
+      "hoursWorked": 2.0
+    },
+    "employees": [
+      {
+        "id": 11,
+        "name": "Diego Carrera",
+        "hourlyWage": 6.0
+      },
+      {
+        "id": 12,
+        "name": "Ronnie Rodriguez",
+        "hourlyWage": 6.0
+      }
+    ],
+    "totalStaffCost": 24.0
   }
 ]
