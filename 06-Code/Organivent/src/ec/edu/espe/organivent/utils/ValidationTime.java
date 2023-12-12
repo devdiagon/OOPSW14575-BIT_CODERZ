@@ -151,7 +151,7 @@ public class ValidationTime {
     public static int compareHour(int entryHour){
         int hour=0;
         do{
-            hour = ValidationTime.validateMonth();
+            hour = ValidationTime.validateHour();
             if(hour<entryHour){
                 System.out.println("   This departure hour doesn't make sense, please try again");
             }
@@ -163,7 +163,7 @@ public class ValidationTime {
     public static int compareMinutes(int entryMinutes){
         int minutes=0;
         do{
-            minutes = ValidationTime.validateMonth();
+            minutes = ValidationTime.validateMinutes();
             if(minutes<entryMinutes){
                 System.out.println("   These departure minutes doesn't make sense, please try again");
             }
