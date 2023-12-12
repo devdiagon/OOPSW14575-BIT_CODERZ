@@ -1,10 +1,27 @@
 [
   {
     "id": 1,
-    "userName": "Frederick",
-    "password": "clave_muy_segura",
+    "userName": "Fredo",
+    "password": [
+      60,
+      35,
+      47,
+      -123,
+      102,
+      79,
+      -19,
+      -68,
+      -10,
+      -32,
+      66,
+      73,
+      -101,
+      9,
+      -112,
+      -3
+    ],
     "name": "Frederick Santiago Tipan Moreno",
     "email": "fredericktimo@gmail.com",
-    "phoneNumber": 982639344
+    "phoneNumber": 982636344
   }
 ]

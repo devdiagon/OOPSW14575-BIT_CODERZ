@@ -39,7 +39,6 @@ public class Workday {
             switch (option) {
                 case 1:
                     seeWorkday(workdayList);
-                    scanner.nextLine();
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;

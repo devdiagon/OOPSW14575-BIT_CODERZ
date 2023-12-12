@@ -39,7 +39,6 @@ public class EventPlace {
             switch (option) {
                 case 1:
                     seeEventPlaces(eventPlaceList);
-                     scanner.nextLine();
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;
@@ -93,12 +92,13 @@ public class EventPlace {
         int sizeCount=0;
         
         do{
+            sizeCount=0;
             System.out.println("Enter the place where the event is going to be:");
             searchName = scanner.nextLine();
             
             for(EventPlace currentEventPlace : eventPlaceList) {
                 if(currentEventPlace.getName().equals(searchName)){
-                    searchName = currentEventPlace.getName() ;
+                    eventPlace = currentEventPlace;
                     passed=true;
                     break;
                 }

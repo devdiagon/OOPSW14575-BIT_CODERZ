@@ -39,7 +39,6 @@ public class Equipment {
             switch (option) {
                 case 1:
                     seeEquipment(equipmentList);
-                     scanner.nextLine();
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;
@@ -122,6 +121,7 @@ public class Equipment {
         int sizeCount=0;
         
         do{
+            sizeCount=0;
             for(Equipment currentEquipment : equipmentList) {
                 if(currentEquipment.getType().equals(searchName)){
                     equipmentInEvent.add(currentEquipment);

@@ -43,7 +43,6 @@ public class Event {
             switch (option) {
                 case 1:
                     seeEvent(eventList);
-                    scanner.nextLine();
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;

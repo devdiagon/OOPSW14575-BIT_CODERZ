@@ -40,7 +40,6 @@ public class Artist {
             switch (option) {
                 case 1:
                     seeArtists(artistList);
-                    scanner.nextLine();
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;
@@ -93,12 +92,13 @@ public class Artist {
         int sizeCount=0;
         
         do{
+            sizeCount=0;
             System.out.println("Enter the artist's name:");
             searchName = scanner.nextLine();
             
             for(Artist currentArtist : artistList) {
                 if(currentArtist.getName().equals(searchName)){
-                    searchName = currentArtist.getName();
+                    artist=currentArtist;
                     passed=true;
                     break;
                 }

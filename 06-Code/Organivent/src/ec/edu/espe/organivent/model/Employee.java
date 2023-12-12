@@ -38,7 +38,6 @@ public class Employee {
             switch (option) {
                 case 1:
                     seeEmployees(employeeList);
-                     scanner.nextLine();
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;
@@ -58,16 +57,13 @@ public class Employee {
     
     }
     
-    private static Employee addEmployee(int listSize){
-        
+    private static Employee addEmployee(int listSize){       
         Scanner scanner = new Scanner(System.in);
-
-        scanner.nextLine();
+        
         System.out.println("Enter the employee's name:");
         String name = scanner.nextLine();
         System.out.println("Enter the employee's hourly wage:");
-        float hourlyWage = scanner.nextFloat();
-        scanner.nextLine();
+        float hourlyWage = HandleInput.insertFloat();
 
         return new Employee(listSize+1, name, hourlyWage);
     }
@@ -117,6 +113,7 @@ public class Employee {
         int sizeCount=0;
          
          do{
+            sizeCount=0;
             for(Employee currentEmployee : employeeList) {
                 if(currentEmployee.getEmployeeId() == searchId){
                     employeesInEvent.add(currentEmployee);

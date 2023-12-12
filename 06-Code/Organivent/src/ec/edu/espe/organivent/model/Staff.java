@@ -40,7 +40,6 @@ public class Staff {
             switch (option) {
                 case 1:
                     seeStaff(staffList);
-                    scanner.nextLine();
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;
@@ -133,6 +132,7 @@ public class Staff {
         int sizeCount=0;
         
         do{
+            sizeCount=0;
             for(Staff currentStaff : staffList) {
                 if(currentStaff.getId() == searchId){
                     staffInEvent.add(currentStaff);

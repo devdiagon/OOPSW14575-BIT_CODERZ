@@ -26,26 +26,12 @@ public class Schedule {
     }
     
     public static Schedule createDepartureSchedule(Schedule entryTime) {
-        int year=0;
-        int month=0;
         int day=0;
         int hour=0;
         int minutes=0;
         
-        year = ValidationTime.compareYear(entryTime.getYear());
-        
-        if(year==entryTime.getYear()){
-            month = ValidationTime.compareMonth(entryTime.getMonth());
-        }else{
-            month = ValidationTime.validateMonth();
-        }
-        
-        if(month==entryTime.getMonth()){
-            day = ValidationTime.compareDay(entryTime.getDay(),year,month);
-        }else{
-            day = ValidationTime.validateDay(year%4,month);
-        }
-        
+        day = ValidationTime.compareDay(entryTime.getDay(),entryTime.getYear(),entryTime.getMonth());
+
         if(day==entryTime.getDay()){
             hour = ValidationTime.compareHour(entryTime.getHours());
         }else{
@@ -58,7 +44,7 @@ public class Schedule {
             minutes = ValidationTime.validateMinutes();
         }
         
-        return new Schedule(year, month, day, hour, minutes);
+        return new Schedule(entryTime.getYear(), entryTime.getMonth(), day, hour, minutes);
     }
     
 

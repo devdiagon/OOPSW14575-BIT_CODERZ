@@ -1,6 +1,7 @@
 package ec.edu.espe.organivent.model;
 
 import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.organivent.utils.Encriptation;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import java.lang.reflect.Type;
@@ -15,7 +16,7 @@ public class Administrator {
 
     private int id;
     private String userName;
-    private String password;
+    private byte[] password;
     private String name;
     private String email;
     private int phoneNumber;
@@ -36,6 +37,7 @@ public class Administrator {
         
         System.out.println("Enter your password (at least 10 digits)");
         String password = validatePassword();
+        byte[] encriptedPassword = Encriptation.encrypt(password);
         
         System.out.println("Enter your full name");
         String name = scanner.nextLine();
@@ -46,7 +48,7 @@ public class Administrator {
         System.out.println("Enter your Phone Number");
         int phoneNumber = validatePhoneNumber();
         
-        return new Administrator(size+1,userName,password,name,email,phoneNumber);
+        return new Administrator(size+1,userName,encriptedPassword,name,email,phoneNumber);
     }
     
     private static String validateUserName(ArrayList<Administrator> administratorList){
@@ -121,9 +123,10 @@ public class Administrator {
         Scanner scanner = new Scanner(System.in);
         String userToCheck;
         String tryPassword=null;
-        String realPassword=null;
+        byte[] realPassword=null;
         int attempts=3;
         boolean matchUserName=false;
+        boolean passwordAccepted=false;
         
         do{
             System.out.println("Enter your User Name: ");
@@ -142,16 +145,17 @@ public class Administrator {
              System.out.println("Enter your Password: ");
              System.out.println("Attempts: " + attempts + "/3");
              tryPassword = scanner.nextLine();
-             if(tryPassword.equals(realPassword)){
-                 AdministratorMenu();
-                 break;
-             }else{
-                 attempts--;
-             }
+             
+            passwordAccepted= Encriptation.comparePasswords(tryPassword,realPassword);
+            if(passwordAccepted==true){
+                administratorMenu();
+            }else{
+                attempts--;
+            }
         }while(attempts>0);
     }
     
-    private static void AdministratorMenu(){
+    private static void administratorMenu(){
 
         ArrayList<Employee> employeeList = Employee.getFromFile();
         ArrayList<Artist> artistList = Artist.getFromFile();
@@ -211,7 +215,7 @@ public class Administrator {
         }while (option != 8);
     }
 
-    public Administrator(int id, String userName, String password, String name, String email, int phoneNumber) {
+    public Administrator(int id, String userName, byte[] password, String name, String email, int phoneNumber) {
         this.id = id;
         this.userName = userName;
         this.password = password;
@@ -265,14 +269,14 @@ public class Administrator {
     /**
      * @return the password
      */
-    public String getPassword() {
+    public byte[] getPassword() {
         return password;
     }
 
     /**
      * @param password the password to set
      */
-    public void setPassword(String password) {
+    public void setPassword(byte[] password) {
         this.password = password;
     }
 
