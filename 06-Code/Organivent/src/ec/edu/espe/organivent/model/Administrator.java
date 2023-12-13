@@ -29,7 +29,7 @@ public class Administrator {
 
     public static Administrator registerAdministrator(ArrayList<Administrator> administratorList){
         
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int size = administratorList.size();
         
         System.out.println("Enter a User Name");
@@ -52,7 +52,7 @@ public class Administrator {
     }
     
     private static String validateUserName(ArrayList<Administrator> administratorList){
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         boolean isTaken=false;
         String userToCheck;
         
@@ -75,7 +75,7 @@ public class Administrator {
     }
     
     private static String validatePassword(){
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         boolean passed=true;
         String passwordToCheck;
         do{
@@ -120,7 +120,7 @@ public class Administrator {
     
     
     public static void logIn(ArrayList<Administrator> administratorList){
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         String userToCheck;
         String tryPassword=null;
         byte[] realPassword=null;

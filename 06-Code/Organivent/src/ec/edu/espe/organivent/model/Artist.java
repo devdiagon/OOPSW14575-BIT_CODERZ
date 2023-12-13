@@ -26,7 +26,7 @@ public class Artist {
     }
     
     public static void menu(ArrayList<Artist> artistList){
-         Scanner scanner = new Scanner(System.in);
+         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
             System.out.println("---------- Artist Manager -----------");
@@ -61,7 +61,7 @@ public class Artist {
     
     private static Artist addArtist(){
         
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         
         System.out.println("Enter the artist's name:");
         String name = scanner.nextLine();
@@ -83,7 +83,7 @@ public class Artist {
     }
     
     public static Artist searchForArtist(){
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         ArrayList<Artist> artistList = getFromFile();
         
         Artist artist =null;
@@ -146,14 +146,4 @@ public class Artist {
     public void setHiringCost(float hiringCost) {
         this.hiringCost = hiringCost;
     }
-
-    
-    
-    public void setEntryTime(Schedule entryTime){
-    }
-
-    public void setDepartureTime(Schedule departureTime){
-    }
-    
-    
 }

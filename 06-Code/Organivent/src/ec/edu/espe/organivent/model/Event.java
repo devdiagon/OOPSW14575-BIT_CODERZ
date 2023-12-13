@@ -29,7 +29,7 @@ public class Event {
     }
     
     public static void menu(ArrayList<Event> eventList){
-         Scanner scanner = new Scanner(System.in);
+         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
             System.out.println("----------------- Event Manager -----------------");
@@ -87,9 +87,8 @@ public class Event {
     }
     
     public static void seeEvent(ArrayList<Event> eventList){
-         Scanner scanner = new Scanner(System.in);
          System.out.println("Enter the Event Id:");
-         int id = scanner.nextInt();
+         int id = HandleInput.insertInteger();
         
          for(Event currentEvent : eventList) {
              if(id == currentEvent.getId()){

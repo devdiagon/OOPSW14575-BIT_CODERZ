@@ -1,42 +1,6 @@
 [
   {
-    "name": "Bob",
-    "hiringCost": 30500.0,
-    "entryTime": {
-      "year": 2023,
-      "month": 2,
-      "day": 1,
-      "hours": 9,
-      "minutes": 30
-    },
-    "departureTime": {
-      "year": 2023,
-      "month": 2,
-      "day": 1,
-      "hours": 11,
-      "minutes": 30
-    }
-  },
-  {
-    "name": "Lemon Demon",
-    "hiringCost": 25401.0,
-    "entryTime": {
-      "year": 2023,
-      "month": 12,
-      "day": 1,
-      "hours": 8,
-      "minutes": 35
-    },
-    "departureTime": {
-      "year": 2023,
-      "month": 12,
-      "day": 1,
-      "hours": 11,
-      "minutes": 35
-    }
-  },
-  {
-    "name": "Camilo ",
+    "name": "Camilo",
     "hiringCost": 25000.0,
     "entryTime": {
       "year": 2023,

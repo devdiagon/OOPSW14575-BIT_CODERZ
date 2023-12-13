@@ -26,7 +26,7 @@ public class Staff {
     }
     
     public static void menu(ArrayList<Staff> staffList){
-         Scanner scanner = new Scanner(System.in);
+         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
             System.out.println("------------- Staff Manager -------------");
@@ -61,7 +61,7 @@ public class Staff {
     
     private static Staff addStaff(int listSize){
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
 
         System.out.println("Enter the staff type:");
         String staffType = scanner.nextLine();
@@ -213,18 +213,5 @@ public class Staff {
 
     public void setId(int id) {
         this.id = id;
-    }
-    
-    
-
-    public void asingWorkday(Workday workday){
-    }
-
-    public void addEmployee(Employee employee){
-    }
-
-    public float calculateCost(Workday workday){
-        
-        return (0);
     }
 }

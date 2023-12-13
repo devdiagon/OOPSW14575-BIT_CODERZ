@@ -25,7 +25,7 @@ public class Workday {
     }
     
     public static void menu(ArrayList<Workday> workdayList){
-         Scanner scanner = new Scanner(System.in);
+         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
             System.out.println("----------- Workday Manager -----------");

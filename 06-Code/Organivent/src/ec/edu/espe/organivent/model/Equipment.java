@@ -75,7 +75,7 @@ public class Equipment {
     }
     
     
-    public static void seeEquipment(ArrayList<Equipment> equipmentList){
+    private static void seeEquipment(ArrayList<Equipment> equipmentList){
         
          for(Equipment currentEquipment : equipmentList) {
             System.out.print("\nEquipment: " + currentEquipment);
@@ -184,10 +184,5 @@ public class Equipment {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    
-    
-    public void purchaseEquipment(){
     }
 }

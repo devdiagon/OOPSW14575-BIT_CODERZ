@@ -1,11 +1,5 @@
 [
   {
-    "name": "Coliseo General Ruminahui",
-    "adress": "av Patria y 6 de Diciembre",
-    "rentCost": 36500.0,
-    "capacity": 9000
-  },
-  {
     "name": "Casa de la Cultura",
     "adress": "av 6 de Diciembre",
     "rentCost": 840.45,

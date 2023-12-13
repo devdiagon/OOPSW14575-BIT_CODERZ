@@ -25,7 +25,7 @@ public class EventPlace {
     }
     
      public static void menu(ArrayList<EventPlace> eventPlaceList){
-         Scanner scanner = new Scanner(System.in);
+         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
             System.out.println("---------- Event Place Manager ------------");
@@ -58,9 +58,9 @@ public class EventPlace {
     
     }
     
-    public static EventPlace addEventPlace(){
+    private static EventPlace addEventPlace(){
         
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         
         System.out.println("Enter the place's name:");
         String name = scanner.nextLine();
@@ -75,7 +75,7 @@ public class EventPlace {
     }
     
     
-    public static void seeEventPlaces(ArrayList<EventPlace> eventPlaceList){
+    private static void seeEventPlaces(ArrayList<EventPlace> eventPlaceList){
         
          for(EventPlace currentEventPlace : eventPlaceList) {
             System.out.print("\nEvent Place: " + currentEventPlace);
@@ -83,7 +83,7 @@ public class EventPlace {
     }
     
     public static EventPlace searchForPlace(){
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         ArrayList<EventPlace> eventPlaceList = getFromFile();
         
         EventPlace eventPlace=null;

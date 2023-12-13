@@ -3,138 +3,6 @@
     "id": 1,
     "startTime": {
       "year": 2023,
-      "month": 12,
-      "day": 1,
-      "hours": 9,
-      "minutes": 30
-    },
-    "endTime": {
-      "year": 2023,
-      "month": 12,
-      "day": 1,
-      "hours": 11,
-      "minutes": 30
-    },
-    "estimatedCost": 21500.74,
-    "staff": [
-      {
-        "id": 1,
-        "type": "Security",
-        "workday": {
-          "workdayId": 2,
-          "entryTime": {
-            "year": 2023,
-            "month": 12,
-            "day": 1,
-            "hours": 9,
-            "minutes": 30
-          },
-          "departureTime": {
-            "year": 2023,
-            "month": 12,
-            "day": 1,
-            "hours": 11,
-            "minutes": 30
-          },
-          "hoursWorked": 2.0
-        },
-        "employees": [
-          {
-            "id": 4,
-            "name": "Luis",
-            "hourlyWage": 32.36
-          },
-          {
-            "id": 3,
-            "name": "Marco",
-            "hourlyWage": 32.36
-          }
-        ],
-        "totalStaffCost": 2014.0
-      }
-    ],
-    "equipment": [
-      {
-        "type": "Camera",
-        "cost": 20.0,
-        "quantity": 5
-      },
-      {
-        "type": "cellphone",
-        "cost": 250.41,
-        "quantity": 3
-      }
-    ],
-    "place": "Coliseo General"
-  },
-  {
-    "id": 2,
-    "startTime": {
-      "year": 2023,
-      "month": 3,
-      "day": 17,
-      "hours": 8,
-      "minutes": 30
-    },
-    "endTime": {
-      "year": 2023,
-      "month": 3,
-      "day": 17,
-      "hours": 10,
-      "minutes": 30
-    },
-    "artist": "Bob",
-    "estimatedCost": 33454.45,
-    "staff": [
-      {
-        "id": 1,
-        "type": "Security",
-        "workday": {
-          "workdayId": 2,
-          "entryTime": {
-            "year": 2023,
-            "month": 12,
-            "day": 1,
-            "hours": 9,
-            "minutes": 30
-          },
-          "departureTime": {
-            "year": 2023,
-            "month": 12,
-            "day": 1,
-            "hours": 11,
-            "minutes": 30
-          },
-          "hoursWorked": 2.0
-        },
-        "employees": [
-          {
-            "id": 4,
-            "name": "Luis",
-            "hourlyWage": 32.36
-          },
-          {
-            "id": 3,
-            "name": "Marco",
-            "hourlyWage": 32.36
-          }
-        ],
-        "totalStaffCost": 2014.0
-      }
-    ],
-    "equipment": [
-      {
-        "type": "Camera",
-        "cost": 20.0,
-        "quantity": 5
-      }
-    ],
-    "place": "Casa de la Cultura"
-  },
-  {
-    "id": 3,
-    "startTime": {
-      "year": 2023,
       "month": 3,
       "day": 18,
       "hours": 18,
@@ -147,7 +15,7 @@
       "hours": 23,
       "minutes": 0
     },
-    "artist": "Camilo ",
+    "artist": "Camilo",
     "estimatedCost": 50124.0,
     "staff": [
       {
