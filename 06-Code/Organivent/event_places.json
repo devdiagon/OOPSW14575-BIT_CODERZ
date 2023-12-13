@@ -10,5 +10,11 @@
     "adress": "av Patria y 6 de Diciembre ",
     "rentCost": 25000.0,
     "capacity": 9000
+  },
+  {
+    "name": "Estadio Olímpico Atahualpa",
+    "adress": "av. 6 de Diciembre y Naciones Unidas",
+    "rentCost": 15000.0,
+    "capacity": 39000
   }
 ]

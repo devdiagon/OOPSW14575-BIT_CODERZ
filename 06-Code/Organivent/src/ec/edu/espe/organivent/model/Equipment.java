@@ -13,7 +13,6 @@ import java.util.Scanner;
  */
 public class Equipment {
     
-    private static boolean header = false;
     private String type;
     private float cost;
     private int quantity;

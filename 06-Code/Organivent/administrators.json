@@ -48,5 +48,30 @@
     "name": "Miguel Vivanco",
     "email": "razamiguel24@yaho.es",
     "phoneNumber": 984237004
+  },
+  {
+    "id": 3,
+    "userName": "Prueba123",
+    "password": [
+      -25,
+      -122,
+      29,
+      98,
+      -125,
+      -73,
+      96,
+      -60,
+      83,
+      -35,
+      36,
+      -48,
+      38,
+      15,
+      109,
+      -72
+    ],
+    "name": "shrhrhr",
+    "email": "uk ukgk",
+    "phoneNumber": 987071735
   }
 ]

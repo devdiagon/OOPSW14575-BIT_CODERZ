@@ -11,7 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  *
- * @author Frederick
+ * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
  */
 public class Encriptation {
     public static byte[] encrypt(String password) {

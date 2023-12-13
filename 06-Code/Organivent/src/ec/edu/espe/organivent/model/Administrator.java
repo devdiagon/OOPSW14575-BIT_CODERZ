@@ -223,20 +223,6 @@ public class Administrator {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
-    
-    
-
-    public void addEvent(Event event){
-    }
-
-    public void modifyEvent(int eventId){
-    }
-
-    public void removeEvent(){
-    }
-
-    public void reviewEvent(int eventId){
-    }
 
     /**
      * @return the id

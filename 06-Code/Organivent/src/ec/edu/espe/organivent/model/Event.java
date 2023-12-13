@@ -89,12 +89,18 @@ public class Event {
     public static void seeEvent(ArrayList<Event> eventList){
          System.out.println("Enter the Event Id:");
          int id = HandleInput.insertInteger();
+         int sizeCount=0;
         
          for(Event currentEvent : eventList) {
              if(id == currentEvent.getId()){
                 System.out.print("\nEvent: " + currentEvent);
             }
+            sizeCount++;
         }
+        if(sizeCount==eventList.size()){
+            System.out.println("The Id: " + id + " was not found");
+        }
+         
     }
 
     @Override
@@ -163,23 +169,4 @@ id, artist, place, startTime, endTime, estimatedCost, staff, equipment);
         this.place = place;
     }
     
-    
-
-    public void addStaff(Staff staff){
-    }
-
-    public void setEventPlace(EventPlace eventPlace){
-    }
-
-    public void setArtistForEvent(Artist artist){
-    }
-
-    public void addEquipment(Equipment equipment){
-    }
-
-    public void setStartTime(Schedule startTime){
-    }
-
-    public void setEndTime(Schedule endTime){
-    }
 }

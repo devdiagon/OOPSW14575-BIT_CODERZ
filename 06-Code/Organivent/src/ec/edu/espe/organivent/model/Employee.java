@@ -58,7 +58,7 @@ public class Employee {
     }
     
     private static Employee addEmployee(int listSize){       
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         
         System.out.println("Enter the employee's name:");
         String name = scanner.nextLine();

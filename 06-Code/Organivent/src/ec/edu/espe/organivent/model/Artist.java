@@ -13,7 +13,6 @@ import java.util.Scanner;
  */
 public class Artist {
 
-    private static boolean header=false;
     private String name;
     private float hiringCost;
     private Schedule entryTime;
@@ -115,12 +114,7 @@ public class Artist {
 
     @Override
     public String toString() {
-        if (!header){
-            String headers = "          Name               |Hiring Cost| Entry Time      | Departure Time|\n" +
-                             "       ----------------------------------------------------------------------";
-            System.out.print(headers);
-            header = true;               
-        }
+        
         return String.format("%-20s | %-10.2f| %-16s| %-16s|", name, hiringCost, entryTime,departureTime);
     }
 
