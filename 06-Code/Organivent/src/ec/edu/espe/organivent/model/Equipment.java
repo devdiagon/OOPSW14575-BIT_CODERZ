@@ -19,12 +19,13 @@ public class Equipment {
     
      public static ArrayList<Equipment> getFromFile(){
         Type type = new TypeToken<ArrayList<Equipment>>(){}.getType();
-        ArrayList<Equipment> equipmentList = ManageJson.readFile("equipment.json",type);
+        ArrayList<Equipment> equipmentList = ManageJson.readFile("data/equipment.json",type);
         return equipmentList;
     }
     
-    public static void menu(ArrayList<Equipment> equipmentList){
-         Scanner scanner = new Scanner(System.in);
+    public static void menu(){
+        ArrayList<Equipment> equipmentList = Equipment.getFromFile();
+        Scanner scanner = new Scanner(System.in);
         int option;
         do {
             System.out.println("-------- Equipment Manager --------");
@@ -43,7 +44,7 @@ public class Equipment {
                     break;
                 case 2:
                     equipmentList.add(addEquipment());
-                    ManageJson.writeFile("equipment.json",equipmentList);
+                    ManageJson.writeFile("data/equipment.json",equipmentList);
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;
@@ -138,6 +139,10 @@ public class Equipment {
         }while(passed==false && addMore == 1);
         
         return addMore;
+    }
+    
+    public static float getIndividualEquipmentCost(Equipment currentEquipment){
+        return currentEquipment.getCost()*currentEquipment.getQuantity();
     }
     
     public static float calculateTotalEquipmentCost(ArrayList<Equipment> equipmentInEvent){

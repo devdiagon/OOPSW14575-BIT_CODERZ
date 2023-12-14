@@ -34,7 +34,7 @@ public class OrganiventSystem {
                     break;
                 case 2:
                     administratorList.add(Administrator.registerAdministrator(administratorList));
-                    ManageJson.writeFile("administrators.json",administratorList);
+                    ManageJson.writeFile("data/administrators.json",administratorList);
                     break;
                 case 3:
                     System.exit(0);

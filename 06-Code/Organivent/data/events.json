@@ -1,6 +1,30 @@
 [
   {
     "id": 1,
+    "artist": {
+      "name": "Camilo",
+      "hiringCost": 25000.0,
+      "entryTime": {
+        "year": 2023,
+        "month": 3,
+        "day": 18,
+        "hours": 16,
+        "minutes": 0
+      },
+      "departureTime": {
+        "year": 2023,
+        "month": 3,
+        "day": 18,
+        "hours": 23,
+        "minutes": 0
+      }
+    },
+    "place": {
+      "name": "Coliseo General Rumiñahui",
+      "adress": "av Patria y 6 de Diciembre ",
+      "rentCost": 25000.0,
+      "capacity": 9000
+    },
     "startTime": {
       "year": 2023,
       "month": 3,
@@ -15,8 +39,6 @@
       "hours": 23,
       "minutes": 0
     },
-    "artist": "Camilo",
-    "estimatedCost": 50124.0,
     "staff": [
       {
         "id": 2,
@@ -60,7 +82,6 @@
         "cost": 20.0,
         "quantity": 5
       }
-    ],
-    "place": "Coliseo General Rumiñahui"
+    ]
   }
 ]

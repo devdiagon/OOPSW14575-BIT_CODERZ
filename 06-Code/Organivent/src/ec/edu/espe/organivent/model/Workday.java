@@ -16,16 +16,17 @@ public class Workday {
     private int workdayId;
     private Schedule entryTime;
     private Schedule departureTime;
-    private float hoursWorked;
+    private int hoursWorked;
     
     public static ArrayList<Workday> getFromFile(){
         Type type = new TypeToken<ArrayList<Workday>>(){}.getType();
-        ArrayList<Workday> wordayList = ManageJson.readFile("workdays.json",type);
+        ArrayList<Workday> wordayList = ManageJson.readFile("data/workdays.json",type);
         return wordayList;
     }
     
-    public static void menu(ArrayList<Workday> workdayList){
-         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
+    public static void menu(){
+        ArrayList<Workday> workdayList = Workday.getFromFile();
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
             System.out.println("----------- Workday Manager -----------");
@@ -44,7 +45,7 @@ public class Workday {
                     break;
                 case 2:
                     workdayList.add(addWorkday(workdayList.size()));
-                    ManageJson.writeFile("workdays.json",workdayList);
+                    ManageJson.writeFile("data/workdays.json",workdayList);
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;
@@ -131,11 +132,11 @@ public class Workday {
     
     
 
-    public void sethoursWorked(float hoursWorked){
+    public void sethoursWorked(int hoursWorked){
         this.hoursWorked = hoursWorked;
     }
     
-    public float gethoursWorked(){
+    public int gethoursWorked(){
         return hoursWorked;
     }
 

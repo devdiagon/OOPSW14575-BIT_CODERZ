@@ -19,12 +19,13 @@ public class Employee {
     
     public static ArrayList<Employee> getFromFile(){
         Type type = new TypeToken<ArrayList<Employee>>(){}.getType();
-        ArrayList<Employee> employeeList = ManageJson.readFile("employees.json",type);
+        ArrayList<Employee> employeeList = ManageJson.readFile("data/employees.json",type);
         return employeeList;
     }
     
-    public static void menu(ArrayList<Employee> employeeList){
-         Scanner scanner = new Scanner(System.in);
+    public static void menu(){
+        ArrayList<Employee> employeeList = Employee.getFromFile();
+        Scanner scanner = new Scanner(System.in);
         int option;
         do {
             System.out.println("----------- Employee Manager ------------");
@@ -43,7 +44,7 @@ public class Employee {
                     break;
                 case 2:
                     employeeList.add(addEmployee(employeeList.size()));
-                    ManageJson.writeFile("employees.json",employeeList);
+                    ManageJson.writeFile("data/employees.json",employeeList);
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;
@@ -68,11 +69,12 @@ public class Employee {
         return new Employee(listSize+1, name, hourlyWage);
     }
     
-    private static void seeEmployees(ArrayList<Employee> employeeList){
-        
+    public static void seeEmployees(ArrayList<Employee> employeeList){
+        System.out.println("Employees:");
          for(Employee currentEmployee : employeeList) {
-            System.out.print("\nEmployee: " + currentEmployee);
+            System.out.println(currentEmployee);
         }
+        System.out.print("\n");
     }
     
     public static ArrayList<Employee> enterEmployees(){
@@ -89,7 +91,7 @@ public class Employee {
             searchId = HandleInput.insertInteger();
             
             for(Employee currentEmployee : employeesInEvent) {
-                if(currentEmployee.getEmployeeId() == searchId){
+                if(currentEmployee.getId() == searchId){
                     System.out.println("The Id: " + searchId + " is already in this Staff group");
                     passed=false;
                     break;
@@ -115,7 +117,7 @@ public class Employee {
          do{
             sizeCount=0;
             for(Employee currentEmployee : employeeList) {
-                if(currentEmployee.getEmployeeId() == searchId){
+                if(currentEmployee.getId() == searchId){
                     employeesInEvent.add(currentEmployee);
                     passed=true;
                     System.out.println("Want to add another Employee? 1) Yes - 2) No");
@@ -137,7 +139,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return String.format("\n%-3d | %-20s | %-3.2f|\n", id, name, hourlyWage);
+        return String.format("%-3d | %-20s | %-3.2f|", id, name, hourlyWage);
     }
 
     public Employee(int employeeId, String name, float hourlyWage) {
@@ -146,11 +148,11 @@ public class Employee {
         this.hourlyWage = hourlyWage;
     }
 
-    public int getEmployeeId() {
+    public int getId() {
         return id;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setId(int employeeId) {
         this.id = employeeId;
     }
 

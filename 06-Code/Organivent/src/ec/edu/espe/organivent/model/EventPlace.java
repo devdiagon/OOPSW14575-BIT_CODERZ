@@ -20,12 +20,13 @@ public class EventPlace {
     
     public static ArrayList<EventPlace> getFromFile(){
         Type type = new TypeToken<ArrayList<EventPlace>>(){}.getType();
-        ArrayList<EventPlace> eventPlaceList = ManageJson.readFile("event_places.json",type);
+        ArrayList<EventPlace> eventPlaceList = ManageJson.readFile("data/event_places.json",type);
         return eventPlaceList;
     }
     
-     public static void menu(ArrayList<EventPlace> eventPlaceList){
-         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
+     public static void menu(){
+        ArrayList<EventPlace> eventPlaceList = EventPlace.getFromFile();
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
             System.out.println("---------- Event Place Manager ------------");
@@ -44,7 +45,7 @@ public class EventPlace {
                     break;
                 case 2:
                     eventPlaceList.add(addEventPlace());
-                    ManageJson.writeFile("event_places.json",eventPlaceList);
+                    ManageJson.writeFile("data/event_places.json",eventPlaceList);
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;

@@ -20,11 +20,12 @@ public class Artist {
     
     public static ArrayList<Artist> getFromFile(){
         Type type = new TypeToken<ArrayList<Artist>>(){}.getType();
-        ArrayList<Artist> artistList = ManageJson.readFile("artists.json",type);
+        ArrayList<Artist> artistList = ManageJson.readFile("data/artists.json",type);
         return artistList;
     }
     
-    public static void menu(ArrayList<Artist> artistList){
+    public static void menu(){
+        ArrayList<Artist> artistList = Artist.getFromFile();
          Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
@@ -44,7 +45,7 @@ public class Artist {
                     break;
                 case 2:
                     artistList.add(addArtist());
-                    ManageJson.writeFile("artists.json",artistList);
+                    ManageJson.writeFile("data/artists.json",artistList);
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;

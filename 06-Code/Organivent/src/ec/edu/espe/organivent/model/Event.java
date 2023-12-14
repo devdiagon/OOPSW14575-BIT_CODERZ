@@ -14,56 +14,62 @@ import java.util.Scanner;
 public class Event {
 
     private int id;
+     private Artist artist;
+    private EventPlace place;
     private Schedule startTime;
     private Schedule endTime;
-    private String artist;
-    private float estimatedCost;
     private ArrayList<Staff> staff;
     private ArrayList<Equipment> equipment;
-    private String place;
     
-    public static ArrayList<Event> getFromFile(){
+    
+    private static ArrayList<Event> getFromFile(){
         Type type = new TypeToken<ArrayList<Event>>(){}.getType();
-        ArrayList<Event> eventList = ManageJson.readFile("events.json",type);
+        ArrayList<Event> eventList = ManageJson.readFile("data/events.json",type);
         return eventList;
     }
     
-    public static void menu(ArrayList<Event> eventList){
-         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
+    public static void menu(){
+        ArrayList<Event> eventList = Event.getFromFile();
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
-            System.out.println("----------------- Event Manager -----------------");
-            System.out.println("-------------------------------------------------");
-            System.out.println("|     1.- Display information from an Event     |");
-            System.out.println("|     2.- Add a new Event                       |");
-            System.out.println("|     3.- Return                                |");
-            System.out.println("_________________________________________________");
+            System.out.println("--------------------- Event Manager ---------------------");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("|     1.- Display general information from an Event     |");
+            System.out.println("|     2.- Add a new Event                               |");
+            System.out.println("|     3.- Calculate the cost from an Event              |");
+            System.out.println("|     4.- Return                                        |");
+            System.out.println("_________________________________________________________");
             System.out.println("Select an option (1-3): ");
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
-                    seeEvent(eventList);
+                    searchAnEvent(eventList);
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;
                 case 2:
                     eventList.add(addEvent(eventList.size()));
-                    ManageJson.writeFile("events.json",eventList);
+                    ManageJson.writeFile("data/events.json",eventList);
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;
                 case 3:
+                    searchEventIdToCalculate(eventList);
+                    System.out.println("\nPress any button to return");
+                    scanner.nextLine();
+                    break;
+                case 4:
                     break;
                 default:
                     System.out.println("Invalid option");
                     break;
             }
-        }while (option != 3);
+        }while (option != 4);
     
     }
     
-    public static Event addEvent(int listSize){
-        float estimatedCost = 0;
+    private static Event addEvent(int listSize){
         
         System.out.println("Enter the event start time::");
         Schedule starTime = Schedule.createEntrySchedule();
@@ -71,29 +77,23 @@ public class Event {
         Schedule endTime = Schedule.createDepartureSchedule(starTime);
         
         Artist artist = Artist.searchForArtist();
-        estimatedCost += artist.getHiringCost();
-        
         EventPlace eventPlace = EventPlace.searchForPlace();
-        estimatedCost += eventPlace.getRentCost();
-        
         ArrayList<Staff> staffInEvent = Staff.enterStaff();
-        estimatedCost += Staff.calculateStaffGroupCost(staffInEvent);
-        
         ArrayList<Equipment> equipmentInEvent = Equipment.enterEquipment();
-        estimatedCost += Equipment.calculateTotalEquipmentCost(equipmentInEvent);
         
-        return new Event(listSize+1,starTime, endTime, artist.getName(), estimatedCost, staffInEvent, equipmentInEvent, eventPlace.getName());
+        return new Event(listSize+1,artist,eventPlace,starTime, endTime, staffInEvent, equipmentInEvent);
         
     }
     
-    public static void seeEvent(ArrayList<Event> eventList){
+    private static void searchAnEvent(ArrayList<Event> eventList){
          System.out.println("Enter the Event Id:");
          int id = HandleInput.insertInteger();
          int sizeCount=0;
         
          for(Event currentEvent : eventList) {
              if(id == currentEvent.getId()){
-                System.out.print("\nEvent: " + currentEvent);
+                seeEvent(currentEvent);
+                break;
             }
             sizeCount++;
         }
@@ -102,23 +102,95 @@ public class Event {
         }
          
     }
+    
+    private static void seeEvent(Event currentEvent){
+        String message = "\n--------------------------------------\nEvent Id: " + currentEvent.getId();
+        message += "\nArtist: " + currentEvent.getArtist().getName();
+        message += "\nEvent Place: " + currentEvent.getPlace().getName();
+        message += "\n--------------------------------------\nStart Time: " + currentEvent.getStartTime();
+        message += "\nEnd Time:" +  currentEvent.getEndTime();
+        message += "\n--------------------------------------\nAsgigned Staff IDs: [";
+        
+        for(Staff currentStaff:currentEvent.getStaff()){
+            message += currentStaff.getId();
+            message += ",";
+        }
+        message += "] \nUsed Equipment: [";
+        
+        for(Equipment currentEquipment:currentEvent.getEquipment()){
+            message += currentEquipment.getType();
+            message += ",";
+        }
+         message += "] \n--------------------------------------\n";
+        
+        System.out.print(message);
+    }
+    
 
-    @Override
-public String toString() {
-    return String.format("\nID: %-6d\nArtist: %-14s\nPlace: %-14s\nStartTime: %-14s\nEndTime: %-14s\nEstimatedCost: %-10.2f\nStaff: %-14s\nEquipment: %-14s\n",
-id, artist, place, startTime, endTime, estimatedCost, staff, equipment);
-}
+    private static void searchEventIdToCalculate(ArrayList<Event> eventList){
+         System.out.println("Enter the Event Id:");
+         int id = HandleInput.insertInteger();
+         int sizeCount=0;
+        
+         for(Event currentEvent : eventList) {
+             if(id == currentEvent.getId()){
+                calculateEventCost(currentEvent);
+                break;
+            }
+            sizeCount++;
+        }
+        if(sizeCount==eventList.size()){
+            System.out.println("The Id: " + id + " was not found");
+        }
+    }
+    
+    private static void calculateEventCost(Event currentEvent){
+        float estimatedEventCost=0;
+        float totalStaffCost=0;
+        float totalEquipmentCost=0;
+        float individualEquipmentCost=0;
+        
+        
+        System.out.println("===[Event " + currentEvent.getId() + " cost details]===");
+        System.out.println("Artist hiring cost = $" + currentEvent.getArtist().getHiringCost());
+        estimatedEventCost += currentEvent.getArtist().getHiringCost();
+        System.out.println("------------------------------------------------------");
+        
+        System.out.println("Event Place rent cost = $" + currentEvent.getPlace().getRentCost());
+        estimatedEventCost += currentEvent.getPlace().getRentCost();
+        System.out.println("------------------------------------------------------");
+        
+        System.out.println("Asigned Staff:");
+        for(Staff currentStaff:currentEvent.getStaff()){
+            System.out.println("   Id [" + currentStaff.getId()+ "]: " + "'" + currentStaff.getType() + "'" + " has a total cost = $ " + currentStaff.getTotalStaffCost());
+            totalStaffCost += currentStaff.getTotalStaffCost();
+        }
+        System.out.println(" Total Staff Cost = $" + totalStaffCost);
+        estimatedEventCost += totalStaffCost;
+        System.out.println("------------------------------------------------------");
+        
+        System.out.println("Used Equipment:");
+        for(Equipment currentEquipment:currentEvent.getEquipment()){
+            individualEquipmentCost=Equipment.getIndividualEquipmentCost(currentEquipment);
+            System.out.println("   Type: " + currentEquipment.getType() + " has a total cost = $ " + individualEquipmentCost);
+            totalEquipmentCost += individualEquipmentCost;
+        }
+        System.out.println(" Total equipment cost = $" + totalEquipmentCost);
+        estimatedEventCost += totalEquipmentCost;
+        System.out.println("------------------------------------------------------\n");
+        
+        System.out.println("     Event final cost = $" + estimatedEventCost);
+    }
 
 
-    public Event(int id, Schedule startTime, Schedule endTime, String artist, float estimatedCost, ArrayList<Staff> staff, ArrayList<Equipment> equipment, String place) {
+    public Event(int id, Artist artist, EventPlace place, Schedule startTime, Schedule endTime, ArrayList<Staff> staff, ArrayList<Equipment> equipment) {
         this.id = id;
+        this.artist = artist;
+        this.place = place;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.artist = artist;
-        this.estimatedCost = estimatedCost;
         this.staff = staff;
         this.equipment = equipment;
-        this.place = place;
     }
 
     public int getId() {
@@ -129,20 +201,12 @@ id, artist, place, startTime, endTime, estimatedCost, staff, equipment);
         this.id = id;
     }
 
-    public String getArtist() {
+    public Artist getArtist() {
         return artist;
     }
 
-    public void setArtist(String artist) {
+    public void setArtist(Artist artist) {
         this.artist = artist;
-    }
-
-    public float getEstimatedCost() {
-        return estimatedCost;
-    }
-
-    public void setEstimatedCost(float estimatedCost) {
-        this.estimatedCost = estimatedCost;
     }
 
     public ArrayList<Staff> getStaff() {
@@ -161,12 +225,29 @@ id, artist, place, startTime, endTime, estimatedCost, staff, equipment);
         this.equipment = equipment;
     }
 
-    public String getPlace() {
+    public EventPlace getPlace() {
         return place;
     }
 
-    public void setPlace(String place) {
+    public void setPlace(EventPlace place) {
         this.place = place;
     }
     
+    public Schedule getStartTime(){
+        return startTime;
+    }
+    
+     public void setStartTime(Schedule startTime){
+        this.startTime = startTime ;
+    }
+     
+    public Schedule getEndTime(){
+        return endTime;
+    }
+    
+    public void setEndTime(Schedule endTime){
+        this.endTime = endTime ;
+    }
+    
+     
 }

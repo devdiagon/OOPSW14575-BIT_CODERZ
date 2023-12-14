@@ -21,20 +21,22 @@ public class Staff {
     
     public static ArrayList<Staff> getFromFile(){
         Type type = new TypeToken<ArrayList<Staff>>(){}.getType();
-        ArrayList<Staff> staffList = ManageJson.readFile("staff.json",type);
+        ArrayList<Staff> staffList = ManageJson.readFile("data/staff.json",type);
         return staffList;
     }
     
-    public static void menu(ArrayList<Staff> staffList){
-         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
+    public static void menu(){
+        ArrayList<Staff> staffList = Staff.getFromFile();
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
-            System.out.println("------------- Staff Manager -------------");
-            System.out.println("-----------------------------------------");
-            System.out.println("|    1.- See the current Staff List     |");
-            System.out.println("|    2.- Add a new staff group          |");
-            System.out.println("|    3.- Return                         |");
-            System.out.println("_________________________________________");
+            System.out.println("---------------- Staff Manager ----------------");
+            System.out.println("-----------------------------------------------");
+            System.out.println("|    1.- See the current Staff List           |");
+            System.out.println("|    2.- Add a new staff group                |");
+            System.out.println("|    3.- Calculate the payment of an Staff    |");
+            System.out.println("|    4.- Return                               |");
+            System.out.println("_______________________________________________");
             System.out.println("Select an option (1-3): ");
             option = HandleInput.insertInteger();
             switch (option) {
@@ -45,11 +47,16 @@ public class Staff {
                     break;
                 case 2:
                     staffList.add(addStaff(staffList.size()));
-                    ManageJson.writeFile("staff.json",staffList);
+                    ManageJson.writeFile("data/staff.json",staffList);
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;
                 case 3:
+                    searchStaff(staffList);
+                    System.out.println("\nDone! Press any button to return");
+                    scanner.nextLine();
+                    break;
+                case 4:
                     break;
                 default:
                     System.out.println("Invalid option");
@@ -88,9 +95,10 @@ public class Staff {
     }
    
     private static void seeStaff(ArrayList<Staff> staffList){
-        
+        System.out.println("===== Staff List =====");
          for(Staff currentStaff : staffList) {
-            System.out.print("\nStaff: " + currentStaff);
+            System.out.println("\nId: " + currentStaff.getId() + ": '" + currentStaff.getType() + "'" + " Entry Time: " + currentStaff.getWorkday().getEntryTime() + " Departure Time: " + currentStaff.getWorkday().getDepartureTime());
+            Employee.seeEmployees(currentStaff.getEmployees());
         }
     }
     
@@ -152,19 +160,38 @@ public class Staff {
         return addMore;
     }
     
-    public static float calculateStaffGroupCost(ArrayList<Staff> staffInEvent){
-        float totalCost=0;
+    private static void searchStaff(ArrayList<Staff> staffList){
+        System.out.println("Enter the Staff Id:");
+         int id = HandleInput.insertInteger();
+         int sizeCount=0;
         
-        for(Staff currentStaff : staffInEvent) {
-            totalCost += currentStaff.getTotalStaffCost();
+         for(Staff currentStaff : staffList) {
+             if(id == currentStaff.getId()){
+                calculateStaffPayment(currentStaff);
+                break;
+            }
+            sizeCount++;
         }
-        
-        return totalCost;
+        if(sizeCount==staffList.size()){
+            System.out.println("The Id: " + id + " was not found");
+        }
     }
-
-    @Override
-    public String toString() {
-        return String.format("%-5d | %-15s | %-14s|\n%-15s \nStaff Cost: %-8.2f", id,type,workday,employees,totalStaffCost);
+    
+    private static void calculateStaffPayment(Staff currentStaff){
+        int workingHours=currentStaff.getWorkday().gethoursWorked();
+        float individualPayment=0;
+        float totalStaffCost = 0;
+        
+        System.out.println("===[Staff " + currentStaff.getId() + " cost details]===");
+        System.out.println("For " + workingHours + " working hours");
+        System.out.println("Employees:");
+        for(Employee currentEmployee : currentStaff.getEmployees()) {
+            individualPayment = ((currentEmployee.getHourlyWage()) * workingHours);
+            System.out.println(" Id:" + currentEmployee.getId() + " " + currentEmployee.getName() + " Payment = $" + individualPayment);
+            totalStaffCost += individualPayment;
+        }
+        System.out.println("-------------------------------------");
+        System.out.println("      Total Staff cost = $" + totalStaffCost);
     }
 
     public Staff(int id, String type, Workday workday, ArrayList<Employee> employees, float totalStaffCost) {

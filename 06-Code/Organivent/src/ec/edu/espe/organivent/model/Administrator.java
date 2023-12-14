@@ -23,7 +23,7 @@ public class Administrator {
     
     public static ArrayList<Administrator> getFromFile(){
         Type type = new TypeToken<ArrayList<Administrator>>(){}.getType();
-        ArrayList<Administrator> administratorList = ManageJson.readFile("administrators.json",type);
+        ArrayList<Administrator> administratorList = ManageJson.readFile("data/administrators.json",type);
         return administratorList;
     }
 
@@ -156,15 +156,6 @@ public class Administrator {
     }
     
     private static void administratorMenu(){
-
-        ArrayList<Employee> employeeList = Employee.getFromFile();
-        ArrayList<Artist> artistList = Artist.getFromFile();
-        ArrayList<EventPlace> eventPlaceList = EventPlace.getFromFile();
-        ArrayList<Equipment> equipmentList = Equipment.getFromFile();
-        ArrayList<Workday> wordayList = Workday.getFromFile();
-        ArrayList<Staff> staffList = Staff.getFromFile();
-        ArrayList<Event> eventList = Event.getFromFile();
-        
         int option;
         
         do {
@@ -185,25 +176,25 @@ public class Administrator {
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
-                    Employee.menu(employeeList);
+                    Employee.menu();
                     break;
                 case 2:
-                    Staff.menu(staffList);
+                    Staff.menu();
                     break;
                 case 3:
-                    Artist.menu(artistList);
+                    Artist.menu();
                     break;
                 case 4:
-                    EventPlace.menu(eventPlaceList);
+                    EventPlace.menu();
                     break;
                 case 5:
-                    Equipment.menu(equipmentList);
+                    Equipment.menu();
                     break;
                 case 6:
-                    Workday.menu(wordayList);
+                    Workday.menu();
                     break;
                 case 7:
-                    Event.menu(eventList);
+                    Event.menu();
                     break;
                 case 8:
                     System.exit(0);
