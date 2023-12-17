@@ -5,8 +5,6 @@ import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -140,7 +138,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return String.format("| %-5d | %-20s | %-10.2f |%n", id, name, hourlyWage);
+        return String.format("|Id: %-5d | %-20s |$ %-10.2f per hour|%n", id, name, hourlyWage);
     }
 
     public Employee(int employeeId, String name, float hourlyWage) {

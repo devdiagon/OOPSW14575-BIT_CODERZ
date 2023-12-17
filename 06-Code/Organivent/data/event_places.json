@@ -1,19 +1,19 @@
 [
   {
     "name": "Casa de la Cultura",
-    "adress": "av 6 de Diciembre",
+    "adress": "Av 6 de Diciembre",
     "rentCost": 840.45,
     "capacity": 3000
   },
   {
     "name": "Coliseo General Rumiñahui",
-    "adress": "av Patria y 6 de Diciembre ",
+    "adress": "Av. Diego Ladrón de Guevara",
     "rentCost": 25000.0,
     "capacity": 9000
   },
   {
     "name": "Estadio Olímpico Atahualpa",
-    "adress": "av. 6 de Diciembre y Naciones Unidas",
+    "adress": "Av. 6 de Diciembre y Naciones Unidas",
     "rentCost": 15000.0,
     "capacity": 39000
   }

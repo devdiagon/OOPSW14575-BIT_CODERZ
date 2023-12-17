@@ -73,30 +73,36 @@ public class Staff {
     private static Staff addStaff(int listSize){
 
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
+        int daysWorked=0;
+        int hoursWorked=0;
 
         System.out.println("Enter the staff type:");
         String staffType = scanner.nextLine();
 
         ArrayList<Employee> employees = Employee.enterEmployees();
         
-        System.out.println("Enter the employee's work days");
-        int daysWorked = scanner.nextInt();
+        do{
+            System.out.println("Enter the employee's work days");
+            daysWorked = HandleInput.insertInteger();
+        }while(daysWorked<1);
         
-        System.out.println("Enter the employee's work hours per day");
-        int hoursWorked = scanner.nextInt();
-        
-        float totalStaffCost = calculateTotalCost(employees,daysWorked, hoursWorked);
+        do{
+            System.out.println("Enter the employee's work hours per day");
+            hoursWorked = HandleInput.insertInteger();
+        }while(hoursWorked<1 || hoursWorked>24);
 
-        return new Staff(listSize, staffType, employees, totalStaffCost, daysWorked, hoursWorked);
+        float totalStaffCost = calculateTotalCost(employees,(daysWorked*hoursWorked));
+
+        return new Staff(listSize+1, staffType, employees, totalStaffCost, daysWorked, hoursWorked);
     }
     
     
-    private static float calculateTotalCost(ArrayList<Employee> employees, int daysWorked, int hoursWorked){
+    private static float calculateTotalCost(ArrayList<Employee> employees, int workingHours){
         float costPerHour = 0;
         float totalStaffCost = 0;
         
         for(Employee currentEmployee : employees) {
-            costPerHour = ((currentEmployee.getHourlyWage()) * hoursWorked * daysWorked);
+            costPerHour = ((currentEmployee.getHourlyWage()) * workingHours);
             totalStaffCost += costPerHour;
         }
         
@@ -104,9 +110,9 @@ public class Staff {
     }
    
     private static void seeStaff(ArrayList<Staff> staffList){
-        System.out.println("===== Staff List =====");
+        System.out.println("================================= Staff List =================================");
          for(Staff currentStaff : staffList) {
-            System.out.println("\nId: " + currentStaff.getId() + ": '" + currentStaff.getType() + ", Days worked: " + currentStaff.getDaysWorked() + ", Hours worked: " + currentStaff.getHoursWorked());
+            System.out.println("\nId: " + currentStaff.getId() + " '" + currentStaff.getType() + "' " + ", Working Days: " + currentStaff.getDaysWorked() + ", Working Hours: " + currentStaff.getHoursWorked());
             Employee.seeEmployees(currentStaff.getEmployees());
         }
     }
@@ -176,7 +182,7 @@ public class Staff {
         
          for(Staff currentStaff : staffList) {
              if(id == currentStaff.getId()){
-                calculateStaffPayment(currentStaff,currentStaff.getDaysWorked(),currentStaff.getHoursWorked());
+                calculateStaffPayment(currentStaff);
                 break;
             }
             sizeCount++;
@@ -186,8 +192,8 @@ public class Staff {
         }
     }
     
-    private static void calculateStaffPayment(Staff currentStaff, int daysWorked, int hoursWorked){
-        int workingHours = daysWorked * hoursWorked;
+    private static void calculateStaffPayment(Staff currentStaff){
+        int workingHours = (currentStaff.getDaysWorked()* currentStaff.getHoursWorked());
         float individualPayment=0;
         float totalStaffCost = 0;
         

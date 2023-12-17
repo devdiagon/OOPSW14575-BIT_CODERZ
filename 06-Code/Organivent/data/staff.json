@@ -4,56 +4,47 @@
     "type": "Security",
     "employees": [
       {
-        "id": 4,
-        "name": "Luis",
-        "hourlyWage": 32.36
+        "id": 5,
+        "name": "Carolina",
+        "hourlyWage": 6.73
       },
       {
-        "id": 3,
-        "name": "Marco",
-        "hourlyWage": 32.36
+        "id": 4,
+        "name": "Luis",
+        "hourlyWage": 10.0
+      },
+      {
+        "id": 7,
+        "name": "Jose",
+        "hourlyWage": 7.25
       }
     ],
-    "totalStaffCost": 2014.0,
-    "daysWorked": 7,
-    "hoursWorked": 5
+    "totalStaffCost": 383.68,
+    "daysWorked": 2,
+    "hoursWorked": 8
   },
   {
     "id": 2,
-    "type": "Sellers",
+    "type": "Ticket Office",
     "employees": [
-      {
-        "id": 11,
-        "name": "Diego Carrera",
-        "hourlyWage": 6.0
-      },
-      {
-        "id": 12,
-        "name": "Ronnie Rodriguez",
-        "hourlyWage": 6.0
-      }
-    ],
-    "totalStaffCost": 24.0,
-    "daysWorked": 4,
-    "hoursWorked": 9
-  },
-  {
-    "id": 3,
-    "type": "Security",
-    "employees": [
-      {
-        "id": 10,
-        "name": "Claudio",
-        "hourlyWage": 4.95
-      },
       {
         "id": 9,
         "name": "Fernanda",
         "hourlyWage": 9.04
+      },
+      {
+        "id": 6,
+        "name": "Mateo",
+        "hourlyWage": 8.9
+      },
+      {
+        "id": 8,
+        "name": "Lucia",
+        "hourlyWage": 4.28
       }
     ],
-    "totalStaffCost": 895.36,
-    "daysWorked": 8,
-    "hoursWorked": 8
+    "totalStaffCost": 133.32,
+    "daysWorked": 1,
+    "hoursWorked": 6
   }
 ]

@@ -1,5 +1,11 @@
 package ec.edu.espe.organivent.model;
 
+import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.organivent.utils.HandleInput;
+import ec.edu.espe.organivent.utils.ManageJson;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 /**
  *
  * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
@@ -10,22 +16,92 @@ public class Bill {
     private float venueCost;
     private float staffCost;
     private float equipmentCost;
-    private float generalExpemsesCost;
+    private float generalExpensesCost;
     private float penaltyFeesCost;
     private float totalAmount;
+    
+    private static ArrayList<Bill> getFromFile(){
+        Type type = new TypeToken<ArrayList<Bill>>(){}.getType();
+        ArrayList<Bill> billList = ManageJson.readFile("data/bills.json",type);
+        return billList;
+    }
+    
+    
+    public static void saveBill(Bill tempBill){
+        ArrayList<Bill> billList = Bill.getFromFile();
+        //Bill tempBill = new Bill(eventId,artistCost,venueCost,staffCost,equipmentCost,generalExpensesCost,penaltyFeesCost,totalAmount);
+        int searchId=tempBill.getId();
+        boolean exists = searchForBill(searchId);
+        
+        if(exists==false){
+            billList.add(tempBill);
+        }else{
+            for(Bill currentBill : billList){
+                if(currentBill.getId() == searchId){
+                    billList.set(searchId-1, tempBill);
+                    break;
+                }
+            }
+        }
+        
+        ManageJson.writeFile("data/bills.json",billList);
+    }
+    
+    private static boolean searchForBill(int id){
+        ArrayList<Bill> billList = Bill.getFromFile();
+        boolean findBill=false;
+        
+        for(Bill currentBill : billList){
+            if(currentBill.getId() == id){
+                findBill=true;
+                break;
+            }
+        }
+        return findBill;
+    }
+    
+    public static void seeForBillId(){
+        ArrayList<Bill> billList = Bill.getFromFile();
+        
+        System.out.println("Enter the Event Id to get it's bill:");
+        int searchId = HandleInput.insertInteger();
+        
+        for(Bill currentBill : billList){
+            if(currentBill.getId() == searchId){
+                System.out.print("========[Bill from Event Id: " + searchId + " details]========");
+                System.out.print(currentBill);
+                break;
+            }
+        }
+        
+    }
 
     @Override
     public String toString() {
-        return "Bill{" + "id=" + id + ", artistCost=" + artistCost + ", venueCost=" + venueCost + ", staffCost=" + staffCost + ", equipmentCost=" + equipmentCost + ", generalExpemsesCost=" + generalExpemsesCost + ", penaltyFeesCost=" + penaltyFeesCost + ", totalAmount=" + totalAmount + '}';
+        String message = "\n| Artist hiring cost               | $" + artistCost + " |";
+        message += "\n| Venue hiring cost                | $" + venueCost + " |";
+        message += "\n| Staff total cost                 | $" + staffCost + " |";
+        message += "\n| Equipment total cost             | $" + equipmentCost + " |";
+        message += "\n| General expenses total cost      | $" + generalExpensesCost + " |";
+        message += "\n| Penalty fees total cost          | $" + penaltyFeesCost + " |";
+        message += "\n------------------------------------------------\n";
+        message += "         Total Amount: $"+ totalAmount;
+        message += "\n------------------------------------------------\n";
+        return   message;
+    }
+    
+    public static float calculateIVA(float pureCost){
+        float addedValue = pureCost * 0.12f;    
+        return pureCost + addedValue;
     }
 
-    public Bill(int id, float artistCost, float venueCost, float staffCost, float equipmentCost, float generalExpemsesCost, float penaltyFeesCost, float totalAmount) {
+    public Bill(int id, float artistCost, float venueCost, float staffCost, float equipmentCost, float generalExpensesCost, float penaltyFeesCost, float totalAmount) {
         this.id = id;
         this.artistCost = artistCost;
         this.venueCost = venueCost;
         this.staffCost = staffCost;
         this.equipmentCost = equipmentCost;
-        this.generalExpemsesCost = generalExpemsesCost;
+        this.generalExpensesCost = generalExpensesCost;
         this.penaltyFeesCost = penaltyFeesCost;
         this.totalAmount = totalAmount;
     }
@@ -101,17 +177,17 @@ public class Bill {
     }
 
     /**
-     * @return the generalExpemsesCost
+     * @return the generalExpensesCost
      */
-    public float getGeneralExpemsesCost() {
-        return generalExpemsesCost;
+    public float getGeneralExpensesCost() {
+        return generalExpensesCost;
     }
 
     /**
-     * @param generalExpemsesCost the generalExpemsesCost to set
+     * @param generalExpensesCost the generalExpensesCost to set
      */
-    public void setGeneralExpemsesCost(float generalExpemsesCost) {
-        this.generalExpemsesCost = generalExpemsesCost;
+    public void setGeneralExpensesCost(float generalExpensesCost) {
+        this.generalExpensesCost = generalExpensesCost;
     }
 
     /**

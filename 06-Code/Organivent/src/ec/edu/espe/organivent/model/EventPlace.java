@@ -77,9 +77,11 @@ public class EventPlace {
     
     
     private static void seeEventPlaces(ArrayList<EventPlace> eventPlaceList){
-        
+        System.out.println("===================================== Event Places List ====================================");
+        System.out.println("             Name             |            Adress            |  Rent Cost | Capacity (seats)");
+        System.out.println("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
          for(EventPlace currentEventPlace : eventPlaceList) {
-            System.out.print("\nEvent Place: " + currentEventPlace);
+            System.out.println(currentEventPlace);
         }
     }
     
@@ -117,7 +119,7 @@ public class EventPlace {
 
     @Override
     public String toString() {
-        return String.format("%-30s|%-30s|%-10.2f|%-14d", name,adress,rentCost,capacity);
+        return String.format("%-30s|%-30s|$ %-10.2f|%-14d", name,adress,rentCost,capacity);
     }
 
     public EventPlace(String name, String adress, float rentCost, int capacity) {

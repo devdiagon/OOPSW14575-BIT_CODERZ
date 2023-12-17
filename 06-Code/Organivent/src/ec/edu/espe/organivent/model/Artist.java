@@ -15,8 +15,6 @@ public class Artist {
 
     private String name;
     private float hiringCost;
-    private Schedule entryTime;
-    private Schedule departureTime;
     
     public static ArrayList<Artist> getFromFile(){
         Type type = new TypeToken<ArrayList<Artist>>(){}.getType();
@@ -67,18 +65,15 @@ public class Artist {
         String name = scanner.nextLine();
         System.out.println("Enter the artist's hiring cost:");
         float hiringCost = HandleInput.insertFloat();
-        System.out.println("Enter the entry time: ");
-        Schedule entryTime = Schedule.createEntrySchedule();
-        System.out.println("Enter the departure time");
-        Schedule departureTime = Schedule.createDepartureSchedule(entryTime);
-
-        return new Artist(name, hiringCost, entryTime, departureTime);
+        return new Artist(name, hiringCost);
     }
     
     private static void seeArtists(ArrayList<Artist> artistList){
-        
+        System.out.println("=========== Artist List ===========");
+        System.out.println("       Name          | Hiring Cost|");
+        System.out.println("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
          for(Artist currentArtist : artistList) {
-            System.out.print("\nArtist: " + currentArtist);
+            System.out.println(currentArtist);
         }
     }
     
@@ -116,14 +111,12 @@ public class Artist {
     @Override
     public String toString() {
         
-        return String.format("%-20s | %-10.2f| %-16s| %-16s|", name, hiringCost, entryTime,departureTime);
+        return String.format("%-20s |$ %-10.2f|", name, hiringCost);
     }
 
-    public Artist(String name, float hiringCost, Schedule entryTime, Schedule departureTime) {
+    public Artist(String name, float hiringCost) {
         this.name = name;
         this.hiringCost = hiringCost;
-        this.entryTime = entryTime;
-        this.departureTime = departureTime;
     }
 
     public String getName() {

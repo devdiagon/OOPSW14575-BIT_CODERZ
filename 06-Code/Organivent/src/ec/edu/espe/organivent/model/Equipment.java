@@ -76,9 +76,11 @@ public class Equipment {
     
     
     private static void seeEquipment(ArrayList<Equipment> equipmentList){
-        
+        System.out.println("============== Equipment List ===============");
+        System.out.println("         Type        | Unit Cost | Quantity |");
+        System.out.println("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
          for(Equipment currentEquipment : equipmentList) {
-            System.out.print("\nEquipment: " + currentEquipment);
+            System.out.println(currentEquipment);
         }
     }
     
@@ -157,7 +159,7 @@ public class Equipment {
 
     @Override
     public String toString() {   
-        return String.format("\n%-20s | %-8.2f| %-8d|\n", type, cost, quantity);
+        return String.format("%-20s |$ %-9.2f| %-8d |", type, cost, quantity);
     }
 
     public Equipment(String type, float cost, int quantity) {

@@ -3,77 +3,76 @@
     "id": 1,
     "artist": {
       "name": "Camilo",
-      "hiringCost": 25000.0,
-      "entryTime": {
-        "year": 2023,
-        "month": 3,
-        "day": 18,
-        "hours": 16,
-        "minutes": 0
-      },
-      "departureTime": {
-        "year": 2023,
-        "month": 3,
-        "day": 18,
-        "hours": 23,
-        "minutes": 0
-      }
+      "hiringCost": 25000.0
     },
     "place": {
       "name": "Coliseo General Rumiñahui",
-      "adress": "av Patria y 6 de Diciembre ",
+      "adress": "Av. Diego Ladrón de Guevara",
       "rentCost": 25000.0,
       "capacity": 9000
     },
     "startTime": {
       "year": 2023,
-      "month": 3,
-      "day": 18,
-      "hours": 18,
-      "minutes": 0
+      "month": 12,
+      "day": 17,
+      "hours": 20,
+      "minutes": 30
     },
     "endTime": {
       "year": 2023,
-      "month": 3,
-      "day": 18,
-      "hours": 23,
-      "minutes": 0
+      "month": 12,
+      "day": 17,
+      "hours": 22,
+      "minutes": 30
     },
     "staff": [
       {
-        "id": 2,
-        "type": "Sellers",
-        "workday": {
-          "workdayId": 1,
-          "entryTime": {
-            "year": 2023,
-            "month": 12,
-            "day": 1,
-            "hours": 9,
-            "minutes": 30
-          },
-          "departureTime": {
-            "year": 2023,
-            "month": 12,
-            "day": 1,
-            "hours": 11,
-            "minutes": 30
-          },
-          "hoursWorked": 2.0
-        },
+        "id": 1,
+        "type": "Security",
         "employees": [
           {
-            "id": 11,
-            "name": "Diego Carrera",
-            "hourlyWage": 6.0
+            "id": 5,
+            "name": "Carolina",
+            "hourlyWage": 6.73
           },
           {
-            "id": 12,
-            "name": "Ronnie Rodriguez",
-            "hourlyWage": 6.0
+            "id": 4,
+            "name": "Luis",
+            "hourlyWage": 10.0
+          },
+          {
+            "id": 7,
+            "name": "Jose",
+            "hourlyWage": 7.25
           }
         ],
-        "totalStaffCost": 24.0
+        "totalStaffCost": 383.68,
+        "daysWorked": 2,
+        "hoursWorked": 8
+      },
+      {
+        "id": 2,
+        "type": "Ticket Office",
+        "employees": [
+          {
+            "id": 9,
+            "name": "Fernanda",
+            "hourlyWage": 9.04
+          },
+          {
+            "id": 6,
+            "name": "Mateo",
+            "hourlyWage": 8.9
+          },
+          {
+            "id": 8,
+            "name": "Lucia",
+            "hourlyWage": 4.28
+          }
+        ],
+        "totalStaffCost": 133.32,
+        "daysWorked": 1,
+        "hoursWorked": 6
       }
     ],
     "equipment": [
@@ -81,6 +80,24 @@
         "type": "Camera",
         "cost": 20.0,
         "quantity": 5
+      },
+      {
+        "type": "Bateries",
+        "cost": 20.5,
+        "quantity": 2
+      }
+    ],
+    "generalExpenses": [
+      {
+        "type": "Transport",
+        "costAmount": 48000.0
+      }
+    ],
+    "penaltyFees": [
+      {
+        "type": "Pirotecnia",
+        "description": "Uso indebido de material explosivo en el establecimiento.",
+        "cost": 15000.0
       }
     ]
   }

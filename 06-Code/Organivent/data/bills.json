@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "artistCost": 28000.0,
+    "venueCost": 53000.0,
+    "staffCost": 517.0,
+    "equipmentCost": 141.0,
+    "generalExpensesCost": 48000.0,
+    "penaltyFeesCost": 15000.0,
+    "totalAmount": 144658.0
+  }
+]

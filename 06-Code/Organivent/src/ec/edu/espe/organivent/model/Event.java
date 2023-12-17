@@ -14,12 +14,14 @@ import java.util.Scanner;
 public class Event {
 
     private int id;
-     private Artist artist;
+    private Artist artist;
     private EventPlace place;
     private Schedule startTime;
     private Schedule endTime;
     private ArrayList<Staff> staff;
     private ArrayList<Equipment> equipment;
+    private ArrayList<Expense> generalExpenses;
+    private ArrayList<PenaltyFee> penaltyFees;
     
     
     private static ArrayList<Event> getFromFile(){
@@ -38,7 +40,8 @@ public class Event {
             System.out.println("|     1.- Display general information from an Event     |");
             System.out.println("|     2.- Add a new Event                               |");
             System.out.println("|     3.- Calculate the cost from an Event              |");
-            System.out.println("|     4.- Return                                        |");
+            System.out.println("|     4.- See the Bill from an Event                    |");
+            System.out.println("|     5.- Return                                        |");
             System.out.println("_________________________________________________________");
             System.out.println("Select an option (1-3): ");
             option = HandleInput.insertInteger();
@@ -60,16 +63,22 @@ public class Event {
                     scanner.nextLine();
                     break;
                 case 4:
+                    Bill.seeForBillId();
+                    System.out.println("\nPress any button to return");
+                    scanner.nextLine();
+                    break;
+                case 5:
                     break;
                 default:
                     System.out.println("Invalid option");
                     break;
             }
-        }while (option != 4);
+        }while (option != 5);
     
     }
     
     private static Event addEvent(int listSize){
+        int option=0;
         
         System.out.println("Enter the event start time::");
         Schedule starTime = Schedule.createEntrySchedule();
@@ -81,7 +90,18 @@ public class Event {
         ArrayList<Staff> staffInEvent = Staff.enterStaff();
         ArrayList<Equipment> equipmentInEvent = Equipment.enterEquipment();
         
-        return new Event(listSize+1,artist,eventPlace,starTime, endTime, staffInEvent, equipmentInEvent);
+        ArrayList<Expense> generalExpenses = new ArrayList<>();
+        Expense.createGeneralExpenses(generalExpenses);
+        
+        ArrayList<PenaltyFee> penaltyFees = new ArrayList<>();
+
+        System.out.println("Enter Penalty Fees?  1)Yes - 2)No");
+        option = HandleInput.insertInteger();
+        if(option==1){
+            PenaltyFee.createPenaltyFees(penaltyFees);
+        }   
+
+        return new Event(listSize+1,artist,eventPlace,starTime, endTime, staffInEvent, equipmentInEvent,generalExpenses,penaltyFees);
         
     }
     
@@ -150,19 +170,24 @@ public class Event {
         float totalEquipmentCost=0;
         float individualEquipmentCost=0;
         
+        float artistHiringCost=currentEvent.getArtist().getHiringCost();
+        float placeRentCost=currentEvent.getPlace().getRentCost();
         
-        System.out.println("===[Event " + currentEvent.getId() + " cost details]===");
-        System.out.println("Artist hiring cost = $" + currentEvent.getArtist().getHiringCost());
-        estimatedEventCost += currentEvent.getArtist().getHiringCost();
+        
+        System.out.println("===========[Event " + currentEvent.getId() + " cost details]===========");
+        System.out.println("Artist hiring cost of: $" + currentEvent.getArtist().getHiringCost());
+        artistHiringCost = Bill.calculateIVA(artistHiringCost);
+        estimatedEventCost += artistHiringCost;
         System.out.println("------------------------------------------------------");
         
-        System.out.println("Event Place rent cost = $" + currentEvent.getPlace().getRentCost());
-        estimatedEventCost += currentEvent.getPlace().getRentCost();
+        System.out.println("Event Place rent cost of: $" + currentEvent.getPlace().getRentCost());
+        placeRentCost += Bill.calculateIVA(placeRentCost);
+        estimatedEventCost += placeRentCost;
         System.out.println("------------------------------------------------------");
         
         System.out.println("Asigned Staff:");
         for(Staff currentStaff:currentEvent.getStaff()){
-            System.out.println("   Id [" + currentStaff.getId()+ "]: " + "'" + currentStaff.getType() + "'" + " has a total cost = $ " + currentStaff.getTotalStaffCost());
+            System.out.println("   Id [" + currentStaff.getId()+ "]: " + "'" + currentStaff.getType() + "'" + " has a total cost of: $ " + currentStaff.getTotalStaffCost());
             totalStaffCost += currentStaff.getTotalStaffCost();
         }
         System.out.println(" Total Staff Cost = $" + totalStaffCost);
@@ -172,18 +197,30 @@ public class Event {
         System.out.println("Used Equipment:");
         for(Equipment currentEquipment:currentEvent.getEquipment()){
             individualEquipmentCost=Equipment.getIndividualEquipmentCost(currentEquipment);
-            System.out.println("   Type: " + currentEquipment.getType() + " has a total cost = $ " + individualEquipmentCost);
+            System.out.println("   Type: " + currentEquipment.getType() + " has a total cost of: $ " + individualEquipmentCost);
             totalEquipmentCost += individualEquipmentCost;
         }
         System.out.println(" Total equipment cost = $" + totalEquipmentCost);
         estimatedEventCost += totalEquipmentCost;
-        System.out.println("------------------------------------------------------\n");
         
+        System.out.println("------------------------------------------------------");
+        float totalGeneralExpenseCost=Expense.calculateTotalGeneralExpensesCost(currentEvent.getGeneralExpenses());
+        estimatedEventCost += totalGeneralExpenseCost;
+        
+        System.out.println("------------------------------------------------------");
+        float totalPenaltyFeeCost=PenaltyFee.calculateTotalPenaltyFeesCost(currentEvent.getPenaltyFees());
+        estimatedEventCost += totalPenaltyFeeCost;
+        
+        System.out.println("------------------------------------------------------\n");
         System.out.println("     Event final cost = $" + estimatedEventCost);
+        
+        Bill tempBill = new Bill(currentEvent.getId(),artistHiringCost,placeRentCost,totalStaffCost,totalEquipmentCost,totalGeneralExpenseCost,totalPenaltyFeeCost,estimatedEventCost);
+        Bill.saveBill(tempBill);
+        System.out.println(" The cost information has been saved in a Bill");
+        
     }
 
-
-    public Event(int id, Artist artist, EventPlace place, Schedule startTime, Schedule endTime, ArrayList<Staff> staff, ArrayList<Equipment> equipment) {
+    public Event(int id, Artist artist, EventPlace place, Schedule startTime, Schedule endTime, ArrayList<Staff> staff, ArrayList<Equipment> equipment, ArrayList<Expense> generalExpenses, ArrayList<PenaltyFee> penaltyFees) {
         this.id = id;
         this.artist = artist;
         this.place = place;
@@ -191,63 +228,134 @@ public class Event {
         this.endTime = endTime;
         this.staff = staff;
         this.equipment = equipment;
+        this.generalExpenses = generalExpenses;
+        this.penaltyFees = penaltyFees;
     }
 
+    /**
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * @param id the id to set
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * @return the artist
+     */
     public Artist getArtist() {
         return artist;
     }
 
+    /**
+     * @param artist the artist to set
+     */
     public void setArtist(Artist artist) {
         this.artist = artist;
     }
 
-    public ArrayList<Staff> getStaff() {
-        return staff;
-    }
-
-    public void setStaff(ArrayList<Staff> staff) {
-        this.staff = staff;
-    }
-
-    public ArrayList<Equipment> getEquipment() {
-        return equipment;
-    }
-
-    public void setEquipment(ArrayList<Equipment> equipment) {
-        this.equipment = equipment;
-    }
-
+    /**
+     * @return the place
+     */
     public EventPlace getPlace() {
         return place;
     }
 
+    /**
+     * @param place the place to set
+     */
     public void setPlace(EventPlace place) {
         this.place = place;
     }
-    
-    public Schedule getStartTime(){
+
+    /**
+     * @return the startTime
+     */
+    public Schedule getStartTime() {
         return startTime;
     }
-    
-     public void setStartTime(Schedule startTime){
-        this.startTime = startTime ;
+
+    /**
+     * @param startTime the startTime to set
+     */
+    public void setStartTime(Schedule startTime) {
+        this.startTime = startTime;
     }
-     
-    public Schedule getEndTime(){
+
+    /**
+     * @return the endTime
+     */
+    public Schedule getEndTime() {
         return endTime;
     }
-    
-    public void setEndTime(Schedule endTime){
-        this.endTime = endTime ;
+
+    /**
+     * @param endTime the endTime to set
+     */
+    public void setEndTime(Schedule endTime) {
+        this.endTime = endTime;
     }
-    
+
+    /**
+     * @return the staff
+     */
+    public ArrayList<Staff> getStaff() {
+        return staff;
+    }
+
+    /**
+     * @param staff the staff to set
+     */
+    public void setStaff(ArrayList<Staff> staff) {
+        this.staff = staff;
+    }
+
+    /**
+     * @return the equipment
+     */
+    public ArrayList<Equipment> getEquipment() {
+        return equipment;
+    }
+
+    /**
+     * @param equipment the equipment to set
+     */
+    public void setEquipment(ArrayList<Equipment> equipment) {
+        this.equipment = equipment;
+    }
+
+    /**
+     * @return the generalExpenses
+     */
+    public ArrayList<Expense> getGeneralExpenses() {
+        return generalExpenses;
+    }
+
+    /**
+     * @param generalExpenses the generalExpenses to set
+     */
+    public void setGeneralExpenses(ArrayList<Expense> generalExpenses) {
+        this.generalExpenses = generalExpenses;
+    }
+
+    /**
+     * @return the penaltyFees
+     */
+    public ArrayList<PenaltyFee> getPenaltyFees() {
+        return penaltyFees;
+    }
+
+    /**
+     * @param penaltyFees the penaltyFees to set
+     */
+    public void setPenaltyFees(ArrayList<PenaltyFee> penaltyFees) {
+        this.penaltyFees = penaltyFees;
+    }
      
 }
