@@ -5,25 +5,29 @@ import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
  *
- * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
+ * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO
+ * ESPE
  */
 public class Employee {
 
     private int id;
     private String name;
     private float hourlyWage;
-    
-    public static ArrayList<Employee> getFromFile(){
-        Type type = new TypeToken<ArrayList<Employee>>(){}.getType();
-        ArrayList<Employee> employeeList = ManageJson.readFile("data/employees.json",type);
+
+    public static ArrayList<Employee> getFromFile() {
+        Type type = new TypeToken<ArrayList<Employee>>() {
+        }.getType();
+        ArrayList<Employee> employeeList = ManageJson.readFile("data/employees.json", type);
         return employeeList;
     }
-    
-    public static void menu(){
+
+    public static void menu() {
         ArrayList<Employee> employeeList = Employee.getFromFile();
         Scanner scanner = new Scanner(System.in);
         int option;
@@ -44,7 +48,7 @@ public class Employee {
                     break;
                 case 2:
                     employeeList.add(addEmployee(employeeList.size()));
-                    ManageJson.writeFile("data/employees.json",employeeList);
+                    ManageJson.writeFile("data/employees.json", employeeList);
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;
@@ -54,92 +58,89 @@ public class Employee {
                     System.out.println("Invalid option");
                     break;
             }
-        }while (option != 3);
-    
+        } while (option != 3);
+
     }
-    
-    private static Employee addEmployee(int listSize){       
+
+    private static Employee addEmployee(int listSize) {
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
-        
+
         System.out.println("Enter the employee's name:");
         String name = scanner.nextLine();
         System.out.println("Enter the employee's hourly wage:");
         float hourlyWage = HandleInput.insertFloat();
 
-        return new Employee(listSize+1, name, hourlyWage);
+        return new Employee(listSize + 1, name, hourlyWage);
     }
-    
-    public static void seeEmployees(ArrayList<Employee> employeeList){
+
+    public static void seeEmployees(ArrayList<Employee> employeeList) {
         System.out.println("Employees:");
-         for(Employee currentEmployee : employeeList) {
-            System.out.println(currentEmployee);
-        }
+        for (Employee currentEmployee : employeeList) {
+            System.out.print(currentEmployee);
+           } 
         System.out.print("\n");
-    }
-    
-    public static ArrayList<Employee> enterEmployees(){
+        }
+
+    public static ArrayList<Employee> enterEmployees() {
         ArrayList<Employee> employeesInEvent = new ArrayList<>();
-        
+
         int searchId;
-        int addMore=1;
-        boolean passed=false;
-        int sizeCount=0;
-        
-        do{
-            sizeCount=0;
+        int addMore = 1;
+        boolean passed = false;
+        int sizeCount = 0;
+
+        do {
+            sizeCount = 0;
             System.out.println("Insert the Employee Id to add");
             searchId = HandleInput.insertInteger();
-            
-            for(Employee currentEmployee : employeesInEvent) {
-                if(currentEmployee.getId() == searchId){
+
+            for (Employee currentEmployee : employeesInEvent) {
+                if (currentEmployee.getId() == searchId) {
                     System.out.println("The Id: " + searchId + " is already in this Staff group");
-                    passed=false;
+                    passed = false;
                     break;
                 }
                 sizeCount++;
             }
-            if(sizeCount==employeesInEvent.size()){
-                addMore = addEmployeeInEvent(employeesInEvent,searchId);
+            if (sizeCount == employeesInEvent.size()) {
+                addMore = addEmployeeInEvent(employeesInEvent, searchId);
             }
-        }while(passed==false && addMore == 1);
-        
-        
+        } while (passed == false && addMore == 1);
+
         return employeesInEvent;
     }
-    
-    private static int addEmployeeInEvent(ArrayList<Employee> employeesInEvent, int searchId){
-         ArrayList<Employee> employeeList = Employee.getFromFile();
-         
-        int addMore=1;
-        boolean passed=false;
-        int sizeCount=0;
-         
-         do{
-            sizeCount=0;
-            for(Employee currentEmployee : employeeList) {
-                if(currentEmployee.getId() == searchId){
+
+    private static int addEmployeeInEvent(ArrayList<Employee> employeesInEvent, int searchId) {
+        ArrayList<Employee> employeeList = Employee.getFromFile();
+
+        int addMore = 1;
+        boolean passed = false;
+        int sizeCount = 0;
+
+        do {
+            sizeCount = 0;
+            for (Employee currentEmployee : employeeList) {
+                if (currentEmployee.getId() == searchId) {
                     employeesInEvent.add(currentEmployee);
-                    passed=true;
+                    passed = true;
                     System.out.println("Want to add another Employee? 1) Yes - 2) No");
                     addMore = HandleInput.insertInteger();
                     break;
                 }
                 sizeCount++;
             }
-            if(sizeCount==employeeList.size()){
+            if (sizeCount == employeeList.size()) {
                 System.out.println("The Id: " + searchId + " was not found");
-                passed=true;
+                passed = true;
             }
-        }while(passed==false && addMore == 1);
-        
-         return addMore;
+        } while (passed == false && addMore == 1);
+
+        return addMore;
     }
-    
-    
 
     @Override
     public String toString() {
-        return String.format("%-3d | %-20s | %-3.2f|", id, name, hourlyWage);
+        return String.format("| %-5d | %-20s | %-10.2f |%n", id, name, hourlyWage);
     }
 
     public Employee(int employeeId, String name, float hourlyWage) {
@@ -171,6 +172,5 @@ public class Employee {
     public void setHourlyWage(float hourlyWage) {
         this.hourlyWage = hourlyWage;
     }
-    
-    
+
 }

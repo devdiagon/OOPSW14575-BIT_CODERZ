@@ -167,12 +167,11 @@ public class Administrator {
             System.out.println("|    3.- Manage artists          |");
             System.out.println("|    4.- Manage place            |");
             System.out.println("|    5.- Manage equipment        |");
-            System.out.println("|    6.- Manage workdays         |");
-            System.out.println("|    7.- Manage events           |");
-            System.out.println("|    8.- Exit                    |");
+            System.out.println("|    6.- Manage events           |");
+            System.out.println("|    7.- Exit                    |");
             System.out.println("__________________________________");
             System.out.println("");
-            System.out.println("Select an option (1-8): ");
+            System.out.println("Select an option (1-7): ");
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
@@ -191,19 +190,16 @@ public class Administrator {
                     Equipment.menu();
                     break;
                 case 6:
-                    Workday.menu();
-                    break;
-                case 7:
                     Event.menu();
                     break;
-                case 8:
+                case 7:
                     System.exit(0);
                     break;
                 default:
                     System.out.println("Invalid option");
                     break;
             }
-        }while (option != 8);
+        }while (option != 7);
     }
 
     public Administrator(int id, String userName, byte[] password, String name, String email, int phoneNumber) {

@@ -2,24 +2,6 @@
   {
     "id": 1,
     "type": "Security",
-    "workday": {
-      "workdayId": 2,
-      "entryTime": {
-        "year": 2023,
-        "month": 12,
-        "day": 1,
-        "hours": 9,
-        "minutes": 30
-      },
-      "departureTime": {
-        "year": 2023,
-        "month": 12,
-        "day": 1,
-        "hours": 11,
-        "minutes": 30
-      },
-      "hoursWorked": 2
-    },
     "employees": [
       {
         "id": 4,
@@ -32,29 +14,13 @@
         "hourlyWage": 32.36
       }
     ],
-    "totalStaffCost": 2014.0
+    "totalStaffCost": 2014.0,
+    "daysWorked": 7,
+    "hoursWorked": 5
   },
   {
     "id": 2,
     "type": "Sellers",
-    "workday": {
-      "workdayId": 1,
-      "entryTime": {
-        "year": 2023,
-        "month": 12,
-        "day": 1,
-        "hours": 9,
-        "minutes": 30
-      },
-      "departureTime": {
-        "year": 2023,
-        "month": 12,
-        "day": 1,
-        "hours": 11,
-        "minutes": 30
-      },
-      "hoursWorked": 2
-    },
     "employees": [
       {
         "id": 11,
@@ -67,6 +33,27 @@
         "hourlyWage": 6.0
       }
     ],
-    "totalStaffCost": 24.0
+    "totalStaffCost": 24.0,
+    "daysWorked": 4,
+    "hoursWorked": 9
+  },
+  {
+    "id": 3,
+    "type": "Security",
+    "employees": [
+      {
+        "id": 10,
+        "name": "Claudio",
+        "hourlyWage": 4.95
+      },
+      {
+        "id": 9,
+        "name": "Fernanda",
+        "hourlyWage": 9.04
+      }
+    ],
+    "totalStaffCost": 895.36,
+    "daysWorked": 8,
+    "hoursWorked": 8
   }
 ]

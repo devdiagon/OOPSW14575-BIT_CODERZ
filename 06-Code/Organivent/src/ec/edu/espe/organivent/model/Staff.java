@@ -5,6 +5,8 @@ import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -15,9 +17,11 @@ public class Staff {
     
     private int id;
     private String type;
-    private Workday workday;
     private ArrayList<Employee> employees;
     private float totalStaffCost;
+    private int daysWorked;
+    private int hoursWorked;
+    
     
     public static ArrayList<Staff> getFromFile(){
         Type type = new TypeToken<ArrayList<Staff>>(){}.getType();
@@ -37,7 +41,7 @@ public class Staff {
             System.out.println("|    3.- Calculate the payment of an Staff    |");
             System.out.println("|    4.- Return                               |");
             System.out.println("_______________________________________________");
-            System.out.println("Select an option (1-3): ");
+            System.out.println("Select an option (1-4): ");
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
@@ -62,7 +66,7 @@ public class Staff {
                     System.out.println("Invalid option");
                     break;
             }
-        }while (option != 3);
+        }while (option != 4);
     
     }
     
@@ -72,22 +76,27 @@ public class Staff {
 
         System.out.println("Enter the staff type:");
         String staffType = scanner.nextLine();
-        
-        Workday workday = Workday.searchForWorkday();
+
         ArrayList<Employee> employees = Employee.enterEmployees();
         
-        float totalStaffCost = calculateTotalCost(employees,workday.gethoursWorked());
+        System.out.println("Enter the employee's work days");
+        int daysWorked = scanner.nextInt();
+        
+        System.out.println("Enter the employee's work hours per day");
+        int hoursWorked = scanner.nextInt();
+        
+        float totalStaffCost = calculateTotalCost(employees,daysWorked, hoursWorked);
 
-        return new Staff(listSize+1,staffType, workday, employees, totalStaffCost);
+        return new Staff(listSize, staffType, employees, totalStaffCost, daysWorked, hoursWorked);
     }
     
     
-    private static float calculateTotalCost(ArrayList<Employee> employees, float hoursWorked){
+    private static float calculateTotalCost(ArrayList<Employee> employees, int daysWorked, int hoursWorked){
         float costPerHour = 0;
         float totalStaffCost = 0;
         
         for(Employee currentEmployee : employees) {
-            costPerHour = ((currentEmployee.getHourlyWage()) * hoursWorked);
+            costPerHour = ((currentEmployee.getHourlyWage()) * hoursWorked * daysWorked);
             totalStaffCost += costPerHour;
         }
         
@@ -97,7 +106,7 @@ public class Staff {
     private static void seeStaff(ArrayList<Staff> staffList){
         System.out.println("===== Staff List =====");
          for(Staff currentStaff : staffList) {
-            System.out.println("\nId: " + currentStaff.getId() + ": '" + currentStaff.getType() + "'" + " Entry Time: " + currentStaff.getWorkday().getEntryTime() + " Departure Time: " + currentStaff.getWorkday().getDepartureTime());
+            System.out.println("\nId: " + currentStaff.getId() + ": '" + currentStaff.getType() + ", Days worked: " + currentStaff.getDaysWorked() + ", Hours worked: " + currentStaff.getHoursWorked());
             Employee.seeEmployees(currentStaff.getEmployees());
         }
     }
@@ -167,7 +176,7 @@ public class Staff {
         
          for(Staff currentStaff : staffList) {
              if(id == currentStaff.getId()){
-                calculateStaffPayment(currentStaff);
+                calculateStaffPayment(currentStaff,currentStaff.getDaysWorked(),currentStaff.getHoursWorked());
                 break;
             }
             sizeCount++;
@@ -177,8 +186,8 @@ public class Staff {
         }
     }
     
-    private static void calculateStaffPayment(Staff currentStaff){
-        int workingHours=currentStaff.getWorkday().gethoursWorked();
+    private static void calculateStaffPayment(Staff currentStaff, int daysWorked, int hoursWorked){
+        int workingHours = daysWorked * hoursWorked;
         float individualPayment=0;
         float totalStaffCost = 0;
         
@@ -194,12 +203,22 @@ public class Staff {
         System.out.println("      Total Staff cost = $" + totalStaffCost);
     }
 
-    public Staff(int id, String type, Workday workday, ArrayList<Employee> employees, float totalStaffCost) {
+    public Staff(int id, String type, ArrayList<Employee> employees, float totalStaffCost, int daysWorked, int hoursWorked) {
         this.id = id;
         this.type = type;
-        this.workday = workday;
         this.employees = employees;
         this.totalStaffCost = totalStaffCost;
+        this.daysWorked = daysWorked;
+        this.hoursWorked = hoursWorked;
+    }
+
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getType() {
@@ -210,18 +229,9 @@ public class Staff {
         this.type = type;
     }
 
-    public Workday getWorkday() {
-        return workday;
-    }
-
-    public void setWorkday(Workday workday) {
-        this.workday = workday;
-    }
-
     public ArrayList<Employee> getEmployees() {
         return employees;
     }
-
     public void setEmployees(ArrayList<Employee> employees) {
         this.employees = employees;
     }
@@ -233,12 +243,22 @@ public class Staff {
     public void setTotalStaffCost(float totalStaffCost) {
         this.totalStaffCost = totalStaffCost;
     }
-    
-    public int getId() {
-        return id;
+
+    public int getDaysWorked() {
+        return daysWorked;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDaysWorked(int daysWorked) {
+        this.daysWorked = daysWorked;
     }
+
+    public int getHoursWorked() {
+        return hoursWorked;
+    }
+
+    public void setHoursWorked(int hoursWorked) {
+        this.hoursWorked = hoursWorked;
+    }
+
+    
 }
