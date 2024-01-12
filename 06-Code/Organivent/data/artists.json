@@ -6,5 +6,25 @@
   {
     "name": "Luis Miguel",
     "hiringCost": 700000.0
+  },
+  {
+    "name": "Juan",
+    "hiringCost": 15.0
+  },
+  {
+    "name": "Martin Garrix",
+    "hiringCost": -59.0
+  },
+  {
+    "name": "Juan",
+    "hiringCost": 0.0
+  },
+  {
+    "name": "Vero",
+    "hiringCost": 0.0
+  },
+  {
+    "name": "jasd",
+    "hiringCost": 0.0
   }
 ]

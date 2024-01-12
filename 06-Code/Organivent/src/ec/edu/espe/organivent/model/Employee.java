@@ -64,9 +64,9 @@ public class Employee {
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
 
         System.out.println("Enter the employee's name:");
-        String name = scanner.nextLine();
+        String name = HandleInput.insertNonBlankString();
         System.out.println("Enter the employee's hourly wage:");
-        float hourlyWage = HandleInput.insertFloat();
+        float hourlyWage = HandleInput.insertPrice();
 
         return new Employee(listSize + 1, name, hourlyWage);
     }

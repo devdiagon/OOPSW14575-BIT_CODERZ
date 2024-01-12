@@ -77,7 +77,7 @@ public class Staff {
         int hoursWorked=0;
 
         System.out.println("Enter the staff type:");
-        String staffType = scanner.nextLine();
+        String staffType = HandleInput.insertNonBlankString();
 
         ArrayList<Employee> employees = Employee.enterEmployees();
         

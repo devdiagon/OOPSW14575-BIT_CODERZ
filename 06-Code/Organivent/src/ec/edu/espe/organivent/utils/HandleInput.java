@@ -45,4 +45,38 @@ public class HandleInput {
         return analyzeFloat;    
     }
     
+    public static float insertPrice(){
+        float price;
+        boolean passed = true;
+        
+        do {
+            price = insertFloat();
+            if (price <= 0) {
+                System.out.println("enter a decimal number greater than zero");
+                passed = false;
+            } else {
+                passed = true;
+            }
+        } while (!passed);
+
+        return price;
+    }
+    
+    public static String insertNonBlankString() {
+        Scanner scanner = new Scanner(System.in);
+        String inputString;
+        boolean passed = true;
+        
+        do {
+            inputString = scanner.nextLine();
+            if (inputString.trim().isEmpty()) {
+                System.out.println("Please enter a non-blank string");
+                passed = false;
+            } else {
+                passed = true;
+            }
+        } while (!passed);
+
+        return inputString.trim();
+    }
 }

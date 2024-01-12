@@ -7,6 +7,8 @@ import ec.edu.espe.organivent.utils.ManageJson;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -40,10 +42,10 @@ public class Administrator {
         byte[] encriptedPassword = Encriptation.encrypt(password);
         
         System.out.println("Enter your full name");
-        String name = scanner.nextLine();
+        String name = HandleInput.insertNonBlankString();
         
         System.out.println("Enter your Email");
-        String email = scanner.nextLine();
+        String email = validateEmail();
         
         System.out.println("Enter your Phone Number");
         int phoneNumber = validatePhoneNumber();
@@ -58,7 +60,7 @@ public class Administrator {
         
  
         do{
-            userToCheck = scanner.nextLine();
+            userToCheck = HandleInput.insertNonBlankString();
             for(Administrator currentAdministrator:administratorList){
                 if(currentAdministrator.getUserName().equals(userToCheck)){
                     System.out.println("User Name Already taken! Try again");
@@ -79,7 +81,7 @@ public class Administrator {
         boolean passed=true;
         String passwordToCheck;
         do{
-            passwordToCheck = scanner.nextLine();
+            passwordToCheck = HandleInput.insertNonBlankString();
             if(passwordToCheck.length()<10){
                 System.out.println("Password without enough characters!");
                 System.out.println("Enter your password (at least 10 digits)");
@@ -118,6 +120,34 @@ public class Administrator {
         return phoneToCheck;
     }
     
+    private static String validateEmail() {
+        boolean passed = true;
+        String emailToCheck = "";
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter your Email Address:");
+        
+
+        do {
+            emailToCheck = HandleInput.insertNonBlankString();
+            if (!isValidEmail(emailToCheck)) {
+                System.out.println("Invalid email address");
+                System.out.println("Enter your Email Address");
+                passed = false;
+            } else {
+                passed = true;
+            }
+        } while (!passed);
+
+        return emailToCheck;
+    }
+
+    private static boolean isValidEmail(String email) {
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+    
     
     public static void logIn(ArrayList<Administrator> administratorList){
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
@@ -130,7 +160,7 @@ public class Administrator {
         
         do{
             System.out.println("Enter your User Name: ");
-            userToCheck = scanner.nextLine();
+            userToCheck = HandleInput.insertNonBlankString();
             for(Administrator currentAdministrator:administratorList){
                 if(currentAdministrator.getUserName().equals(userToCheck)){
                      realPassword=currentAdministrator.getPassword();
@@ -144,7 +174,7 @@ public class Administrator {
         do{
              System.out.println("Enter your Password: ");
              System.out.println("Attempts: " + attempts + "/3");
-             tryPassword = scanner.nextLine();
+             tryPassword = HandleInput.insertNonBlankString();
              
             passwordAccepted= Encriptation.comparePasswords(tryPassword,realPassword);
             if(passwordAccepted==true){

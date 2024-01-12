@@ -64,11 +64,11 @@ public class EventPlace {
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         
         System.out.println("Enter the place's name:");
-        String name = scanner.nextLine();
+        String name = HandleInput.insertNonBlankString();
         System.out.println("Enter the place's adress:");
-        String adress = scanner.nextLine();
+        String adress = HandleInput.insertNonBlankString();
         System.out.println("Enter the place's rent cost:");
-        float rentCost = HandleInput.insertFloat();
+        float rentCost = HandleInput.insertPrice();
         System.out.println("Enter the place's capacity:");
         int capacity = HandleInput.insertInteger();
 
@@ -97,7 +97,7 @@ public class EventPlace {
         do{
             sizeCount=0;
             System.out.println("Enter the place where the event is going to be:");
-            searchName = scanner.nextLine();
+            searchName = HandleInput.insertNonBlankString();
             
             for(EventPlace currentEventPlace : eventPlaceList) {
                 if(currentEventPlace.getName().equals(searchName)){

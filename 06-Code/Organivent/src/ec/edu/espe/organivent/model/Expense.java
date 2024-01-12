@@ -27,11 +27,11 @@ public class Expense {
         float costAmount=0;
         
         System.out.println("Enter the type of the expense:");
-        String type = scanner.nextLine();
+        String type = HandleInput.insertNonBlankString();
         
         do{
             System.out.println("Enter the cost of this expense:");
-            costAmount = HandleInput.insertFloat();
+            costAmount = HandleInput.insertPrice();
         }while(costAmount<1f);
         
         return new Expense(type,costAmount);

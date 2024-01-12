@@ -29,14 +29,14 @@ public class PenaltyFee {
         float cost=0;
         
         System.out.println("Enter the type of the penalty fee:");
-        String type = scanner.nextLine();
+        String type = HandleInput.insertNonBlankString();
         
         System.out.println("Enter a brief description about this penalty fee:");
-        String description = scanner.nextLine();
+        String description = HandleInput.insertNonBlankString();
         
         do{
             System.out.println("Enter the cost of this penalty fee:");
-            cost = HandleInput.insertFloat();
+            cost = HandleInput.insertPrice();
         }while(cost<1f);
         
         return new PenaltyFee(type, description, cost);

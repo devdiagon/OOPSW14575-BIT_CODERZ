@@ -62,9 +62,9 @@ public class Artist {
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         
         System.out.println("Enter the artist's name:");
-        String name = scanner.nextLine();
+        String name = HandleInput.insertNonBlankString();
         System.out.println("Enter the artist's hiring cost:");
-        float hiringCost = HandleInput.insertFloat();
+        float hiringCost = HandleInput.insertPrice();
         return new Artist(name, hiringCost);
     }
     
@@ -89,7 +89,7 @@ public class Artist {
         do{
             sizeCount=0;
             System.out.println("Enter the artist's name:");
-            searchName = scanner.nextLine();
+            searchName = HandleInput.insertNonBlankString();
             
             for(Artist currentArtist : artistList) {
                 if(currentArtist.getName().equals(searchName)){

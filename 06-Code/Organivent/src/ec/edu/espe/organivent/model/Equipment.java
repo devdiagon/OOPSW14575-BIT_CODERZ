@@ -63,9 +63,9 @@ public class Equipment {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the type of equipment:");
-        String type = scanner.nextLine();
+        String type = HandleInput.insertNonBlankString();
         System.out.println("Enter the cost of the equipment:");
-        float cost = HandleInput.insertFloat();
+        float cost = HandleInput.insertPrice();
         scanner.nextLine();
         System.out.println("Enter the quantity of equipment:");
         int quantity = HandleInput.insertInteger();
@@ -96,7 +96,7 @@ public class Equipment {
         do{
             sizeCount=0;
             System.out.println("Insert the Equipment Type to add");
-            searchName = scanner.nextLine();
+            searchName = HandleInput.insertNonBlankString();
             
             for(Equipment currentEquipment : equipmentInEvent) {
                 if(currentEquipment.getType().equals(searchName)){
