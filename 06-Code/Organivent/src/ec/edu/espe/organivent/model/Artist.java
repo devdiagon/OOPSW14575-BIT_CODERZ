@@ -23,7 +23,6 @@ public class Artist {
     }
     
     public static void menu(){
-        ArrayList<Artist> artistList = Artist.getFromFile();
          Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
@@ -37,11 +36,12 @@ public class Artist {
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
-                    seeArtists(artistList);
+                    seeArtists();
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;
                 case 2:
+                    ArrayList<Artist> artistList = Artist.getFromFile();
                     artistList.add(addArtist());
                     ManageJson.writeFile("data/artists.json",artistList);
                     System.out.println("\nDone! Press any button to return");
@@ -59,16 +59,15 @@ public class Artist {
     
     private static Artist addArtist(){
         
-        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
-        
         System.out.println("Enter the artist's name:");
-        String name = HandleInput.insertNonBlankString();
+        String name = HandleInput.insertRealName();
         System.out.println("Enter the artist's hiring cost:");
         float hiringCost = HandleInput.insertPrice();
         return new Artist(name, hiringCost);
     }
     
-    private static void seeArtists(ArrayList<Artist> artistList){
+    private static void seeArtists(){
+        ArrayList<Artist> artistList = Artist.getFromFile();
         System.out.println("=========== Artist List ===========");
         System.out.println("       Name          | Hiring Cost|");
         System.out.println("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
@@ -78,7 +77,6 @@ public class Artist {
     }
     
     public static Artist searchForArtist(){
-        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         ArrayList<Artist> artistList = getFromFile();
         
         Artist artist =null;
@@ -89,10 +87,10 @@ public class Artist {
         do{
             sizeCount=0;
             System.out.println("Enter the artist's name:");
-            searchName = HandleInput.insertNonBlankString();
+            searchName = HandleInput.insertNonBlankString().toLowerCase();
             
             for(Artist currentArtist : artistList) {
-                if(currentArtist.getName().equals(searchName)){
+                if(currentArtist.getName().toLowerCase().contains(searchName)){
                     artist=currentArtist;
                     passed=true;
                     break;

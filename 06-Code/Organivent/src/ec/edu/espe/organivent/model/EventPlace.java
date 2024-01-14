@@ -86,21 +86,22 @@ public class EventPlace {
     }
     
     public static EventPlace searchForPlace(){
-        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         ArrayList<EventPlace> eventPlaceList = getFromFile();
         
         EventPlace eventPlace=null;
         String searchName;
+        String textToCompare;
         boolean passed=false;
         int sizeCount=0;
         
         do{
             sizeCount=0;
             System.out.println("Enter the place where the event is going to be:");
-            searchName = HandleInput.insertNonBlankString();
+            searchName = HandleInput.insertNonBlankString().toLowerCase();
             
             for(EventPlace currentEventPlace : eventPlaceList) {
-                if(currentEventPlace.getName().equals(searchName)){
+                textToCompare=currentEventPlace.getName().toLowerCase();
+                if(textToCompare.contains(searchName)){
                     eventPlace = currentEventPlace;
                     passed=true;
                     break;

@@ -29,31 +29,35 @@ public class Administrator {
         return administratorList;
     }
 
-    public static Administrator registerAdministrator(ArrayList<Administrator> administratorList){
+    public static Administrator registerAdministrator(){
+        
+        ArrayList<Administrator> administratorList = Administrator.getFromFile();
         
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
-        int size = administratorList.size();
+        int asignId = administratorList.size()+1;
         
         System.out.println("Enter a User Name");
-        String userName = validateUserName(administratorList);
+        String userName = validateUserName();
         
         System.out.println("Enter your password (at least 10 digits)");
         String password = validatePassword();
         byte[] encriptedPassword = Encriptation.encrypt(password);
         
         System.out.println("Enter your full name");
-        String name = HandleInput.insertNonBlankString();
+        String name = HandleInput.insertRealName();
         
-        System.out.println("Enter your Email");
+        System.out.println("Enter your Email Address");
         String email = validateEmail();
         
         System.out.println("Enter your Phone Number");
         int phoneNumber = validatePhoneNumber();
         
-        return new Administrator(size+1,userName,encriptedPassword,name,email,phoneNumber);
+        return new Administrator(asignId,userName,encriptedPassword,name,email,phoneNumber);
     }
     
-    private static String validateUserName(ArrayList<Administrator> administratorList){
+    private static String validateUserName(){
+        ArrayList<Administrator> administratorList = Administrator.getFromFile();
+        
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         boolean isTaken=false;
         String userToCheck;
@@ -122,10 +126,7 @@ public class Administrator {
     
     private static String validateEmail() {
         boolean passed = true;
-        String emailToCheck = "";
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your Email Address:");
-        
+        String emailToCheck = "";     
 
         do {
             emailToCheck = HandleInput.insertNonBlankString();
@@ -149,17 +150,18 @@ public class Administrator {
     }
     
     
-    public static void logIn(ArrayList<Administrator> administratorList){
+    public static void logIn(){
+        ArrayList<Administrator> administratorList = Administrator.getFromFile();
+        
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         String userToCheck;
-        String tryPassword=null;
         byte[] realPassword=null;
         int attempts=3;
         boolean matchUserName=false;
-        boolean passwordAccepted=false;
         
         do{
             System.out.println("Enter your User Name: ");
+            System.out.println("Attempts: " + attempts + "/3");
             userToCheck = HandleInput.insertNonBlankString();
             for(Administrator currentAdministrator:administratorList){
                 if(currentAdministrator.getUserName().equals(userToCheck)){
@@ -168,8 +170,24 @@ public class Administrator {
                      break;
                 }
             }
-        }while(matchUserName==false);
+            attempts--;
+        }while(attempts>0 && matchUserName==false);
         
+        if(attempts>0 || matchUserName==true){
+            insertCorrectPassword(realPassword);
+        }else{
+            System.out.println("Number of attempts ended, try again");
+            System.out.println("Press any button to continue");
+            scanner.nextLine();
+        }
+        
+        
+    }
+    
+    private static void insertCorrectPassword(byte[] realPassword){
+        String tryPassword=null;
+        boolean passwordAccepted=false;
+        int attempts=3;
         
         do{
              System.out.println("Enter your Password: ");

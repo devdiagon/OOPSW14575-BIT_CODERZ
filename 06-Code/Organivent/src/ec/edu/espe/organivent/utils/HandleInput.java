@@ -63,7 +63,7 @@ public class HandleInput {
     }
     
     public static String insertNonBlankString() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         String inputString;
         boolean passed = true;
         
@@ -78,5 +78,26 @@ public class HandleInput {
         } while (!passed);
 
         return inputString.trim();
+    }
+    
+    public static String insertRealName() {
+        String inputName;
+        boolean passed = false;
+        
+        do {
+            inputName = insertNonBlankString();
+            for(char currentchar:inputName.toCharArray()){
+                    if(Character.isDigit(currentchar)){
+                        System.out.println("A name can't have numbers!");
+                        System.out.println("Please try again");
+                        passed=false;
+                        break;
+                    }else{
+                        passed = true;
+                    }
+                }
+        } while (passed==false);
+
+        return inputName;
     }
 }

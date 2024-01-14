@@ -26,7 +26,6 @@ public class Employee {
     }
 
     public static void menu() {
-        ArrayList<Employee> employeeList = Employee.getFromFile();
         Scanner scanner = new Scanner(System.in);
         int option;
         do {
@@ -40,12 +39,13 @@ public class Employee {
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
-                    seeEmployees(employeeList);
+                    seeEmployees();
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;
                 case 2:
-                    employeeList.add(addEmployee(employeeList.size()));
+                    ArrayList<Employee> employeeList = Employee.getFromFile();
+                    employeeList.add(addEmployee());
                     ManageJson.writeFile("data/employees.json", employeeList);
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
@@ -60,24 +60,35 @@ public class Employee {
 
     }
 
-    private static Employee addEmployee(int listSize) {
-        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
+    private static Employee addEmployee() {
+        
+        ArrayList<Employee> employeeList = Employee.getFromFile();
+        int asignId = employeeList.size()+1;
 
         System.out.println("Enter the employee's name:");
-        String name = HandleInput.insertNonBlankString();
+        String name = HandleInput.insertRealName();
         System.out.println("Enter the employee's hourly wage:");
         float hourlyWage = HandleInput.insertPrice();
 
-        return new Employee(listSize + 1, name, hourlyWage);
+        return new Employee(asignId, name, hourlyWage);
     }
 
+    public static void seeEmployees() {
+        ArrayList<Employee> employeeList = Employee.getFromFile();
+        System.out.println("Employees:");
+        for (Employee currentEmployee : employeeList) {
+            System.out.print(currentEmployee);
+           } 
+        System.out.print("\n");
+    }
+    
     public static void seeEmployees(ArrayList<Employee> employeeList) {
         System.out.println("Employees:");
         for (Employee currentEmployee : employeeList) {
             System.out.print(currentEmployee);
            } 
         System.out.print("\n");
-        }
+    }
 
     public static ArrayList<Employee> enterEmployees() {
         ArrayList<Employee> employeesInEvent = new ArrayList<>();

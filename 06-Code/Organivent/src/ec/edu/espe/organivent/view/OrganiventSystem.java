@@ -12,9 +12,7 @@ import ec.edu.espe.organivent.utils.ManageJson;
 public class OrganiventSystem {
 
     public static void main(String[] args) {
-        
-        ArrayList<Administrator> administratorList = Administrator.getFromFile();
-        
+
         int option;
         
         do{
@@ -30,10 +28,11 @@ public class OrganiventSystem {
             option = HandleInput.insertInteger();
             switch (option){
                 case 1:
-                    Administrator.logIn(administratorList);
+                    Administrator.logIn();
                     break;
                 case 2:
-                    administratorList.add(Administrator.registerAdministrator(administratorList));
+                    ArrayList<Administrator> administratorList = Administrator.getFromFile();
+                    administratorList.add(Administrator.registerAdministrator());
                     ManageJson.writeFile("data/administrators.json",administratorList);
                     break;
                 case 3:

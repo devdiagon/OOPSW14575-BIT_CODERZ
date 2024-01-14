@@ -31,7 +31,6 @@ public class Event {
     }
     
     public static void menu(){
-        ArrayList<Event> eventList = Event.getFromFile();
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
@@ -47,18 +46,19 @@ public class Event {
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
-                    searchAnEvent(eventList);
+                    searchAnEvent();
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;
                 case 2:
-                    eventList.add(addEvent(eventList.size()));
+                    ArrayList<Event> eventList = Event.getFromFile();
+                    eventList.add(addEvent());
                     ManageJson.writeFile("data/events.json",eventList);
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;
                 case 3:
-                    searchEventIdToCalculate(eventList);
+                    searchEventIdToCalculate();
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;
@@ -77,10 +77,13 @@ public class Event {
     
     }
     
-    private static Event addEvent(int listSize){
+    private static Event addEvent(){
+        
+        ArrayList<Event> eventList = Event.getFromFile();
+        int asignId = eventList.size() + 1;
         int option=0;
         
-        System.out.println("Enter the event start time::");
+        System.out.println("Enter the event start time:");
         Schedule starTime = Schedule.createEntrySchedule();
         System.out.println("Enter the event end time:");
         Schedule endTime = Schedule.createDepartureSchedule(starTime);
@@ -101,11 +104,12 @@ public class Event {
             PenaltyFee.createPenaltyFees(penaltyFees);
         }   
 
-        return new Event(listSize+1,artist,eventPlace,starTime, endTime, staffInEvent, equipmentInEvent,generalExpenses,penaltyFees);
+        return new Event(asignId,artist,eventPlace,starTime, endTime, staffInEvent, equipmentInEvent,generalExpenses,penaltyFees);
         
     }
     
-    private static void searchAnEvent(ArrayList<Event> eventList){
+    private static void searchAnEvent(){
+        ArrayList<Event> eventList = Event.getFromFile();
          System.out.println("Enter the Event Id:");
          int id = HandleInput.insertInteger();
          int sizeCount=0;
@@ -147,7 +151,8 @@ public class Event {
     }
     
 
-    private static void searchEventIdToCalculate(ArrayList<Event> eventList){
+    private static void searchEventIdToCalculate(){
+        ArrayList<Event> eventList = Event.getFromFile();
          System.out.println("Enter the Event Id:");
          int id = HandleInput.insertInteger();
          int sizeCount=0;

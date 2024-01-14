@@ -8,5 +8,15 @@
     "generalExpensesCost": 48000.0,
     "penaltyFeesCost": 15000.0,
     "totalAmount": 144658.0
+  },
+  {
+    "id": 2,
+    "artistCost": 784000.0,
+    "venueCost": 31800.0,
+    "staffCost": 383.68,
+    "equipmentCost": 751.23,
+    "generalExpensesCost": 800.0,
+    "penaltyFeesCost": 0.0,
+    "totalAmount": 817734.94
   }
 ]

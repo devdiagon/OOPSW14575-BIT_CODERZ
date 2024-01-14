@@ -100,5 +100,72 @@
         "cost": 15000.0
       }
     ]
+  },
+  {
+    "id": 2,
+    "artist": {
+      "name": "Luis Miguel",
+      "hiringCost": 700000.0
+    },
+    "place": {
+      "name": "Estadio Olímpico Atahualpa",
+      "adress": "Av. 6 de Diciembre y Naciones Unidas",
+      "rentCost": 15000.0,
+      "capacity": 39000
+    },
+    "startTime": {
+      "year": 2023,
+      "month": 2,
+      "day": 15,
+      "hours": 16,
+      "minutes": 30
+    },
+    "endTime": {
+      "year": 2023,
+      "month": 2,
+      "day": 16,
+      "hours": 20,
+      "minutes": 20
+    },
+    "staff": [
+      {
+        "id": 1,
+        "type": "Security",
+        "employees": [
+          {
+            "id": 5,
+            "name": "Carolina",
+            "hourlyWage": 6.73
+          },
+          {
+            "id": 4,
+            "name": "Luis",
+            "hourlyWage": 10.0
+          },
+          {
+            "id": 7,
+            "name": "Jose",
+            "hourlyWage": 7.25
+          }
+        ],
+        "totalStaffCost": 383.68,
+        "daysWorked": 2,
+        "hoursWorked": 8
+      }
+    ],
+    "equipment": [
+      {
+        "type": "Cellphone",
+        "cost": 250.41,
+        "quantity": 3
+      }
+    ],
+    "generalExpenses": [
+      {
+        "type": "comida",
+        "costAmount": 800.0
+      }
+    ],
+    "penaltyFees": []
   }
 ]

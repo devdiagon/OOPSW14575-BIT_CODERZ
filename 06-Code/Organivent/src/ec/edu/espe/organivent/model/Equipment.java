@@ -92,14 +92,16 @@ public class Equipment {
         int addMore=1;
         boolean passed=false;
         int sizeCount=0;
+        String textToCompare="";
         
         do{
             sizeCount=0;
             System.out.println("Insert the Equipment Type to add");
-            searchName = HandleInput.insertNonBlankString();
+            searchName = HandleInput.insertNonBlankString().toLowerCase();
             
             for(Equipment currentEquipment : equipmentInEvent) {
-                if(currentEquipment.getType().equals(searchName)){
+                textToCompare=currentEquipment.getType().toLowerCase();
+                if(textToCompare.contains(searchName)){
                     System.out.println("The type: " + searchName + " is already in this event");
                     passed=false;
                     break;
@@ -121,11 +123,13 @@ public class Equipment {
         int addMore=1;
         boolean passed=false;
         int sizeCount=0;
+        String textToCompare;
         
         do{
             sizeCount=0;
             for(Equipment currentEquipment : equipmentList) {
-                if(currentEquipment.getType().equals(searchName)){
+                textToCompare=currentEquipment.getType().toLowerCase();
+                if(textToCompare.contains(searchName)){
                     equipmentInEvent.add(currentEquipment);
                     passed=true;
                     System.out.println("Want to add another Equipment? 1) Yes - 2) No");
