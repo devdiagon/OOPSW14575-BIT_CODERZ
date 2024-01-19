@@ -93,7 +93,14 @@ public class HandleInput {
                         passed=false;
                         break;
                     }else{
-                        passed = true;
+                        if(!Character.isLetter(currentchar)){
+                            System.out.println("A name can't have special characters!");
+                            System.out.println("Please try again");
+                            passed=false;
+                        break;
+                        }else{
+                            passed = true;
+                        }
                     }
                 }
         } while (passed==false);
