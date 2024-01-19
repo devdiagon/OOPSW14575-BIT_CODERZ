@@ -78,7 +78,7 @@ public class Equipment {
     private static void seeEquipment(ArrayList<Equipment> equipmentList){
         System.out.println("============== Equipment List ===============");
         System.out.println("         Type        | Unit Cost | Quantity |");
-        System.out.println("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
+        System.out.println("=============================================");
          for(Equipment currentEquipment : equipmentList) {
             System.out.println(currentEquipment);
         }

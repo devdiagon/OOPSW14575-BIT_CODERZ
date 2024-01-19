@@ -1,72 +1,17 @@
 [
   {
     "id": 1,
-    "name": "Mike",
-    "wage": 3.5
+    "name": "Alejandro Redin",
+    "wage": 6.5
   },
   {
     "id": 2,
-    "name": "Pepe",
-    "wage": 2.36
+    "name": "Diego Carrera",
+    "wage": 8.0
   },
   {
     "id": 3,
-    "name": "Marco",
-    "wage": 1.25
-  },
-  {
-    "id": 4,
-    "name": "Luis",
-    "wage": 10.0
-  },
-  {
-    "id": 5,
-    "name": "Carolina",
-    "wage": 6.73
-  },
-  {
-    "id": 6,
-    "name": "Mateo",
-    "wage": 8.9
-  },
-  {
-    "id": 7,
-    "name": "Jose",
-    "wage": 7.25
-  },
-  {
-    "id": 8,
-    "name": "Lucia",
-    "wage": 4.28
-  },
-  {
-    "id": 9,
-    "name": "Fernanda",
-    "wage": 9.04
-  },
-  {
-    "id": 10,
-    "name": "Claudio",
-    "wage": 4.95
-  },
-  {
-    "id": 11,
-    "name": "Diego Carrera",
-    "wage": 8.36
-  },
-  {
-    "id": 12,
     "name": "Ronnie Rodriguez",
-    "wage": 4.07
-  },
-  {
-    "id": 13,
-    "name": "Anahí",
-    "wage": 6.0
-  },
-  {
-    "id": 14,
-    "name": "Felipe",
-    "wage": 35.0
+    "wage": 7.25
   }
 ]

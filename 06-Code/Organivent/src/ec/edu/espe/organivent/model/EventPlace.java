@@ -79,7 +79,7 @@ public class EventPlace {
     private static void seeEventPlaces(ArrayList<EventPlace> eventPlaceList){
         System.out.println("===================================== Event Places List ====================================");
         System.out.println("             Name             |            Adress            |  Rent Cost | Capacity (seats)");
-        System.out.println("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
+        System.out.println("============================================================================================");
          for(EventPlace currentEventPlace : eventPlaceList) {
             System.out.println(currentEventPlace);
         }

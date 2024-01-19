@@ -2,168 +2,76 @@
   {
     "id": 1,
     "artist": {
-      "name": "Camilo",
-      "hiringCost": 25000.0
+      "id": 1,
+      "name": "Luis Miguel",
+      "wage": 900000.0
     },
     "place": {
-      "name": "Coliseo General Rumiñahui",
-      "adress": "Av. Diego Ladrón de Guevara",
-      "rentCost": 25000.0,
-      "capacity": 9000
+      "name": "Estadio Atahualpa",
+      "adress": "Av. 6 de Dic",
+      "rentCost": 750000.0,
+      "capacity": 40000
     },
     "startTime": {
-      "year": 2023,
-      "month": 12,
-      "day": 17,
-      "hours": 20,
-      "minutes": 30
+      "year": 2024,
+      "month": 2,
+      "day": 21,
+      "hours": 19,
+      "minutes": 0
     },
     "endTime": {
-      "year": 2023,
-      "month": 12,
-      "day": 17,
+      "year": 2024,
+      "month": 2,
+      "day": 21,
       "hours": 22,
-      "minutes": 30
+      "minutes": 0
     },
     "staff": [
       {
         "id": 1,
-        "type": "Security",
+        "type": "Sellers",
         "employees": [
           {
-            "id": 5,
-            "name": "Carolina",
-            "hourlyWage": 6.73
+            "id": 2,
+            "name": "Diego Carrera",
+            "wage": 8.0
           },
           {
-            "id": 4,
-            "name": "Luis",
-            "hourlyWage": 10.0
-          },
-          {
-            "id": 7,
-            "name": "Jose",
-            "hourlyWage": 7.25
+            "id": 3,
+            "name": "Ronnie Rodriguez",
+            "wage": 7.25
           }
         ],
-        "totalStaffCost": 383.68,
-        "daysWorked": 2,
-        "hoursWorked": 8
+        "totalStaffCost": 610.0,
+        "daysWorked": 4,
+        "hoursWorked": 10
       },
       {
         "id": 2,
-        "type": "Ticket Office",
+        "type": "Supervisor",
         "employees": [
           {
-            "id": 9,
-            "name": "Fernanda",
-            "hourlyWage": 9.04
-          },
-          {
-            "id": 6,
-            "name": "Mateo",
-            "hourlyWage": 8.9
-          },
-          {
-            "id": 8,
-            "name": "Lucia",
-            "hourlyWage": 4.28
+            "id": 1,
+            "name": "Alejandro Redin",
+            "wage": 6.5
           }
         ],
-        "totalStaffCost": 133.32,
-        "daysWorked": 1,
-        "hoursWorked": 6
+        "totalStaffCost": 286.0,
+        "daysWorked": 4,
+        "hoursWorked": 11
       }
     ],
     "equipment": [
       {
-        "type": "Camera",
-        "cost": 20.0,
-        "quantity": 5
-      },
-      {
-        "type": "Bateries",
-        "cost": 20.5,
-        "quantity": 2
-      }
-    ],
-    "generalExpenses": [
-      {
-        "type": "Transport",
-        "costAmount": 48000.0
-      }
-    ],
-    "penaltyFees": [
-      {
-        "type": "Pirotecnia",
-        "description": "Uso indebido de material explosivo en el establecimiento.",
-        "cost": 15000.0
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "artist": {
-      "name": "Luis Miguel",
-      "hiringCost": 700000.0
-    },
-    "place": {
-      "name": "Estadio Olímpico Atahualpa",
-      "adress": "Av. 6 de Diciembre y Naciones Unidas",
-      "rentCost": 15000.0,
-      "capacity": 39000
-    },
-    "startTime": {
-      "year": 2023,
-      "month": 2,
-      "day": 15,
-      "hours": 16,
-      "minutes": 30
-    },
-    "endTime": {
-      "year": 2023,
-      "month": 2,
-      "day": 16,
-      "hours": 20,
-      "minutes": 20
-    },
-    "staff": [
-      {
-        "id": 1,
-        "type": "Security",
-        "employees": [
-          {
-            "id": 5,
-            "name": "Carolina",
-            "hourlyWage": 6.73
-          },
-          {
-            "id": 4,
-            "name": "Luis",
-            "hourlyWage": 10.0
-          },
-          {
-            "id": 7,
-            "name": "Jose",
-            "hourlyWage": 7.25
-          }
-        ],
-        "totalStaffCost": 383.68,
-        "daysWorked": 2,
-        "hoursWorked": 8
-      }
-    ],
-    "equipment": [
-      {
-        "type": "Cellphone",
-        "cost": 250.41,
+        "type": "Datafast",
+        "cost": 150.0,
         "quantity": 3
       }
     ],
     "generalExpenses": [
       {
-        "type": "comida",
-        "costAmount": 800.0
+        "type": "General",
+        "costAmount": 300.0
       }
     ],
     "penaltyFees": []

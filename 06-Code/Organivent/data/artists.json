@@ -1,22 +1,7 @@
 [
   {
-    "id":1,
-    "name": "Camilo",
-    "wage": 25000.0
-  },
-  {
-    "id":2,
+    "id": 1,
     "name": "Luis Miguel",
-    "wage": 700000.0
-  },
-  {
-    "id":3,
-    "name": "Juan",
-    "wage": 152874.0
-  },
-  {
-    "id":4,
-    "name": "Martin Garrix",
-    "wage": 1688959.0
+    "wage": 900000.0
   }
 ]

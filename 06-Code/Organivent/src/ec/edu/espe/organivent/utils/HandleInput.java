@@ -86,6 +86,7 @@ public class HandleInput {
         
         do {
             inputName = insertNonBlankString();
+            passed = true;
             for(char currentchar:inputName.toCharArray()){
                     if(Character.isDigit(currentchar)){
                         System.out.println("A name can't have numbers!");
@@ -93,7 +94,7 @@ public class HandleInput {
                         passed=false;
                         break;
                     }else{
-                        if(!Character.isLetter(currentchar)){
+                        if(!Character.isLetter(currentchar)&& !Character.isWhitespace(currentchar)){
                             System.out.println("A name can't have special characters!");
                             System.out.println("Please try again");
                             passed=false;

@@ -1,17 +1,12 @@
 [
   {
-    "type": "Camera",
-    "cost": 20.0,
-    "quantity": 5
-  },
-  {
-    "type": "Cellphone",
-    "cost": 250.41,
+    "type": "Phones",
+    "cost": 600.0,
     "quantity": 3
   },
   {
-    "type": "Bateries",
-    "cost": 20.5,
-    "quantity": 2
+    "type": "Datafast",
+    "cost": 150.0,
+    "quantity": 3
   }
 ]

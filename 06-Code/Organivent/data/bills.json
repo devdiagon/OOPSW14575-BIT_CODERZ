@@ -1,22 +1,12 @@
 [
   {
     "id": 1,
-    "artistCost": 0.0,
-    "venueCost": 53000.0,
-    "staffCost": 517.0,
-    "equipmentCost": 141.0,
-    "generalExpensesCost": 48000.0,
+    "artistCost": 1008000.0,
+    "venueCost": 1590000.0,
+    "staffCost": 896.0,
+    "equipmentCost": 450.0,
+    "generalExpensesCost": 300.0,
     "penaltyFeesCost": 0.0,
-    "totalAmount": 101658.0
-  },
-  {
-    "id": 2,
-    "artistCost": 784000.0,
-    "venueCost": 31800.0,
-    "staffCost": 383.68,
-    "equipmentCost": 751.23,
-    "generalExpensesCost": 800.0,
-    "penaltyFeesCost": 0.0,
-    "totalAmount": 817734.94
+    "totalAmount": 2599646.0
   }
 ]
