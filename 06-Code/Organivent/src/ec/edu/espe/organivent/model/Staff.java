@@ -102,7 +102,7 @@ public class Staff {
         float totalStaffCost = 0;
         
         for(Employee currentEmployee : employees) {
-            costPerHour = ((currentEmployee.getHourlyWage()) * workingHours);
+            costPerHour = ((currentEmployee.getWage()) * workingHours);
             totalStaffCost += costPerHour;
         }
         
@@ -201,7 +201,7 @@ public class Staff {
         System.out.println("For " + workingHours + " working hours");
         System.out.println("Employees:");
         for(Employee currentEmployee : currentStaff.getEmployees()) {
-            individualPayment = ((currentEmployee.getHourlyWage()) * workingHours);
+            individualPayment = ((currentEmployee.getWage()) * workingHours);
             System.out.println(" Id:" + currentEmployee.getId() + " " + currentEmployee.getName() + " Payment = $" + individualPayment);
             totalStaffCost += individualPayment;
         }

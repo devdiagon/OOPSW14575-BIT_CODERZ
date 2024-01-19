@@ -29,7 +29,6 @@ public class Bill {
     
     public static void saveBill(Bill tempBill){
         ArrayList<Bill> billList = Bill.getFromFile();
-        //Bill tempBill = new Bill(eventId,artistCost,venueCost,staffCost,equipmentCost,generalExpensesCost,penaltyFeesCost,totalAmount);
         int searchId=tempBill.getId();
         boolean exists = searchForBill(searchId);
         

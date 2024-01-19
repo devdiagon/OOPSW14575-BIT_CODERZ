@@ -14,12 +14,10 @@ import java.util.regex.Pattern;
  *
  * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
  */
-public class Administrator {
+public class Administrator extends Person{
 
-    private int id;
     private String userName;
     private byte[] password;
-    private String name;
     private String email;
     private int phoneNumber;
     
@@ -52,7 +50,10 @@ public class Administrator {
         System.out.println("Enter your Phone Number");
         int phoneNumber = validatePhoneNumber();
         
-        return new Administrator(asignId,userName,encriptedPassword,name,email,phoneNumber);
+        System.out.println("Enter your Wage");
+        float wage = HandleInput.insertPrice();
+        
+        return new Administrator(userName, encriptedPassword, email, phoneNumber, asignId, name,wage);
     }
     
     private static String validateUserName(){
@@ -250,27 +251,12 @@ public class Administrator {
         }while (option != 7);
     }
 
-    public Administrator(int id, String userName, byte[] password, String name, String email, int phoneNumber) {
-        this.id = id;
+    public Administrator(String userName, byte[] password, String email, int phoneNumber, int id, String name, float wage) {
+        super(id, name, wage);
         this.userName = userName;
         this.password = password;
-        this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
-    }
-
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
     }
 
     /**
@@ -299,20 +285,6 @@ public class Administrator {
      */
     public void setPassword(byte[] password) {
         this.password = password;
-    }
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**

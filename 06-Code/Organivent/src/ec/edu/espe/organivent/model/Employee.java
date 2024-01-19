@@ -12,11 +12,7 @@ import java.util.Scanner;
  * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO
  * ESPE
  */
-public class Employee {
-
-    private int id;
-    private String name;
-    private float hourlyWage;
+public class Employee extends Person{
 
     public static ArrayList<Employee> getFromFile() {
         Type type = new TypeToken<ArrayList<Employee>>() {
@@ -149,37 +145,10 @@ public class Employee {
 
     @Override
     public String toString() {
-        return String.format("|Id: %-5d | %-20s |$ %-10.2f per hour|%n", id, name, hourlyWage);
+        return String.format("|Id: %-5d | %-20s |$ %-10.2f per hour|%n", super.getId(), super.getName(), super.getWage());
     }
 
-    public Employee(int employeeId, String name, float hourlyWage) {
-        this.id = employeeId;
-        this.name = name;
-        this.hourlyWage = hourlyWage;
+    public Employee(int id, String name, float wage) {
+        super(id, name, wage);
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int employeeId) {
-        this.id = employeeId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public float getHourlyWage() {
-        return hourlyWage;
-    }
-
-    public void setHourlyWage(float hourlyWage) {
-        this.hourlyWage = hourlyWage;
-    }
-
 }

@@ -8,10 +8,8 @@ import java.util.Scanner;
  *
  * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
  */
-public class PenaltyFee {
-    private String type;
+public class PenaltyFee extends Expense{
     private String description;
-    private float cost;
     
     public static void createPenaltyFees(ArrayList<PenaltyFee> penaltyFees){
         int option =1;
@@ -25,8 +23,6 @@ public class PenaltyFee {
     }
     
     private static PenaltyFee createPenaltyFee(){
-        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
-        float cost=0;
         
         System.out.println("Enter the type of the penalty fee:");
         String type = HandleInput.insertNonBlankString();
@@ -34,22 +30,20 @@ public class PenaltyFee {
         System.out.println("Enter a brief description about this penalty fee:");
         String description = HandleInput.insertNonBlankString();
         
-        do{
-            System.out.println("Enter the cost of this penalty fee:");
-            cost = HandleInput.insertPrice();
-        }while(cost<1f);
+        System.out.println("Enter the cost of this penalty fee:");
+        float cost = HandleInput.insertPrice();
         
-        return new PenaltyFee(type, description, cost);
+        return new PenaltyFee(description, type, cost);
     }
     
-    public static float calculateTotalPenaltyFeesCost(ArrayList<PenaltyFee> penaltyFeeList){
+    public static float calculateTotalPenaltyFeeCost(ArrayList<PenaltyFee> penaltyFeeList){
         float individualPenaltyFeeCost=0;
         float totalPenaltyFeeCost=0;
         
         System.out.println("Penalty Fees:");
         if(!penaltyFeeList.isEmpty()){
             for(PenaltyFee currentpenaltyFee:penaltyFeeList){
-                individualPenaltyFeeCost = currentpenaltyFee.getCost();
+                individualPenaltyFeeCost = currentpenaltyFee.getCostAmount();
                 System.out.println("   Type: " + currentpenaltyFee.getType() + " has a cost of: $ " + individualPenaltyFeeCost);
                 totalPenaltyFeeCost += individualPenaltyFeeCost;
             }
@@ -63,25 +57,9 @@ public class PenaltyFee {
         return totalPenaltyFeeCost;
     }
 
-    public PenaltyFee(String type, String description, float cost) {
-        this.type = type;
+    public PenaltyFee(String description, String type, float costAmount) {
+        super(type, costAmount);
         this.description = description;
-        this.cost = cost;
-    }
-    
-
-    /**
-     * @return the type
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * @param type the type to set
-     */
-    public void setType(String type) {
-        this.type = type;
     }
 
     /**
@@ -97,20 +75,4 @@ public class PenaltyFee {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    /**
-     * @return the cost
-     */
-    public float getCost() {
-        return cost;
-    }
-
-    /**
-     * @param cost the cost to set
-     */
-    public void setCost(float cost) {
-        this.cost = cost;
-    }
-    
-    
 }

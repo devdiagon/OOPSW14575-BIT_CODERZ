@@ -2,71 +2,71 @@
   {
     "id": 1,
     "name": "Mike",
-    "hourlyWage": 3.5
+    "wage": 3.5
   },
   {
     "id": 2,
     "name": "Pepe",
-    "hourlyWage": 2.36
+    "wage": 2.36
   },
   {
     "id": 3,
     "name": "Marco",
-    "hourlyWage": 1.25
+    "wage": 1.25
   },
   {
     "id": 4,
     "name": "Luis",
-    "hourlyWage": 10.0
+    "wage": 10.0
   },
   {
     "id": 5,
     "name": "Carolina",
-    "hourlyWage": 6.73
+    "wage": 6.73
   },
   {
     "id": 6,
     "name": "Mateo",
-    "hourlyWage": 8.9
+    "wage": 8.9
   },
   {
     "id": 7,
     "name": "Jose",
-    "hourlyWage": 7.25
+    "wage": 7.25
   },
   {
     "id": 8,
     "name": "Lucia",
-    "hourlyWage": 4.28
+    "wage": 4.28
   },
   {
     "id": 9,
     "name": "Fernanda",
-    "hourlyWage": 9.04
+    "wage": 9.04
   },
   {
     "id": 10,
     "name": "Claudio",
-    "hourlyWage": 4.95
+    "wage": 4.95
   },
   {
     "id": 11,
     "name": "Diego Carrera",
-    "hourlyWage": 8.36
+    "wage": 8.36
   },
   {
     "id": 12,
     "name": "Ronnie Rodriguez",
-    "hourlyWage": 4.07
+    "wage": 4.07
   },
   {
     "id": 13,
     "name": "Anahí",
-    "hourlyWage": 6.0
+    "wage": 6.0
   },
   {
     "id": 14,
     "name": "Felipe",
-    "hourlyWage": 35.0
+    "wage": 35.0
   }
 ]

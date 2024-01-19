@@ -23,21 +23,17 @@ public class Expense {
     }
     
     private static Expense createExpense(){
-        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
-        float costAmount=0;
         
         System.out.println("Enter the type of the expense:");
         String type = HandleInput.insertNonBlankString();
         
-        do{
-            System.out.println("Enter the cost of this expense:");
-            costAmount = HandleInput.insertPrice();
-        }while(costAmount<1f);
-        
+        System.out.println("Enter the cost of this expense:");
+        float costAmount = HandleInput.insertPrice();
+
         return new Expense(type,costAmount);
     }
     
-    public static float calculateTotalGeneralExpensesCost(ArrayList<Expense> expenseList){
+    public static float calculateTotalCost(ArrayList<Expense> expenseList){
         float individualExpenseCost=0;
         float totalGeneralExpenseCost=0;
         

@@ -11,10 +11,7 @@ import java.util.Scanner;
  *
  * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
  */
-public class Artist {
-
-    private String name;
-    private float hiringCost;
+public class Artist extends Person{
     
     public static ArrayList<Artist> getFromFile(){
         Type type = new TypeToken<ArrayList<Artist>>(){}.getType();
@@ -58,19 +55,21 @@ public class Artist {
     }
     
     private static Artist addArtist(){
+        ArrayList<Artist> artistList = Artist.getFromFile();
+        int asignId=artistList.size()+1;
         
         System.out.println("Enter the artist's name:");
         String name = HandleInput.insertRealName();
         System.out.println("Enter the artist's hiring cost:");
         float hiringCost = HandleInput.insertPrice();
-        return new Artist(name, hiringCost);
+        return new Artist(asignId,name, hiringCost);
     }
     
     private static void seeArtists(){
         ArrayList<Artist> artistList = Artist.getFromFile();
-        System.out.println("=========== Artist List ===========");
-        System.out.println("       Name          | Hiring Cost|");
-        System.out.println("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
+        System.out.println("============== Artist List ==============");
+        System.out.println(" ID |        Name          | Hiring Cost|");
+        System.out.println("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
          for(Artist currentArtist : artistList) {
             System.out.println(currentArtist);
         }
@@ -109,27 +108,10 @@ public class Artist {
     @Override
     public String toString() {
         
-        return String.format("%-20s |$ %-10.2f|", name, hiringCost);
+        return String.format(" %-3s|%-20s |$ %-10.2f|",super.getId(), super.getName(), super.getWage());
     }
 
-    public Artist(String name, float hiringCost) {
-        this.name = name;
-        this.hiringCost = hiringCost;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public float getHiringCost() {
-        return hiringCost;
-    }
-
-    public void setHiringCost(float hiringCost) {
-        this.hiringCost = hiringCost;
+    public Artist(int id, String name, float wage) {
+        super(id, name, wage);
     }
 }

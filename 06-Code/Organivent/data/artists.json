@@ -1,18 +1,22 @@
 [
   {
+    "id":1,
     "name": "Camilo",
-    "hiringCost": 25000.0
+    "wage": 25000.0
   },
   {
+    "id":2,
     "name": "Luis Miguel",
-    "hiringCost": 700000.0
+    "wage": 700000.0
   },
   {
+    "id":3,
     "name": "Juan",
-    "hiringCost": 152874.0
+    "wage": 152874.0
   },
   {
+    "id":4,
     "name": "Martin Garrix",
-    "hiringCost": 1688959.0
+    "wage": 1688959.0
   }
 ]

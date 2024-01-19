@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Usuario
+ * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
  */
 public class Event {
 
@@ -175,12 +175,12 @@ public class Event {
         float totalEquipmentCost=0;
         float individualEquipmentCost=0;
         
-        float artistHiringCost=currentEvent.getArtist().getHiringCost();
+        float artistHiringCost=currentEvent.getArtist().getWage();
         float placeRentCost=currentEvent.getPlace().getRentCost();
         
         
         System.out.println("===========[Event " + currentEvent.getId() + " cost details]===========");
-        System.out.println("Artist hiring cost of: $" + currentEvent.getArtist().getHiringCost());
+        System.out.println("Artist hiring cost of: $" + currentEvent.getArtist().getWage());
         artistHiringCost = Bill.calculateIVA(artistHiringCost);
         estimatedEventCost += artistHiringCost;
         System.out.println("------------------------------------------------------");
@@ -209,11 +209,11 @@ public class Event {
         estimatedEventCost += totalEquipmentCost;
         
         System.out.println("------------------------------------------------------");
-        float totalGeneralExpenseCost=Expense.calculateTotalGeneralExpensesCost(currentEvent.getGeneralExpenses());
+        float totalGeneralExpenseCost=Expense.calculateTotalCost(currentEvent.getGeneralExpenses());
         estimatedEventCost += totalGeneralExpenseCost;
         
         System.out.println("------------------------------------------------------");
-        float totalPenaltyFeeCost=PenaltyFee.calculateTotalPenaltyFeesCost(currentEvent.getPenaltyFees());
+        float totalPenaltyFeeCost=PenaltyFee.calculateTotalPenaltyFeeCost(currentEvent.getPenaltyFees());
         estimatedEventCost += totalPenaltyFeeCost;
         
         System.out.println("------------------------------------------------------\n");
