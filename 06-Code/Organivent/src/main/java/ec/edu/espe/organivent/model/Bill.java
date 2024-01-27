@@ -1,13 +1,13 @@
 package ec.edu.espe.organivent.model;
 
-import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
+import com.mongodb.client.model.FindOneAndReplaceOptions;
+import com.mongodb.client.model.ReturnDocument;
 import ec.edu.espe.organivent.utils.HandleInput;
-import ec.edu.espe.organivent.utils.ManageJson;
 import ec.edu.espe.organivent.utils.UseMongoDB;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
+import org.bson.conversions.Bson;
 
 /**
  *
@@ -23,34 +23,40 @@ public class Bill {
     private float penaltyFeesCost;
     private float totalAmount;
     
-    private static ArrayList<Bill> getFromFile(){
-        Type type = new TypeToken<ArrayList<Bill>>(){}.getType();
-        ArrayList<Bill> billList = ManageJson.readFile("data/bills.json",type);
-        return billList;
+     public static MongoCollection<Bill> getFromDB(){
+       Class classType = Bill.class;
+        String collectionName = "Bill";
+        
+        MongoCollection<Bill> billInDB = UseMongoDB.getFromCollection(collectionName, classType);  
+        
+        return billInDB;
     }
     
     
     public static void saveBill(Bill tempBill){
-        ArrayList<Bill> billList = Bill.getFromFile();
+        MongoCollection<Bill> billInDB = Bill.getFromDB();
+        ArrayList<Bill> billList = new ArrayList<>();
+        billInDB.find().into(billList);
+        
         int searchId=tempBill.getId();
         boolean exists = searchForBill(searchId);
         
-        if(exists==false){
-            billList.add(tempBill);
-        }else{
-            for(Bill currentBill : billList){
-                if(currentBill.getId() == searchId){
-                    billList.set(searchId-1, tempBill);
-                    break;
-                }
-            }
-        }
         
-        ManageJson.writeFile("data/bills.json",billList);
+        
+        if(exists==false){
+            billInDB.insertOne(tempBill);
+        }else{
+            Bson filter = eq("_id",tempBill.getId());
+            FindOneAndReplaceOptions returnDocAfterReplace = new FindOneAndReplaceOptions().returnDocument(ReturnDocument.AFTER);
+            billInDB.findOneAndReplace(filter, tempBill, returnDocAfterReplace);
+        }
     }
     
     private static boolean searchForBill(int id){
-        ArrayList<Bill> billList = Bill.getFromFile();
+        MongoCollection<Bill> billInDB = Bill.getFromDB();
+        ArrayList<Bill> billList = new ArrayList<>();
+        billInDB.find().into(billList);
+        
         boolean findBill=false;
         
         for(Bill currentBill : billList){
@@ -63,7 +69,9 @@ public class Bill {
     }
     
     public static void seeForBillId(){
-        ArrayList<Bill> billList = Bill.getFromFile();
+        MongoCollection<Bill> billInDB = Bill.getFromDB();
+        ArrayList<Bill> billList = new ArrayList<>();
+        billInDB.find().into(billList);
         
         System.out.println("Enter the Event Id to get it's bill:");
         int searchId = HandleInput.insertInteger();
@@ -107,6 +115,8 @@ public class Bill {
         this.penaltyFeesCost = penaltyFeesCost;
         this.totalAmount = totalAmount;
     }
+    
+    public Bill(){}
 
     /**
      * @return the id

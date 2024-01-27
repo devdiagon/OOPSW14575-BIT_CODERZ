@@ -1,9 +1,8 @@
 package ec.edu.espe.organivent.model;
 
-import com.google.gson.reflect.TypeToken;
+import com.mongodb.client.MongoCollection;
 import ec.edu.espe.organivent.utils.HandleInput;
-import ec.edu.espe.organivent.utils.ManageJson;
-import java.lang.reflect.Type;
+import ec.edu.espe.organivent.utils.UseMongoDB;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,11 +22,13 @@ public class Event {
     private ArrayList<Expense> generalExpenses;
     private ArrayList<PenaltyFee> penaltyFees;
     
-    
-    private static ArrayList<Event> getFromFile(){
-        Type type = new TypeToken<ArrayList<Event>>(){}.getType();
-        ArrayList<Event> eventList = ManageJson.readFile("data/events.json",type);
-        return eventList;
+    public static MongoCollection<Event> getFromDB(){
+       Class classType = Event.class;
+        String collectionName = "Event";
+        
+        MongoCollection<Event> eventInDB = UseMongoDB.getFromCollection(collectionName, classType);  
+        
+        return eventInDB;
     }
     
     public static void menu(){
@@ -51,9 +52,7 @@ public class Event {
                     scanner.nextLine();
                     break;
                 case 2:
-                    ArrayList<Event> eventList = Event.getFromFile();
-                    eventList.add(addEvent());
-                    ManageJson.writeFile("data/events.json",eventList);
+                    addEvent();
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;
@@ -77,9 +76,11 @@ public class Event {
     
     }
     
-    private static Event addEvent(){
+    private static void addEvent(){
+        MongoCollection<Event> eventInDB = Event.getFromDB();
+        ArrayList<Event> eventList = new ArrayList<>();
+        eventInDB.find().into(eventList);
         
-        ArrayList<Event> eventList = Event.getFromFile();
         int asignId = eventList.size() + 1;
         int option=0;
         
@@ -102,14 +103,19 @@ public class Event {
         option = HandleInput.insertInteger();
         if(option==1){
             PenaltyFee.createPenaltyFees(penaltyFees);
-        }   
-
-        return new Event(asignId,artist,eventPlace,starTime, endTime, staffInEvent, equipmentInEvent,generalExpenses,penaltyFees);
+        }
+        
+        Event generatedEvent = new Event(asignId,artist,eventPlace,starTime, 
+                endTime, staffInEvent, equipmentInEvent,generalExpenses,penaltyFees); 
+        eventInDB.insertOne(generatedEvent);
         
     }
     
     private static void searchAnEvent(){
-        ArrayList<Event> eventList = Event.getFromFile();
+        MongoCollection<Event> eventInDB = Event.getFromDB();
+        ArrayList<Event> eventList = new ArrayList<>();
+        eventInDB.find().into(eventList);
+        
          System.out.println("Enter the Event Id:");
          int id = HandleInput.insertInteger();
          int sizeCount=0;
@@ -152,7 +158,10 @@ public class Event {
     
 
     private static void searchEventIdToCalculate(){
-        ArrayList<Event> eventList = Event.getFromFile();
+        MongoCollection<Event> eventInDB = Event.getFromDB();
+        ArrayList<Event> eventList = new ArrayList<>();
+        eventInDB.find().into(eventList);
+        
          System.out.println("Enter the Event Id:");
          int id = HandleInput.insertInteger();
          int sizeCount=0;
@@ -236,6 +245,8 @@ public class Event {
         this.generalExpenses = generalExpenses;
         this.penaltyFees = penaltyFees;
     }
+    
+    public Event(){}
 
     /**
      * @return the id

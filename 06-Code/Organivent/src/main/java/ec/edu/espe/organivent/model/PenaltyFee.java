@@ -2,7 +2,6 @@ package ec.edu.espe.organivent.model;
 
 import ec.edu.espe.organivent.utils.HandleInput;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -61,6 +60,8 @@ public class PenaltyFee extends Expense{
         super(type, costAmount);
         this.description = description;
     }
+    
+    public PenaltyFee(){}
 
     /**
      * @return the description

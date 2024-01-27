@@ -60,6 +60,8 @@ public class Schedule {
         this.hours = hours;
         this.minutes = minutes;
     }
+    
+    public Schedule(){}
 
     public int getYear() {
         return year;

@@ -1,9 +1,8 @@
 package ec.edu.espe.organivent.model;
 
-import com.google.gson.reflect.TypeToken;
+import com.mongodb.client.MongoCollection;
 import ec.edu.espe.organivent.utils.HandleInput;
-import ec.edu.espe.organivent.utils.ManageJson;
-import java.lang.reflect.Type;
+import ec.edu.espe.organivent.utils.UseMongoDB;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,14 +16,16 @@ public class Equipment {
     private float cost;
     private int quantity;
     
-     public static ArrayList<Equipment> getFromFile(){
-        Type type = new TypeToken<ArrayList<Equipment>>(){}.getType();
-        ArrayList<Equipment> equipmentList = ManageJson.readFile("data/equipment.json",type);
-        return equipmentList;
+    public static MongoCollection<Equipment> getFromDB(){
+       Class classType = Equipment.class;
+        String collectionName = "Equipment";
+        
+        MongoCollection<Equipment> equipmentInDB = UseMongoDB.getFromCollection(collectionName, classType);  
+        
+        return equipmentInDB;
     }
     
     public static void menu(){
-        ArrayList<Equipment> equipmentList = Equipment.getFromFile();
         Scanner scanner = new Scanner(System.in);
         int option;
         do {
@@ -38,13 +39,12 @@ public class Equipment {
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
-                    seeEquipment(equipmentList);
+                    seeEquipment();
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;
                 case 2:
-                    equipmentList.add(addEquipment());
-                    ManageJson.writeFile("data/equipment.json",equipmentList);
+                    addEquipment();
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;
@@ -58,24 +58,27 @@ public class Equipment {
     
     }
     
-    public static Equipment addEquipment(){
-        
-        Scanner scanner = new Scanner(System.in);
+    public static void addEquipment(){
+        MongoCollection<Equipment> equipmentInDB = Equipment.getFromDB();
 
         System.out.println("Enter the type of equipment:");
         String type = HandleInput.insertNonBlankString();
         System.out.println("Enter the cost of the equipment:");
         float cost = HandleInput.insertPrice();
-        scanner.nextLine();
         System.out.println("Enter the quantity of equipment:");
         int quantity = HandleInput.insertInteger();
-        scanner.nextLine();
-
-        return new Equipment(type, cost, quantity);
+        
+        Equipment generatedEquipment = new Equipment(type, cost, quantity);
+        
+        equipmentInDB.insertOne(generatedEquipment);
     }
     
     
-    private static void seeEquipment(ArrayList<Equipment> equipmentList){
+    private static void seeEquipment(){
+        MongoCollection<Equipment> equipmentInDB = Equipment.getFromDB();
+        ArrayList<Equipment> equipmentList = new ArrayList<>();
+        equipmentInDB.find().into(equipmentList);
+        
         System.out.println("============== Equipment List ===============");
         System.out.println("         Type        | Unit Cost | Quantity |");
         System.out.println("=============================================");
@@ -85,7 +88,6 @@ public class Equipment {
     }
     
     public static ArrayList<Equipment> enterEquipment(){
-        Scanner scanner = new Scanner(System.in);
         ArrayList<Equipment> equipmentInEvent = new ArrayList<>();
         
         String searchName;
@@ -118,7 +120,9 @@ public class Equipment {
     
     public static int addEquipmentInEvent(ArrayList<Equipment> equipmentInEvent, String searchName){
         
-        ArrayList<Equipment> equipmentList = Equipment.getFromFile();
+        MongoCollection<Equipment> equipmentInDB = Equipment.getFromDB();
+        ArrayList<Equipment> equipmentList = new ArrayList<>();
+        equipmentInDB.find().into(equipmentList);
         
         int addMore=1;
         boolean passed=false;
@@ -171,6 +175,8 @@ public class Equipment {
         this.cost = cost;
         this.quantity = quantity;
     }
+    
+    public Equipment(){}
 
     public String getType() {
         return type;

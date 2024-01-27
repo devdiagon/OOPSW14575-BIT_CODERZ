@@ -1,7 +1,5 @@
 package ec.edu.espe.organivent.model;
 
-import org.bson.types.ObjectId;
-
 /**
  *
  * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO

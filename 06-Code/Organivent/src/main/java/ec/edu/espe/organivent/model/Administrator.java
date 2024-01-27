@@ -1,12 +1,9 @@
 package ec.edu.espe.organivent.model;
 
-import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.MongoCollection;
 import ec.edu.espe.organivent.utils.Encriptation;
 import ec.edu.espe.organivent.utils.HandleInput;
-import ec.edu.espe.organivent.utils.ManageJson;
 import ec.edu.espe.organivent.utils.UseMongoDB;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -67,7 +64,6 @@ public class Administrator extends Person{
     
     private static String validateUserName(){
         MongoCollection<Administrator> administratorInDB = Administrator.getFromDB();
-        
         ArrayList<Administrator> administratorList = new ArrayList<>();
         administratorInDB.find().into(administratorList);
         

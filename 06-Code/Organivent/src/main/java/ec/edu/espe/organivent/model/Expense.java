@@ -2,7 +2,6 @@ package ec.edu.espe.organivent.model;
 
 import ec.edu.espe.organivent.utils.HandleInput;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -80,6 +79,8 @@ public class Expense {
         this.type = type;
         this.costAmount = costAmount;
     }
+    
+    public Expense(){}
 
     @Override
     public String toString() {
