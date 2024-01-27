@@ -1,5 +1,7 @@
 package ec.edu.espe.organivent.model;
 
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO
@@ -16,6 +18,8 @@ public abstract class Person {
         this.name = name;
         this.wage = wage;
     }
+    
+    public Person(){}
 
     /**
      * @return the id
@@ -58,5 +62,7 @@ public abstract class Person {
     public void setWage(float wage) {
         this.wage = wage;
     }
+    
+    
     
 }

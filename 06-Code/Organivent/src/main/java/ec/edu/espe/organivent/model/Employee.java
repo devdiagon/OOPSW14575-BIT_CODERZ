@@ -1,9 +1,8 @@
 package ec.edu.espe.organivent.model;
 
-import com.google.gson.reflect.TypeToken;
+import com.mongodb.client.MongoCollection;
 import ec.edu.espe.organivent.utils.HandleInput;
-import ec.edu.espe.organivent.utils.ManageJson;
-import java.lang.reflect.Type;
+import ec.edu.espe.organivent.utils.UseMongoDB;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,12 +12,14 @@ import java.util.Scanner;
  * ESPE
  */
 public class Employee extends Person{
-
-    public static ArrayList<Employee> getFromFile() {
-        Type type = new TypeToken<ArrayList<Employee>>() {
-        }.getType();
-        ArrayList<Employee> employeeList = ManageJson.readFile("data/employees.json", type);
-        return employeeList;
+    
+    private static MongoCollection<Employee> getFromDB(){
+        Class classType = Employee.class;
+        String collectionName = "Employee";
+        
+        MongoCollection<Employee> employeeInDB = UseMongoDB.getFromCollection(collectionName, classType);  
+        
+        return employeeInDB;        
     }
 
     public static void menu() {
@@ -40,9 +41,7 @@ public class Employee extends Person{
                     scanner.nextLine();
                     break;
                 case 2:
-                    ArrayList<Employee> employeeList = Employee.getFromFile();
-                    employeeList.add(addEmployee());
-                    ManageJson.writeFile("data/employees.json", employeeList);
+                    addEmployee();
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;
@@ -56,21 +55,29 @@ public class Employee extends Person{
 
     }
 
-    private static Employee addEmployee() {
+    private static void addEmployee() {
+        MongoCollection<Employee> employeeInDB = Employee.getFromDB();
         
-        ArrayList<Employee> employeeList = Employee.getFromFile();
+        ArrayList<Employee> employeeList = new ArrayList<>();
+        employeeInDB.find().into(employeeList);
+        
         int asignId = employeeList.size()+1;
 
         System.out.println("Enter the employee's name:");
         String name = HandleInput.insertRealName();
         System.out.println("Enter the employee's hourly wage:");
         float hourlyWage = HandleInput.insertPrice();
-
-        return new Employee(asignId, name, hourlyWage);
+        
+        Employee addedEmployee = new Employee(asignId, name, hourlyWage);
+        
+        employeeInDB.insertOne(addedEmployee);
     }
 
     public static void seeEmployees() {
-        ArrayList<Employee> employeeList = Employee.getFromFile();
+        MongoCollection<Employee> employeeInDB = Employee.getFromDB();
+        ArrayList<Employee> employeeList = new ArrayList<>();
+        employeeInDB.find().into(employeeList);
+        
         System.out.println("Employees:");
         for (Employee currentEmployee : employeeList) {
             System.out.print(currentEmployee);
@@ -116,7 +123,9 @@ public class Employee extends Person{
     }
 
     private static int addEmployeeInEvent(ArrayList<Employee> employeesInEvent, int searchId) {
-        ArrayList<Employee> employeeList = Employee.getFromFile();
+        MongoCollection<Employee> employeeInDB = Employee.getFromDB();
+        ArrayList<Employee> employeeList = new ArrayList<>();
+        employeeInDB.find().into(employeeList);
 
         int addMore = 1;
         boolean passed = false;
@@ -147,8 +156,11 @@ public class Employee extends Person{
     public String toString() {
         return String.format("|Id: %-5d | %-20s |$ %-10.2f per hour|%n", super.getId(), super.getName(), super.getWage());
     }
-
+    
     public Employee(int id, String name, float wage) {
         super(id, name, wage);
+    }
+
+    public Employee() {
     }
 }

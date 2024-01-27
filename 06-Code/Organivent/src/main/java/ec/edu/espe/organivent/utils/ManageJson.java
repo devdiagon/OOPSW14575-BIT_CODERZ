@@ -25,7 +25,6 @@ public class ManageJson {
             
             try{
                 FileReader fileReader = new FileReader(fileAdress);
-              
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
               
                 objectList=gson.fromJson(fileReader, type);

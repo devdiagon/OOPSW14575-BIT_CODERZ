@@ -1,8 +1,11 @@
 package ec.edu.espe.organivent.model;
 
 import com.google.gson.reflect.TypeToken;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
+import ec.edu.espe.organivent.utils.UseMongoDB;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 

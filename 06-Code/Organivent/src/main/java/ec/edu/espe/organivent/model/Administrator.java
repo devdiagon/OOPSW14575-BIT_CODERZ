@@ -1,9 +1,11 @@
 package ec.edu.espe.organivent.model;
 
 import com.google.gson.reflect.TypeToken;
+import com.mongodb.client.MongoCollection;
 import ec.edu.espe.organivent.utils.Encriptation;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
+import ec.edu.espe.organivent.utils.UseMongoDB;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,17 +23,22 @@ public class Administrator extends Person{
     private String email;
     private int phoneNumber;
     
-    public static ArrayList<Administrator> getFromFile(){
-        Type type = new TypeToken<ArrayList<Administrator>>(){}.getType();
-        ArrayList<Administrator> administratorList = ManageJson.readFile("data/administrators.json",type);
-        return administratorList;
+    public static MongoCollection<Administrator> getFromDB(){
+       Class classType = Administrator.class;
+        String collectionName = "Administrator";
+        
+        MongoCollection<Administrator> administratorInDB = UseMongoDB.getFromCollection(collectionName, classType);  
+        
+        return administratorInDB;
     }
 
-    public static Administrator registerAdministrator(){
+    public static void registerAdministrator(){
         
-        ArrayList<Administrator> administratorList = Administrator.getFromFile();
+        MongoCollection<Administrator> administratorInDB = Administrator.getFromDB();
         
-        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
+        ArrayList<Administrator> administratorList = new ArrayList<>();
+        administratorInDB.find().into(administratorList);
+        
         int asignId = administratorList.size()+1;
         
         System.out.println("Enter a User Name");
@@ -53,13 +60,17 @@ public class Administrator extends Person{
         System.out.println("Enter your Wage");
         float wage = HandleInput.insertPrice();
         
-        return new Administrator(userName, encriptedPassword, email, phoneNumber, asignId, name,wage);
+        Administrator generatedAdministrator = new Administrator(userName, encriptedPassword, email, phoneNumber, asignId, name,wage);
+        
+        administratorInDB.insertOne(generatedAdministrator);
     }
     
     private static String validateUserName(){
-        ArrayList<Administrator> administratorList = Administrator.getFromFile();
+        MongoCollection<Administrator> administratorInDB = Administrator.getFromDB();
         
-        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
+        ArrayList<Administrator> administratorList = new ArrayList<>();
+        administratorInDB.find().into(administratorList);
+        
         boolean isTaken=false;
         String userToCheck;
         
@@ -82,7 +93,6 @@ public class Administrator extends Person{
     }
     
     private static String validatePassword(){
-        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         boolean passed=true;
         String passwordToCheck;
         do{
@@ -152,7 +162,10 @@ public class Administrator extends Person{
     
     
     public static void logIn(){
-        ArrayList<Administrator> administratorList = Administrator.getFromFile();
+        MongoCollection<Administrator> administratorInDB = Administrator.getFromDB();
+        
+        ArrayList<Administrator> administratorList = new ArrayList<>();
+        administratorInDB.find().into(administratorList);
         
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         String userToCheck;
@@ -250,6 +263,8 @@ public class Administrator extends Person{
             }
         }while (option != 7);
     }
+    
+    public Administrator(){}
 
     public Administrator(String userName, byte[] password, String email, int phoneNumber, int id, String name, float wage) {
         super(id, name, wage);

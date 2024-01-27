@@ -2,19 +2,17 @@ package ec.edu.espe.organivent.view;
 
 import ec.edu.espe.organivent.model.Administrator;
 import ec.edu.espe.organivent.utils.HandleInput;
-import java.util.ArrayList;
-import ec.edu.espe.organivent.utils.ManageJson;
-
+import java.io.IOException;
 /**
  *
  * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
  */
 public class OrganiventSystem {
 
-    public static void main(String[] args) {
-
-        int option;
+    public static void main(String[] args) throws IOException {
         
+        
+        int option;
         do{
             System.out.println("----- ORGANIVENT SYSTEM -----");
             System.out.println("-----------------------------");
@@ -31,9 +29,7 @@ public class OrganiventSystem {
                     Administrator.logIn();
                     break;
                 case 2:
-                    ArrayList<Administrator> administratorList = Administrator.getFromFile();
-                    administratorList.add(Administrator.registerAdministrator());
-                    ManageJson.writeFile("data/administrators.json",administratorList);
+                    Administrator.registerAdministrator();
                     break;
                 case 3:
                     System.exit(0);

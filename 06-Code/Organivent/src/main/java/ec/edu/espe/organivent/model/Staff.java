@@ -1,12 +1,12 @@
 package ec.edu.espe.organivent.model;
 
 import com.google.gson.reflect.TypeToken;
+import com.mongodb.client.MongoCollection;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
+import ec.edu.espe.organivent.utils.UseMongoDB;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -29,8 +29,16 @@ public class Staff {
         return staffList;
     }
     
+    private static MongoCollection<Staff> getFromDB(){
+        Class classType = Staff.class;
+        String collectionName = "Staff";
+        
+        MongoCollection<Staff> staffInDB = UseMongoDB.getFromCollection(collectionName, classType);  
+        
+        return staffInDB;        
+    }
+    
     public static void menu(){
-        ArrayList<Staff> staffList = Staff.getFromFile();
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
@@ -45,18 +53,17 @@ public class Staff {
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
-                    seeStaff(staffList);
+                    seeStaff();
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;
                 case 2:
-                    staffList.add(addStaff(staffList.size()));
-                    ManageJson.writeFile("data/staff.json",staffList);
+                    addStaff();
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;
                 case 3:
-                    searchStaff(staffList);
+                    searchStaff();
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;
@@ -70,9 +77,14 @@ public class Staff {
     
     }
     
-    private static Staff addStaff(int listSize){
-
-        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
+    private static void addStaff(){
+        
+        MongoCollection<Staff> staffInDB = Staff.getFromDB();
+        
+        ArrayList<Staff> staffList = new ArrayList<>();
+        staffInDB.find().into(staffList);
+        
+        int asignId = staffList.size()+1;
         int daysWorked=0;
         int hoursWorked=0;
 
@@ -92,8 +104,9 @@ public class Staff {
         }while(hoursWorked<1 || hoursWorked>24);
 
         float totalStaffCost = calculateTotalCost(employees,(daysWorked*hoursWorked));
-
-        return new Staff(listSize+1, staffType, employees, totalStaffCost, daysWorked, hoursWorked);
+        Staff generatedStaff = new Staff(asignId, staffType, employees, totalStaffCost, daysWorked, hoursWorked);
+        
+        staffInDB.insertOne(generatedStaff);
     }
     
     
@@ -109,7 +122,11 @@ public class Staff {
         return totalStaffCost;
     }
    
-    private static void seeStaff(ArrayList<Staff> staffList){
+    private static void seeStaff(){
+        MongoCollection<Staff> staffInDB = Staff.getFromDB();
+        ArrayList<Staff> staffList = new ArrayList<>();
+        staffInDB.find().into(staffList);
+        
         System.out.println("================================= Staff List =================================");
          for(Staff currentStaff : staffList) {
             System.out.println("\nId: " + currentStaff.getId() + " '" + currentStaff.getType() + "' " + ", Working Days: " + currentStaff.getDaysWorked() + ", Working Hours: " + currentStaff.getHoursWorked());
@@ -148,7 +165,10 @@ public class Staff {
     
     public static int addStaffInEvent(ArrayList<Staff> staffInEvent, int searchId){
         
-        ArrayList<Staff> staffList = Staff.getFromFile();
+        MongoCollection<Staff> staffInDB = Staff.getFromDB();
+        
+        ArrayList<Staff> staffList = new ArrayList<>();
+        staffInDB.find().into(staffList);
         
         int addMore=1;
         boolean passed=false;
@@ -175,7 +195,11 @@ public class Staff {
         return addMore;
     }
     
-    private static void searchStaff(ArrayList<Staff> staffList){
+    private static void searchStaff(){
+        MongoCollection<Staff> staffInDB = Staff.getFromDB();
+        ArrayList<Staff> staffList = new ArrayList<>();
+        staffInDB.find().into(staffList);
+        
         System.out.println("Enter the Staff Id:");
          int id = HandleInput.insertInteger();
          int sizeCount=0;
@@ -217,54 +241,94 @@ public class Staff {
         this.daysWorked = daysWorked;
         this.hoursWorked = hoursWorked;
     }
-
     
+    public Staff(){
+    }
+
+    /**
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * @param id the id to set
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * @return the type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * @param type the type to set
+     */
     public void setType(String type) {
         this.type = type;
     }
 
+    /**
+     * @return the employees
+     */
     public ArrayList<Employee> getEmployees() {
         return employees;
     }
+
+    /**
+     * @param employees the employees to set
+     */
     public void setEmployees(ArrayList<Employee> employees) {
         this.employees = employees;
     }
 
+    /**
+     * @return the totalStaffCost
+     */
     public float getTotalStaffCost() {
         return totalStaffCost;
     }
 
+    /**
+     * @param totalStaffCost the totalStaffCost to set
+     */
     public void setTotalStaffCost(float totalStaffCost) {
         this.totalStaffCost = totalStaffCost;
     }
 
+    /**
+     * @return the daysWorked
+     */
     public int getDaysWorked() {
         return daysWorked;
     }
 
+    /**
+     * @param daysWorked the daysWorked to set
+     */
     public void setDaysWorked(int daysWorked) {
         this.daysWorked = daysWorked;
     }
 
+    /**
+     * @return the hoursWorked
+     */
     public int getHoursWorked() {
         return hoursWorked;
     }
 
+    /**
+     * @param hoursWorked the hoursWorked to set
+     */
     public void setHoursWorked(int hoursWorked) {
         this.hoursWorked = hoursWorked;
     }
-
+    
+    
     
 }

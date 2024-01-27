@@ -1,9 +1,8 @@
 package ec.edu.espe.organivent.model;
 
-import com.google.gson.reflect.TypeToken;
+import com.mongodb.client.MongoCollection;
 import ec.edu.espe.organivent.utils.HandleInput;
-import ec.edu.espe.organivent.utils.ManageJson;
-import java.lang.reflect.Type;
+import ec.edu.espe.organivent.utils.UseMongoDB;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,14 +17,16 @@ public class EventPlace {
     private float rentCost;
     private int capacity;
     
-    public static ArrayList<EventPlace> getFromFile(){
-        Type type = new TypeToken<ArrayList<EventPlace>>(){}.getType();
-        ArrayList<EventPlace> eventPlaceList = ManageJson.readFile("data/event_places.json",type);
-        return eventPlaceList;
+    public static MongoCollection<EventPlace> getFromDB(){
+       Class classType = EventPlace.class;
+        String collectionName = "EventPlace";
+        
+        MongoCollection<EventPlace> eventPlaceInDB = UseMongoDB.getFromCollection(collectionName, classType);  
+        
+        return eventPlaceInDB;
     }
     
      public static void menu(){
-        ArrayList<EventPlace> eventPlaceList = EventPlace.getFromFile();
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
@@ -39,13 +40,12 @@ public class EventPlace {
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
-                    seeEventPlaces(eventPlaceList);
+                    seeEventPlaces();
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;
                 case 2:
-                    eventPlaceList.add(addEventPlace());
-                    ManageJson.writeFile("data/event_places.json",eventPlaceList);
+                    addEventPlace();
                     System.out.println("\nDone! Press any button to return");
                     scanner.nextLine();
                     break;
@@ -56,12 +56,10 @@ public class EventPlace {
                     break;
             }
         }while (option != 3);
-    
     }
     
-    private static EventPlace addEventPlace(){
-        
-        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
+    private static void addEventPlace(){
+        MongoCollection<EventPlace> eventPlaceInDB = EventPlace.getFromDB();
         
         System.out.println("Enter the place's name:");
         String name = HandleInput.insertNonBlankString();
@@ -71,12 +69,18 @@ public class EventPlace {
         float rentCost = HandleInput.insertPrice();
         System.out.println("Enter the place's capacity:");
         int capacity = HandleInput.insertInteger();
-
-        return new EventPlace(name, adress, rentCost, capacity);
+        
+        EventPlace generatedEventPlace = new EventPlace(name, adress, rentCost, capacity);
+        
+        eventPlaceInDB.insertOne(generatedEventPlace);
     }
     
     
-    private static void seeEventPlaces(ArrayList<EventPlace> eventPlaceList){
+    private static void seeEventPlaces(){
+        MongoCollection<EventPlace> eventPlaceInDB = EventPlace.getFromDB();
+        ArrayList<EventPlace> eventPlaceList = new ArrayList<>();
+        eventPlaceInDB.find().into(eventPlaceList);
+        
         System.out.println("===================================== Event Places List ====================================");
         System.out.println("             Name             |            Adress            |  Rent Cost | Capacity (seats)");
         System.out.println("============================================================================================");
@@ -86,7 +90,9 @@ public class EventPlace {
     }
     
     public static EventPlace searchForPlace(){
-        ArrayList<EventPlace> eventPlaceList = getFromFile();
+        MongoCollection<EventPlace> eventPlaceInDB = EventPlace.getFromDB();
+        ArrayList<EventPlace> eventPlaceList = new ArrayList<>();
+        eventPlaceInDB.find().into(eventPlaceList);
         
         EventPlace eventPlace=null;
         String searchName;
@@ -122,6 +128,8 @@ public class EventPlace {
     public String toString() {
         return String.format("%-30s|%-30s|$ %-10.2f|%-14d", name,adress,rentCost,capacity);
     }
+    
+    public EventPlace(){}
 
     public EventPlace(String name, String adress, float rentCost, int capacity) {
         this.name = name;
