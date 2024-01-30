@@ -44,7 +44,7 @@ public class Artist extends Person{
             System.out.println("|    4.- Delete an artist           |");
             System.out.println("|    5.- Return                     |");
             System.out.println("_____________________________________");
-            System.out.println("Select an option (1-3): ");
+            System.out.println("Select an option (1-5): ");
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:

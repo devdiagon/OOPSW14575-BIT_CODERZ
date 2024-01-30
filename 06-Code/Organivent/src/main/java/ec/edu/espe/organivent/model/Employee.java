@@ -1,10 +1,13 @@
 package ec.edu.espe.organivent.model;
 
 import com.mongodb.client.MongoCollection;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.UseMongoDB;
 import java.util.ArrayList;
 import java.util.Scanner;
+import org.bson.conversions.Bson;
 
 /**
  *
@@ -21,6 +24,13 @@ public class Employee extends Person{
         
         return employeeInDB;        
     }
+    
+    private static void deleteInDB(int idToDelete){
+        MongoCollection<Employee> employeeInDB = Employee.getFromDB();
+        
+        Bson filter = eq("_id", idToDelete);
+        employeeInDB.deleteOne(filter);
+    }
 
     public static void menu() {
         Scanner scanner = new Scanner(System.in);
@@ -30,9 +40,11 @@ public class Employee extends Person{
             System.out.println("_________________________________________");
             System.out.println("|   1.- See the current employees       |");
             System.out.println("|   2.- Add a new employee              |");
-            System.out.println("|   3.- Return                          |");
+            System.out.println("|   3.- Modify a employee              |");
+            System.out.println("|   4.- Delete a employee              |");
+            System.out.println("|   5.- Return                          |");
             System.out.println("_______________________________________");
-            System.out.println("Select an option (1-3): ");
+            System.out.println("Select an option (1-5): ");
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
@@ -46,12 +58,22 @@ public class Employee extends Person{
                     scanner.nextLine();
                     break;
                 case 3:
+                    modifyEmployee();
+                    System.out.println("\nDone! Press any button to return");
+                    scanner.nextLine();
+                    break;
+                case 4: 
+                    deleteEmployee();
+                    System.out.println("\nDone! Press any button to return");
+                    scanner.nextLine();
+                    break;
+                case 5:
                     break;
                 default:
                     System.out.println("Invalid option");
                     break;
             }
-        } while (option != 3);
+        } while (option != 5);
 
     }
 
@@ -92,7 +114,93 @@ public class Employee extends Person{
            } 
         System.out.print("\n");
     }
-
+    
+    private static void modifyEmployee(){
+        Employee employeeToChange = searchForEmployee();
+        int changeFromThisId = employeeToChange.getId();
+        
+        MongoCollection<Employee> employeeInDB = Employee.getFromDB();
+        Bson filter = eq("_id", changeFromThisId);
+        Bson updateField;
+        
+        int option;
+        do {
+            System.out.println("-------------------------------------");
+            System.out.println("|  Employee id: " + employeeToChange.getId());
+            System.out.println("|  Employee name: " + employeeToChange.getName());
+            System.out.println("|  Employee hourly wage: $" + employeeToChange.getWage());
+            System.out.println("|    1.- Update name                |");
+            System.out.println("|    2.- Update hourly wage         |");
+            System.out.println("|    3.- Return                     |");
+            System.out.println("-------------------------------------");
+            System.out.println("Select an option (1-3): ");
+            option = HandleInput.insertInteger();
+            switch (option) {
+                case 1:
+                    System.out.println("Enter the employee's name:");
+                    employeeToChange.setName(HandleInput.insertRealName());
+                    updateField = set("name", employeeToChange.getName());
+                    
+                    employeeInDB.updateOne(filter, updateField);
+                    
+                    break;
+                case 2:
+                    System.out.println("Enter the employee's hiring cost:");
+                    employeeToChange.setWage(HandleInput.insertPrice());
+                    updateField = set("wage", employeeToChange.getWage());
+                    
+                    employeeInDB.updateOne(filter, updateField);
+                    break;
+                case 3:
+                    break;
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
+        }while (option != 3);
+    }
+    
+    public static Employee searchForEmployee(){
+        MongoCollection<Employee> employeeInDB = Employee.getFromDB();
+        ArrayList<Employee> employeeList = new ArrayList<>();
+        employeeInDB.find().into(employeeList);
+        
+        Employee employee =null;
+        int searchId;
+        boolean passed=false;
+        int sizeCount=0;
+        
+        do{
+            sizeCount=0;
+            System.out.println("Enter the employee's id:");
+            searchId = HandleInput.insertInteger();
+            
+            for(Employee currentEmployee : employeeList) {
+                if(currentEmployee != null && currentEmployee.getId()==searchId){
+                    employee=currentEmployee;
+                    passed=true;
+                    break;
+                } else {
+                }
+                sizeCount++;
+            }
+            
+            if(sizeCount==employeeList.size()){
+                System.out.println("The employee: " + searchId + " was not found");
+            }
+        }while(passed==false);
+        
+        return employee;
+    }
+    
+    private static void deleteEmployee(){        
+        Employee employeeToSearch = searchForEmployee();
+        int idToDelete = employeeToSearch.getId();
+        
+        deleteInDB(idToDelete);
+        
+    }
+    
     public static ArrayList<Employee> enterEmployees() {
         ArrayList<Employee> employeesInEvent = new ArrayList<>();
 
