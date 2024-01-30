@@ -1,10 +1,13 @@
 package ec.edu.espe.organivent.model;
 
 import com.mongodb.client.MongoCollection;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.UseMongoDB;
 import java.util.ArrayList;
 import java.util.Scanner;
+import org.bson.conversions.Bson;
 
 /**
  *
@@ -26,7 +29,7 @@ public class EventPlace {
         return eventPlaceInDB;
     }
     
-     public static void menu(){
+    public static void menu(){
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
         do {
@@ -34,9 +37,11 @@ public class EventPlace {
             System.out.println("-------------------------------------------");
             System.out.println("|    1.- See the current event places     |");
             System.out.println("|    2.- Add a new event place            |");
-            System.out.println("|    3.- Return                           |");
+            System.out.println("|    3.- Update a event place             |");
+            System.out.println("|    4.- Delete a event place             |");
+            System.out.println("|    5.- Return                           |");
             System.out.println("___________________________________________");
-            System.out.println("Select an option (1-3): ");
+            System.out.println("Select an option (1-5): ");
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
@@ -50,12 +55,25 @@ public class EventPlace {
                     scanner.nextLine();
                     break;
                 case 3:
+                    updateEventPlace();
+                    System.out.println("\nDone! Press any button to return");
+                    scanner.nextLine();
+                    
                     break;
+                case 4:
+                    deleteEventPlace();
+                    System.out.println("\nDone! Press any button to return");
+                    scanner.nextLine();
+                    break;
+                case 5:
+                    
+                    break;
+                    
                 default:
                     System.out.println("Invalid option");
                     break;
             }
-        }while (option != 3);
+        }while (option != 5);
     }
     
     private static void addEventPlace(){
@@ -87,6 +105,89 @@ public class EventPlace {
          for(EventPlace currentEventPlace : eventPlaceList) {
             System.out.println(currentEventPlace);
         }
+    }
+    
+    private static void updateEventPlace(){
+        EventPlace eventPlaceToChange = searchForPlace();
+        String changeFromThisName = eventPlaceToChange.getName();
+        
+        MongoCollection<EventPlace> eventPlaceInDB = EventPlace.getFromDB();
+        Bson filter = eq("name", changeFromThisName);
+        Bson updateField;
+        
+        int option;
+        do {
+            System.out.println("-------------------------------------");
+            System.out.println("|  Event adress : " + eventPlaceToChange.getAdress());
+            System.out.println("|  Event capacity: " + eventPlaceToChange.getCapacity());
+            System.out.println("|  Event name: " + eventPlaceToChange.getName());
+            System.out.println("|  Event rent cost: $" + eventPlaceToChange.getRentCost());
+            System.out.println("");
+            System.out.println("|    1.- Update adress              |");
+            System.out.println("|    2.- Update capacity            |");
+            System.out.println("|    3.- Update name                |");
+            System.out.println("|    4.- Update rent cost           |");
+            System.out.println("|    5.- Return                     |");
+            System.out.println("-------------------------------------");
+            System.out.println("Select an option (1-5): ");
+            option = HandleInput.insertInteger();
+            switch (option) {
+                case 1:
+                    System.out.println("Enter the event address:");
+                    eventPlaceToChange.setAdress(HandleInput.insertNonBlankString());
+                    updateField = set("adress", eventPlaceToChange.getAdress());
+                    
+                    eventPlaceInDB.updateOne(filter, updateField);
+               
+                    break;
+                case 2:
+                    System.out.println("Enter the capacity of the event:");
+                    eventPlaceToChange.setCapacity(HandleInput.insertInteger());
+                    updateField = set("capacity", eventPlaceToChange.getCapacity());
+                    
+                    eventPlaceInDB.updateOne(filter, updateField);
+                    
+                    break;
+                case 3:
+                    System.out.println("Enter the name of the event place:");
+                    eventPlaceToChange.setName(HandleInput.insertNonBlankString());
+                    updateField = set("name", eventPlaceToChange.getName());
+                    
+                    eventPlaceInDB.updateOne(filter, updateField);
+                    break;
+                case 4:
+                    System.out.println("Enter the rent cost of the event:");
+                    eventPlaceToChange.setRentCost(HandleInput.insertFloat());
+                    updateField = set("rentCost", eventPlaceToChange.getRentCost());
+                    
+                    eventPlaceInDB.updateOne(filter, updateField);
+                    
+                    break;
+                case 5:
+                    
+                    break;
+                    
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
+        }while (option != 5);
+       
+    }
+    
+    private static void deleteEventPlace(){        
+        EventPlace eventPlaceToSearch = searchForPlace();
+        String nameEventToDelete = eventPlaceToSearch.getName();
+        
+        deleteInDB(nameEventToDelete);
+        
+    }
+    
+    private static void deleteInDB(String nameEventToDelete){
+        MongoCollection<EventPlace> artistInDB = EventPlace.getFromDB();
+        
+        Bson filter = eq("name", nameEventToDelete);
+        artistInDB.deleteOne(filter);
     }
     
     public static EventPlace searchForPlace(){
