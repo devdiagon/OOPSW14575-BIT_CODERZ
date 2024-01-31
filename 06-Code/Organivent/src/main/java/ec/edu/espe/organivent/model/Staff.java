@@ -2,12 +2,15 @@ package ec.edu.espe.organivent.model;
 
 import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.MongoCollection;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import ec.edu.espe.organivent.utils.UseMongoDB;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
+import org.bson.conversions.Bson;
 
 /**
  *
@@ -38,6 +41,13 @@ public class Staff {
         return staffInDB;        
     }
     
+    private static void deleteInDB(int idToDelete){
+        MongoCollection<Staff> staffInDB = Staff.getFromDB();
+        
+        Bson filter = eq("_id", idToDelete);
+        staffInDB.deleteOne(filter);
+    }
+    
     public static void menu(){
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         int option;
@@ -47,9 +57,11 @@ public class Staff {
             System.out.println("|    1.- See the current Staff List           |");
             System.out.println("|    2.- Add a new staff group                |");
             System.out.println("|    3.- Calculate the payment of an Staff    |");
-            System.out.println("|    4.- Return                               |");
+            System.out.println("|    4.- Modify an Staff                      |");      
+            System.out.println("|    5.- Delete an Staff                      |");            
+            System.out.println("|    6.- Return                               |");
             System.out.println("_______________________________________________");
-            System.out.println("Select an option (1-4): ");
+            System.out.println("Select an option (1-6): ");
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
@@ -68,12 +80,22 @@ public class Staff {
                     scanner.nextLine();
                     break;
                 case 4:
+                    modifyStaff();
+                    System.out.println("\nDone! Press any button to return");
+                    scanner.nextLine();
+                    break;
+                case 5:
+                    deleteStaff();
+                    System.out.println("\nDone! Press any button to return");
+                    scanner.nextLine();
+                    break;
+                case 6:
                     break;
                 default:
                     System.out.println("Invalid option");
                     break;
             }
-        }while (option != 4);
+        }while (option != 6);
     
     }
     
@@ -134,6 +156,64 @@ public class Staff {
         }
     }
     
+    private static void modifyStaff(){
+        Staff staffToChange = searchForStaff();
+        int changeFromThisId = staffToChange.getId();
+        
+        MongoCollection<Staff> staffInDB = Staff.getFromDB();
+        Bson filter = eq("_id", changeFromThisId);
+        Bson updateField;
+        
+        int option;
+        do {
+            System.out.println("-------------------------------------");
+            System.out.println("|  Staff id: " + staffToChange.getId());
+            System.out.println("|  Staff type: " + staffToChange.getType());
+            System.out.println("|  Staff employees: " + staffToChange.getEmployees());
+            System.out.println("|  Staff days worked: $" + staffToChange.getDaysWorked());
+            System.out.println("|    1.- Update type                |");
+            System.out.println("|    2.- Update employees           |");
+            System.out.println("|    3.- Update days worked         |");
+            System.out.println("|    4.- Update hours worked        |");            
+            System.out.println("|    5.- Return                     |");
+            System.out.println("-------------------------------------");
+            System.out.println("Select an option (1-5): ");
+            option = HandleInput.insertInteger();
+            switch (option) {
+                case 1:
+                    System.out.println("Enter the staff's name:");
+                    staffToChange.setType(HandleInput.insertRealName());
+                    updateField = set("type", staffToChange.getType());
+                    
+                    staffInDB.updateOne(filter, updateField);
+                    
+                    break;
+                case 2:
+                    System.out.println("Enter the staff's employees:");
+                    //updateEmployeeInStaff(staffToChange);
+                break;
+                case 3:
+                    System.out.println("Enter the staff's days worked:");
+                    staffToChange.setDaysWorked(HandleInput.insertInteger());
+                    updateField = set("daysWorked", staffToChange.getDaysWorked());
+                    
+                    staffInDB.updateOne(filter, updateField);
+                    break;
+                case 4:
+                    System.out.println("Enter the staff's hours worked:");
+                    staffToChange.setHoursWorked(HandleInput.insertInteger());
+                    updateField = set("hoursWorked", staffToChange.getHoursWorked());
+                    
+                    staffInDB.updateOne(filter, updateField);
+                    break;
+                    
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
+        }while (option != 5);
+    }
+    
     public static ArrayList<Staff> enterStaff(){
         ArrayList<Staff> staffInEvent = new ArrayList<>();
         
@@ -162,6 +242,8 @@ public class Staff {
         
         return staffInEvent;
     }
+    
+    
     
     public static int addStaffInEvent(ArrayList<Staff> staffInEvent, int searchId){
         
@@ -243,6 +325,46 @@ public class Staff {
     }
     
     public Staff(){
+    }
+    
+    private static void deleteStaff(){        
+        Staff staffToSearch = searchForStaff();
+        int idToDelete = staffToSearch.getId();
+        
+        deleteInDB(idToDelete);
+        
+    }
+    
+    public static Staff searchForStaff(){
+        MongoCollection<Staff> staffInDB = Staff.getFromDB();
+        ArrayList<Staff> staffList = new ArrayList<>();
+        staffInDB.find().into(staffList);
+        
+        Staff staff =null;
+        int searchId;
+        boolean passed=false;
+        int sizeCount=0;
+        
+        do{
+            sizeCount=0;
+            System.out.println("Enter the staff's id:");
+            searchId = HandleInput.insertInteger();
+            
+            for(Staff currentStaff : staffList) {
+                if(currentStaff != null && currentStaff.getId()==searchId){
+                    staff=currentStaff;
+                    passed=true;
+                    break;
+                }
+                sizeCount++;
+            }
+            
+            if(sizeCount==staffList.size()){
+                System.out.println("The staff: " + searchId + " was not found");
+            }
+        }while(passed==false);
+        
+        return staff;
     }
 
     /**
