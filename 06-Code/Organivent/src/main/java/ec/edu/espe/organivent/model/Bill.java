@@ -7,6 +7,7 @@ import com.mongodb.client.model.ReturnDocument;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.UseMongoDB;
 import java.util.ArrayList;
+import java.util.Scanner;
 import org.bson.conversions.Bson;
 
 /**
@@ -84,6 +85,30 @@ public class Bill {
             }
         }
         
+    }
+    
+    public static void deleteBill(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the Event Id to get it's bill:");
+        int idToDelete = HandleInput.insertInteger();
+        if(searchForBill(idToDelete)){
+            System.out.println("Are you sure you want to delete this bill? Yes(1) or No(2)");
+            int verificate = HandleInput.insertInteger();
+            if(verificate == 1){
+                deleteInDB(idToDelete);
+            }else{
+                System.out.println("The bill is not delete");
+            }
+        }else{
+            System.out.println("The bill is not found");
+        }       
+    }
+    
+    private static void deleteInDB(int idToDelete){
+        MongoCollection<Bill> billInDB = Bill.getFromDB();
+        Bson filter = eq("_id", idToDelete);
+        billInDB.deleteOne(filter);
+        System.out.println("The bill is delete!");
     }
 
     @Override

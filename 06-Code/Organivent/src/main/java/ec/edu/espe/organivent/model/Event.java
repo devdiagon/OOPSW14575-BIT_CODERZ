@@ -41,9 +41,10 @@ public class Event {
             System.out.println("|     2.- Add a new Event                               |");
             System.out.println("|     3.- Calculate the cost from an Event              |");
             System.out.println("|     4.- See the Bill from an Event                    |");
-            System.out.println("|     5.- Return                                        |");
+            System.out.println("|     5.- Delete the Bill from an Event                    |");
+            System.out.println("|     6.- Return                                        |");
             System.out.println("_________________________________________________________");
-            System.out.println("Select an option (1-3): ");
+            System.out.println("Select an option (1-6): ");
             option = HandleInput.insertInteger();
             switch (option) {
                 case 1:
@@ -66,13 +67,18 @@ public class Event {
                     System.out.println("\nPress any button to return");
                     scanner.nextLine();
                     break;
-                case 5:
+                case 5:   
+                   Bill.deleteBill();
+                   System.out.println("\nPress any button to return");
+                    scanner.nextLine();
+                    break;
+                case 6:
                     break;
                 default:
                     System.out.println("Invalid option");
                     break;
             }
-        }while (option != 5);
+        }while (option != 6);
     
     }
     
