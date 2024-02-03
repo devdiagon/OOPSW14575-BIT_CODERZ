@@ -143,6 +143,7 @@ public class Employee extends Person{
                     
                     employeeInDB.updateOne(filter, updateField);
                     
+                    
                     break;
                 case 2:
                     System.out.println("Enter the employee's hiring cost:");

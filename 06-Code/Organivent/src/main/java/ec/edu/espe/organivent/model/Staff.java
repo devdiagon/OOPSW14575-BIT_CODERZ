@@ -32,7 +32,7 @@ public class Staff {
         return staffList;
     }
     
-    private static MongoCollection<Staff> getFromDB(){
+    public static MongoCollection<Staff> getFromDB(){
         Class classType = Staff.class;
         String collectionName = "Staff";
         
@@ -213,6 +213,15 @@ public class Staff {
             }
         }while (option != 5);
     }
+    
+    private void updateEmployeeInStaff(Employee employeeToChange){
+        MongoCollection<Staff> staffInDB = Staff.getFromDB();
+        
+        
+        Bson filter = eq("employees", employeeToChange);
+        Bson updateField = set("employees",employeeToChange);
+        
+    };
     
     public static ArrayList<Staff> enterStaff(){
         ArrayList<Staff> staffInEvent = new ArrayList<>();

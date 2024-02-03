@@ -21,7 +21,7 @@ public class Administrator extends Person{
     private int phoneNumber;
     
     public static MongoCollection<Administrator> getFromDB(){
-       Class classType = Administrator.class;
+        Class classType = Administrator.class;
         String collectionName = "Administrator";
         
         MongoCollection<Administrator> administratorInDB = UseMongoDB.getFromCollection(collectionName, classType);  
