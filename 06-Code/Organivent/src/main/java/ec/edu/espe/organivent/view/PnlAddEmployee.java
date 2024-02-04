@@ -1,6 +1,7 @@
 package ec.edu.espe.organivent.view;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -35,6 +36,7 @@ public class PnlAddEmployee extends javax.swing.JPanel {
         txtConfirmbtn = new javax.swing.JLabel();
         tfdName = new javax.swing.JTextField();
         txtId1 = new javax.swing.JLabel();
+        FtdWage = new javax.swing.JFormattedTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(390, 375));
@@ -90,12 +92,18 @@ public class PnlAddEmployee extends javax.swing.JPanel {
 
         tfdName.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         tfdName.setBorder(null);
+        tfdName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfdNameKeyTyped(evt);
+            }
+        });
         add(tfdName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 141, 230, -1));
 
         txtId1.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         txtId1.setForeground(new java.awt.Color(135, 132, 132));
         txtId1.setText("Id:");
         add(txtId1, new org.netbeans.lib.awtextra.AbsoluteConstraints(161, 98, -1, -1));
+        add(FtdWage, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 220, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtConfirmbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseEntered
@@ -106,8 +114,15 @@ public class PnlAddEmployee extends javax.swing.JPanel {
         btnConfirm.setBackground(btnDefaultColor);
     }//GEN-LAST:event_txtConfirmbtnMouseExited
 
+    private void tfdNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdNameKeyTyped
+        if (!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)){
+        evt.consume();
+    }
+    }//GEN-LAST:event_tfdNameKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField FtdWage;
     private javax.swing.JPanel btnConfirm;
     private javax.swing.JTextField tfdName;
     private javax.swing.JLabel txtConfirmbtn;

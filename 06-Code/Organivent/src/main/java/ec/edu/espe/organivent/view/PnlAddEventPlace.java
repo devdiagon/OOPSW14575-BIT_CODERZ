@@ -1,6 +1,7 @@
 package ec.edu.espe.organivent.view;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -102,7 +103,19 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
         txtRentCost.setForeground(new java.awt.Color(135, 132, 132));
         txtRentCost.setText("Costo de renta:");
         add(txtRentCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
+
+        txtEventPlaceName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEventPlaceNameKeyTyped(evt);
+            }
+        });
         add(txtEventPlaceName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 210, -1));
+
+        tfdAdress.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfdAdressKeyTyped(evt);
+            }
+        });
         add(tfdAdress, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 210, -1));
         add(txdRentCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 210, -1));
 
@@ -136,6 +149,20 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
         // TODO add your handling code here:
         etiCapacidad.setText(sldCapacity.getValue()+" personas");
     }//GEN-LAST:event_sldCapacityStateChanged
+
+    private void txtEventPlaceNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEventPlaceNameKeyTyped
+        if (!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)){
+        evt.consume();
+    }
+    }//GEN-LAST:event_txtEventPlaceNameKeyTyped
+
+    private void tfdAdressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdAdressKeyTyped
+        char keyChar = evt.getKeyChar();
+    
+        if (!(Character.isLetterOrDigit(keyChar) || Character.isWhitespace(keyChar))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfdAdressKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

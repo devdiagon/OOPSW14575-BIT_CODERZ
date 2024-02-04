@@ -428,6 +428,8 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         resetFontFormat();
         btnArtist.setBackground(btnHoverColor);
         txtArtistbtn.setFont(pressedFont);
+        
+        showPanel(new PnlAddArtist());
     }//GEN-LAST:event_txtArtistbtnMouseClicked
 
     private void txtEquipmentbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEquipmentbtnMouseClicked
@@ -435,6 +437,8 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         resetFontFormat();
         btnEquipment.setBackground(btnHoverColor);
         txtEquipmentbtn.setFont(pressedFont);
+        
+        showPanel(new PnlAddEquipment());
     }//GEN-LAST:event_txtEquipmentbtnMouseClicked
 
     private void txtEventPlacebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEventPlacebtnMouseClicked
