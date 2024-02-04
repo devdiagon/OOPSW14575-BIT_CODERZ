@@ -2,6 +2,8 @@ package ec.edu.espe.organivent.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.Primitives;
+import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.io.File;
 import java.util.ArrayList;
+import org.bson.Document;
 
 /**
  *
@@ -53,6 +56,14 @@ public class ManageJson {
           }catch(IOException e){
               throw new RuntimeException(e);
           }
+    }
+    
+    public static <T> T passJsonToObject(Document doc, Class classType){
+        String jsonData = doc.toJson();
+        Gson gson = new Gson();
+        
+        T object = (T) gson.fromJson(jsonData, TypeToken.get(classType));
+        return (T) Primitives.wrap(classType).cast(object);
     }
     
 }

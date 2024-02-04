@@ -265,7 +265,8 @@ public class FrmLogIn extends javax.swing.JFrame {
         String insertedUserName = tfdUserName.getText();
         String insertedPassword = String.valueOf(psfdPassword.getPassword());
         
-        boolean canEnter = AdministratorController.validateCredentials(insertedUserName, insertedPassword);
+        AdministratorController admc = new AdministratorController();
+        boolean canEnter = admc.validateCredentials(insertedUserName, insertedPassword);
 
         if(canEnter == true){
             FrmOrganiventMenu frmOrganiventMenu = new FrmOrganiventMenu();

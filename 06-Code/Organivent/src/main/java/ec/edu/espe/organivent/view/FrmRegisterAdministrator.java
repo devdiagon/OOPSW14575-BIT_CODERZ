@@ -1,5 +1,8 @@
 package ec.edu.espe.organivent.view;
 
+import ec.edu.espe.organivent.controller.AdministratorController;
+import ec.edu.espe.organivent.model.Administrator;
+import ec.edu.espe.organivent.utils.Encriptation;
 import ec.edu.espe.organivent.utils.HandleInput;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -13,6 +16,8 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
     /**
      * Creates new form FrmRegisterAdministrator
      */
+    private Administrator administrator;
+    
     public FrmRegisterAdministrator() {
         initComponents();
         String underlined = "<html><u>Iniciar Sesión</u></html>";
@@ -285,7 +290,7 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
     private void lbEyeImageMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEyeImageMousePressed
         if(String.valueOf(psfdPassword.getPassword()).equals("***********************")){
             psfdPassword.setText("");
-            psfdPassword.setForeground(new Color(135,132,132));
+            psfdPassword.setForeground(Color.black);
         }
         psfdPassword.setEchoChar((char)0);
         ImageIcon icon = new ImageIcon(getClass().getResource("/images/eye_show_icon.png"));
@@ -295,7 +300,7 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
     private void lbEyeImageMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEyeImageMouseReleased
         if(String.valueOf(psfdPassword.getPassword()).equals("")){
             psfdPassword.setText("***********************");
-            psfdPassword.setForeground(new Color(135,132,132));
+            psfdPassword.setForeground(Color.black);
         }
         psfdPassword.setEchoChar('*');
         ImageIcon icon = new ImageIcon(getClass().getResource("/images/eye_hide_icon.png"));
@@ -314,18 +319,37 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
         boolean passed = true;
         
         passed = HandleInput.validateRealName(tfdName.getText());
-        passed = HandleInput.validateEmail(tfdEmail.getText());
-        passed = HandleInput.validatePriceString(fdlWage.getText());
         
+        if(passed){
+            AdministratorController admc = new AdministratorController();
+            passed = admc.validateUserName(tfdUserName.getText());
+            if(passed){
+                passed = HandleInput.validateEmail(tfdEmail.getText());
+                if(passed){
+                    passed = HandleInput.validatePassword(String.valueOf(psfdPassword.getPassword()));
+                    if(passed){
+                        passed = HandleInput.validatePriceString(fdlWage.getText());
+                    }
+                }
+            }
+        }
         return passed;
     }
     private void sendAdministratorData(){
         String insertedName = tfdName.getText();
         String insertedUserName = tfdUserName.getText();
         String insertedPassword = String.valueOf(psfdPassword.getPassword());
+        byte[] encriptedPassword = Encriptation.encrypt(insertedPassword);
         String insertedEmail = tfdEmail.getText();
         int insertedPhoneNumber = Integer.parseInt(fdlPhoneNumber.getText());
         float insertedWage = HandleInput.returnFloat(fdlWage.getText());
+        
+        AdministratorController admc = new AdministratorController();
+        int asignedId = admc.asignNewId();
+                
+        administrator = new Administrator(insertedUserName, encriptedPassword, insertedEmail, insertedPhoneNumber, asignedId, insertedName, insertedWage);
+        
+        admc.create(administrator);
     }
     /**
      * @param args the command line arguments

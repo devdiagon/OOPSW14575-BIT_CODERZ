@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
  */
 public class HandleInput {
-    
+       
     public static int insertInteger(){
         Scanner scanner = new Scanner(System.in);
         int analyzeInt=0;
@@ -133,6 +133,22 @@ public class HandleInput {
             }
         }
         return passed;
+    }
+    
+    public static boolean validatePassword(String passwordToCheck){        
+        String pwsdRegex = "^(?=.*[0-9])"
+                       + "(?=.*[a-z])(?=.*[A-Z])"
+                       + "(?=.*[@#$%^&+=*])"
+                       + "(?=\\S+$).{10,20}$";
+        
+        Pattern p = Pattern.compile(pwsdRegex);
+        
+        if (passwordToCheck == null) {
+            return false;
+        }
+        
+        Matcher m = p.matcher(passwordToCheck);
+        return m.matches();
     }
     
     public static boolean validateEmail(String emailToCheck){
