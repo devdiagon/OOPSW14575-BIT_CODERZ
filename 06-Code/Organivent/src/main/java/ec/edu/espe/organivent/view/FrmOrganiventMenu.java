@@ -431,6 +431,8 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         resetFontFormat();
         btnEventPlace.setBackground(btnHoverColor);
         txtEventPlacebtn.setFont(pressedFont);
+        
+        showPanel(new PnlAddEventPlace());
     }//GEN-LAST:event_txtEventPlacebtnMouseClicked
 
     
