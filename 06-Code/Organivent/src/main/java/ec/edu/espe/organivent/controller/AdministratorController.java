@@ -9,6 +9,7 @@ import static com.mongodb.client.model.Projections.fields;
 import ec.edu.espe.organivent.iterfaces.IAdministrator;
 import ec.edu.espe.organivent.model.Administrator;
 import ec.edu.espe.organivent.utils.Encriptation;
+import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import ec.edu.espe.organivent.utils.ManageMongoDB;
 import java.util.ArrayList;
@@ -69,22 +70,11 @@ public class AdministratorController extends ManageMongoDB implements IAdministr
         }
     }
     
-    public int asignNewId(){
-        int asignedId=0;
-        
+    public int asignNewId(){        
         this.connectToDatabase();
         this.getFromCollection(collectionName);
-        
-        Document doc = this.coll.find().sort(descending("id")).limit(1).first();
-        
-        if (doc==null){
-            asignedId=1;
-        }else{
-            asignedId = doc.getInteger("id");
-            asignedId++;
-        }
-        
-        return asignedId;
+
+        return HandleInput.increaseMaxId(this.coll);
     }
     
     public boolean validateCredentials(String insertedUserName, String insertedPassword){

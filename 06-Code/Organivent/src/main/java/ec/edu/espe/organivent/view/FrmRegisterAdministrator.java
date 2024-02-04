@@ -350,6 +350,18 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
         administrator = new Administrator(insertedUserName, encriptedPassword, insertedEmail, insertedPhoneNumber, asignedId, insertedName, insertedWage);
         
         admc.create(administrator);
+        
+        emptyFields();
+    }
+    
+    private void emptyFields(){
+        tfdName.setText("");
+        tfdUserName.setText("");
+        psfdPassword.setText("***********************");
+        tfdEmail.setText("");
+        fdlPhoneNumber.setText("");
+        fdlWage.setText("0,00");
+        
     }
     /**
      * @param args the command line arguments

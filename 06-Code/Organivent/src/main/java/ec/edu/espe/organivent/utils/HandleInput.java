@@ -1,14 +1,32 @@
 package ec.edu.espe.organivent.utils;
 
+
+import com.mongodb.client.MongoCollection;
+import static com.mongodb.client.model.Indexes.descending;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.bson.Document;
 
 /**
  *
  * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
  */
 public class HandleInput {
+    
+    public static int increaseMaxId(MongoCollection coll){
+        int asignedId=0;
+             
+        Document doc = (Document) coll.find().sort(descending("id")).limit(1).first();
+        if (doc==null){
+            asignedId=1;
+        }else{
+            asignedId = doc.getInteger("id");
+            asignedId++;
+        }
+        
+        return asignedId;
+    }
        
     public static int insertInteger(){
         Scanner scanner = new Scanner(System.in);
