@@ -56,6 +56,7 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         txtArtistbtn = new javax.swing.JLabel();
         btnStaff = new javax.swing.JPanel();
         txtStaffbtn = new javax.swing.JLabel();
+        lbLogOutIcon = new javax.swing.JLabel();
         pnlContent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -297,6 +298,16 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
 
         pnlMainMenuBar.add(btnStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 152, -1, -1));
 
+        lbLogOutIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout_icon.png"))); // NOI18N
+        lbLogOutIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbLogOutIcon.setPreferredSize(new java.awt.Dimension(25, 25));
+        lbLogOutIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbLogOutIconMouseClicked(evt);
+            }
+        });
+        pnlMainMenuBar.add(lbLogOutIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 8, -1, -1));
+
         background.add(pnlMainMenuBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pnlContent.setBackground(new java.awt.Color(255, 255, 255));
@@ -435,6 +446,12 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         showPanel(new PnlAddEventPlace());
     }//GEN-LAST:event_txtEventPlacebtnMouseClicked
 
+    private void lbLogOutIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLogOutIconMouseClicked
+        FrmLogIn frmLogIn = new FrmLogIn();
+        frmLogIn.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lbLogOutIconMouseClicked
+
     
     private void resetButtonColors(){
         btnEvent.setBackground(btnDefaultColor);
@@ -499,6 +516,7 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
     private javax.swing.JPanel btnEvent;
     private javax.swing.JPanel btnEventPlace;
     private javax.swing.JPanel btnStaff;
+    private javax.swing.JLabel lbLogOutIcon;
     private javax.swing.JPanel pnlContent;
     private javax.swing.JPanel pnlMainMenuBar;
     private javax.swing.JLabel txtArtistbtn;

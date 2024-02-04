@@ -15,6 +15,8 @@ public class FrmLogIn extends javax.swing.JFrame {
      */
     public FrmLogIn() {
         initComponents();
+        String underlined = "<html><u>aquí</u></html>";
+        txtRegisterbtn.setText(underlined);
     }
 
     /**
@@ -132,6 +134,11 @@ public class FrmLogIn extends javax.swing.JFrame {
         txtRegisterbtn.setForeground(new java.awt.Color(10, 14, 115));
         txtRegisterbtn.setText("aquí");
         txtRegisterbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtRegisterbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtRegisterbtnMouseClicked(evt);
+            }
+        });
         pnlLogInContent.add(txtRegisterbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 320, -1, -1));
 
         lbUserImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user_icon.png"))); // NOI18N
@@ -267,6 +274,12 @@ public class FrmLogIn extends javax.swing.JFrame {
         }else{
         }
     }//GEN-LAST:event_txtLogInbtnMouseClicked
+
+    private void txtRegisterbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRegisterbtnMouseClicked
+        FrmRegisterAdministrator frmRegisterAdministrator = new FrmRegisterAdministrator();
+        frmRegisterAdministrator.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_txtRegisterbtnMouseClicked
 
     /**
      * @param args the command line arguments

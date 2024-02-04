@@ -1,6 +1,8 @@
 package ec.edu.espe.organivent.utils;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -26,7 +28,23 @@ public class HandleInput {
         return analyzeInt;    
     }
     
+    public static float insertFloat(String anaLizeFloat){
+        boolean passed = false;
+        float compareFloat=0;
+        try{
+            compareFloat = Float.parseFloat(anaLizeFloat);
+            System.out.println(compareFloat);
+            passed=true;
+        }catch (Exception e){
+            System.out.println("Maybe try using '.' instead of ','");
+            System.out.println(compareFloat);
+            passed=false;
+        }        
+        return compareFloat;    
+    }
+    
     public static float insertFloat(){
+        
         Scanner scanner = new Scanner(System.in);
         float analyzeFloat=0;
         boolean passed=true;
@@ -43,6 +61,27 @@ public class HandleInput {
         }while(passed==false);
         
         return analyzeFloat;    
+    }
+    
+    public static boolean validatePriceString(String insertedString){
+        boolean passed=true;
+        int size = insertedString.length();
+        
+        for(int i=0;i<size;i++){
+            if(!Character.isDigit(insertedString.charAt(i))){
+                if(!(insertedString.charAt(i)==',')){
+                    passed=false;
+                    break;
+                }  
+            } 
+        }
+        
+        return passed;
+    }
+    
+    public static float returnFloat(String insertedString){
+        String updatedString = insertedString.replace(',', '.');
+        return Float.parseFloat(updatedString);
     }
     
     public static float insertPrice(){
@@ -78,6 +117,29 @@ public class HandleInput {
         } while (!passed);
 
         return inputString.trim();
+    }
+    
+    public static boolean validateRealName(String inputName){
+         boolean passed = true;
+         for(char currentchar:inputName.toCharArray()){
+            if(Character.isDigit(currentchar)){ 
+                passed=false;
+                break;
+            }else if(!Character.isLetter(currentchar) && !Character.isWhitespace(currentchar)){
+                    passed=false;
+                    break;
+            }else{
+                passed = true;
+            }
+        }
+        return passed;
+    }
+    
+    public static boolean validateEmail(String emailToCheck){
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(emailToCheck);
+        return matcher.matches();
     }
     
     public static String insertRealName() {
