@@ -1,9 +1,6 @@
 package ec.edu.espe.organivent.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Indexes.descending;
 import static com.mongodb.client.model.Projections.excludeId;
 import static com.mongodb.client.model.Projections.fields;
 import ec.edu.espe.organivent.iterfaces.IAdministrator;
@@ -13,7 +10,6 @@ import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import ec.edu.espe.organivent.utils.ManageMongoDB;
 import java.util.ArrayList;
-import java.util.List;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -30,9 +26,7 @@ public class AdministratorController extends ManageMongoDB implements IAdministr
         this.connectToDatabase();
         this.getFromCollection(collectionName);
         
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String jsonString = gson.toJson(administrator);
-        Document doc = Document.parse(jsonString);
+        Document doc = Document.parse(ManageJson.passObjectToJson(administrator));
         this.coll.insertOne(doc);
     }
 
@@ -41,16 +35,7 @@ public class AdministratorController extends ManageMongoDB implements IAdministr
         this.connectToDatabase();
         this.getFromCollection(collectionName);
         
-        ArrayList<Administrator> administratorsInDb = new ArrayList<>();
-        Administrator inserterAdministrator;
-        
-        List<Document> docList;
-        docList = this.coll.find().projection(fields(excludeId())).into(new ArrayList<>());
-        
-        for (Document currentDoc : docList) {
-            inserterAdministrator = ManageJson.passJsonToObject(currentDoc, classType);
-            administratorsInDb.add(inserterAdministrator);
-        }
+        ArrayList<Administrator> administratorsInDb = ManageJson.passCollectionToList(this.coll, classType);
         
         return administratorsInDb;
     }

@@ -81,20 +81,15 @@ public class HandleInput {
         return analyzeFloat;    
     }
     
-    public static boolean validatePriceString(String insertedString){
-        boolean passed=true;
-        int size = insertedString.length();
+    public static boolean validatePriceString(String inputString){
+        String currencyRegex = "([0-9]+([,][0-9]*)?|[,][0-9]+)";
+        Pattern p = Pattern.compile(currencyRegex);
         
-        for(int i=0;i<size;i++){
-            if(!Character.isDigit(insertedString.charAt(i))){
-                if(!(insertedString.charAt(i)==',')){
-                    passed=false;
-                    break;
-                }  
-            } 
+        if (inputString == null){
+            return false;
         }
-        
-        return passed;
+        Matcher m = p.matcher(inputString);
+        return m.matches();
     }
     
     public static float returnFloat(String insertedString){
@@ -137,15 +132,73 @@ public class HandleInput {
         return inputString.trim();
     }
     
-    public static boolean validateRealName(String inputName){
-         boolean passed = true;
-         for(char currentchar:inputName.toCharArray()){
+    public static boolean validateRealName(String inputString){
+        boolean passed = true;
+         for(char currentchar:inputString.toCharArray()){
             if(Character.isDigit(currentchar)){ 
                 passed=false;
                 break;
             }else if(!Character.isLetter(currentchar) && !Character.isWhitespace(currentchar)){
                     passed=false;
                     break;
+            }else{
+                passed = true;
+            }
+        }
+        return passed;
+    }
+    
+    public static boolean validateInteger(String inputString){
+        String integerRegex = "[0-9]+";
+        Pattern p = Pattern.compile(integerRegex);
+        
+        if (inputString == null){
+            return false;
+        }
+        Matcher m = p.matcher(inputString);
+        return m.matches();
+    }
+    
+    public static boolean validateFloat(String inputString){
+        String currencyRegex = "([0-9]+([,][0-9]*)?|[,][0-9]+)";
+        Pattern p = Pattern.compile(currencyRegex);
+        
+        if (inputString == null){
+            return false;
+        }
+        Matcher m = p.matcher(inputString);
+        return m.matches();
+    }
+    
+    public static boolean validateEquipmentName(String inputString){
+        boolean passed = true;
+         for(char currentchar:inputString.toCharArray()){
+            if(!Character.isLetter(currentchar) && !Character.isWhitespace(currentchar) && !Character.isDigit(currentchar)){
+                if((currentchar != '.') && (currentchar != '-') && 
+                    (currentchar != '_') && (currentchar != ',') && 
+                    (currentchar != ';') && (currentchar != ':')){
+                    System.out.println(currentchar);
+                    passed = false;
+                    break;
+                }
+            }else{
+                passed = true;
+            }
+        }
+        return passed;
+    }
+    
+    public static boolean validateStreetAdress(String inputString){
+        boolean passed = true;
+         for(char currentchar:inputString.toCharArray()){
+            if(!Character.isLetter(currentchar) && !Character.isWhitespace(currentchar) && !Character.isDigit(currentchar)){
+                if((currentchar != '.') && (currentchar != '-') && 
+                    (currentchar != '_') && (currentchar != ',') && 
+                    (currentchar != ';') && (currentchar != ':')){
+                    System.out.println(currentchar);
+                    passed = false;
+                    break;
+                }
             }else{
                 passed = true;
             }
@@ -164,7 +217,6 @@ public class HandleInput {
         if (passwordToCheck == null) {
             return false;
         }
-        
         Matcher m = p.matcher(passwordToCheck);
         return m.matches();
     }

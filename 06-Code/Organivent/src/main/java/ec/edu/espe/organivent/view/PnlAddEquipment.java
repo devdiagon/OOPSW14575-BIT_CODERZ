@@ -1,5 +1,8 @@
 package ec.edu.espe.organivent.view;
 
+import ec.edu.espe.organivent.controller.EquipmentController;
+import ec.edu.espe.organivent.model.Equipment;
+import ec.edu.espe.organivent.utils.HandleInput;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
@@ -11,6 +14,7 @@ public class PnlAddEquipment extends javax.swing.JPanel {
 
     private Color btnDefaultColor = new Color(63,115,193);
     private Color btnHoverColor = new Color(48,88,149);
+    private Equipment equipment;
     
     /**
      * Creates new form PnlAddEmployee
@@ -33,15 +37,15 @@ public class PnlAddEquipment extends javax.swing.JPanel {
 
         txtTitle = new javax.swing.JLabel();
         txtCosto = new javax.swing.JLabel();
-        txtIdValueEquipment = new javax.swing.JLabel();
         txtTipoEquipo = new javax.swing.JLabel();
         btnConfirm = new javax.swing.JPanel();
         txtConfirmbtn = new javax.swing.JLabel();
-        txtIdEquipment = new javax.swing.JLabel();
-        SpnQuantity = new javax.swing.JSpinner();
-        txdEquipmentType = new javax.swing.JTextField();
+        spnQuantity = new javax.swing.JSpinner();
+        tfdType = new javax.swing.JTextField();
         txtCantidad = new javax.swing.JLabel();
-        FtdCost = new javax.swing.JFormattedTextField();
+        fdlCost = new javax.swing.JFormattedTextField();
+        sptTipo = new javax.swing.JSeparator();
+        sptCosto = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(390, 375));
@@ -53,17 +57,13 @@ public class PnlAddEquipment extends javax.swing.JPanel {
 
         txtCosto.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         txtCosto.setForeground(new java.awt.Color(135, 132, 132));
-        txtCosto.setText("Costo:");
-        add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
-
-        txtIdValueEquipment.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        txtIdValueEquipment.setText("0");
-        add(txtIdValueEquipment, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 98, 90, -1));
+        txtCosto.setText("Costo unitario:   $");
+        add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
 
         txtTipoEquipo.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         txtTipoEquipo.setForeground(new java.awt.Color(135, 132, 132));
         txtTipoEquipo.setText("Tipo:");
-        add(txtTipoEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
+        add(txtTipoEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, -1, -1));
 
         btnConfirm.setBackground(new java.awt.Color(63, 115, 193));
         btnConfirm.setPreferredSize(new java.awt.Dimension(138, 31));
@@ -74,6 +74,9 @@ public class PnlAddEquipment extends javax.swing.JPanel {
         txtConfirmbtn.setText("Confirmar");
         txtConfirmbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtConfirmbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtConfirmbtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 txtConfirmbtnMouseEntered(evt);
             }
@@ -97,30 +100,47 @@ public class PnlAddEquipment extends javax.swing.JPanel {
                 .addComponent(txtConfirmbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, -1, -1));
+        add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, -1, -1));
 
-        txtIdEquipment.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        txtIdEquipment.setForeground(new java.awt.Color(135, 132, 132));
-        txtIdEquipment.setText("Id:");
-        add(txtIdEquipment, new org.netbeans.lib.awtextra.AbsoluteConstraints(161, 98, -1, -1));
+        spnQuantity.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        spnQuantity.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        spnQuantity.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        spnQuantity.setPreferredSize(new java.awt.Dimension(100, 24));
+        add(spnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 147, -1, -1));
 
-        SpnQuantity.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
-        add(SpnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 190, -1));
-
-        txdEquipmentType.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfdType.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tfdType.setBorder(null);
+        tfdType.setPreferredSize(new java.awt.Dimension(200, 20));
+        tfdType.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txdEquipmentTypeKeyTyped(evt);
+                tfdTypeKeyTyped(evt);
             }
         });
-        add(txdEquipmentType, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 190, -1));
+        add(tfdType, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, -1, -1));
 
         txtCantidad.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         txtCantidad.setForeground(new java.awt.Color(135, 132, 132));
         txtCantidad.setText("Cantidad:");
-        add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+        add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
 
-        FtdCost.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        add(FtdCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 190, -1));
+        fdlCost.setBorder(null);
+        fdlCost.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        fdlCost.setText("0,00");
+        add(fdlCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 190, -1));
+
+        sptTipo.setBackground(new java.awt.Color(116, 178, 237));
+        sptTipo.setForeground(new java.awt.Color(116, 178, 237));
+        sptTipo.setMinimumSize(new java.awt.Dimension(197, 1));
+        sptTipo.setOpaque(true);
+        sptTipo.setPreferredSize(new java.awt.Dimension(205, 1));
+        add(sptTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 122, -1, -1));
+
+        sptCosto.setBackground(new java.awt.Color(116, 178, 237));
+        sptCosto.setForeground(new java.awt.Color(116, 178, 237));
+        sptCosto.setMinimumSize(new java.awt.Dimension(197, 1));
+        sptCosto.setOpaque(true);
+        sptCosto.setPreferredSize(new java.awt.Dimension(205, 1));
+        add(sptCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 222, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtConfirmbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseEntered
@@ -131,23 +151,68 @@ public class PnlAddEquipment extends javax.swing.JPanel {
         btnConfirm.setBackground(btnDefaultColor);
     }//GEN-LAST:event_txtConfirmbtnMouseExited
 
-    private void txdEquipmentTypeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txdEquipmentTypeKeyTyped
+    private void tfdTypeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdTypeKeyTyped
             if (!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)){
         evt.consume();
     }
-    }//GEN-LAST:event_txdEquipmentTypeKeyTyped
+    }//GEN-LAST:event_tfdTypeKeyTyped
+
+    private void txtConfirmbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseClicked
+       boolean canContinue = validateData();
+
+        if(canContinue==true){
+            sendEquipmentData();
+        }
+    }//GEN-LAST:event_txtConfirmbtnMouseClicked
 
 
+    private boolean validateData(){
+        boolean passed = true;
+        
+        passed = HandleInput.validateEquipmentName(tfdType.getText());
+        if(passed){
+            EquipmentController eqmtc = new EquipmentController();
+            passed = eqmtc.validateTypeName(tfdType.getText());
+            if(passed){            
+                passed = HandleInput.validateInteger(spnQuantity.getValue().toString());
+                if(passed){
+                    passed = HandleInput.validatePriceString(fdlCost.getText());
+                }
+            }
+        }
+        
+        return passed;
+    }
+    
+    private void sendEquipmentData(){
+        String insertedType = tfdType.getText();
+        int insertedQty = Integer.parseInt(spnQuantity.getValue().toString());
+        float insertedCost = HandleInput.returnFloat(fdlCost.getText());
+        
+        equipment = new Equipment(insertedType, insertedCost, insertedQty);
+        
+        EquipmentController eqmtc = new EquipmentController();
+        eqmtc.create(equipment);
+        
+        emptyFields();
+    }
+    
+    private void emptyFields(){
+        tfdType.setText("");
+        spnQuantity.setValue(1);
+        fdlCost.setText("0,00");
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFormattedTextField FtdCost;
-    private javax.swing.JSpinner SpnQuantity;
     private javax.swing.JPanel btnConfirm;
-    private javax.swing.JTextField txdEquipmentType;
+    private javax.swing.JFormattedTextField fdlCost;
+    private javax.swing.JSpinner spnQuantity;
+    private javax.swing.JSeparator sptCosto;
+    private javax.swing.JSeparator sptTipo;
+    private javax.swing.JTextField tfdType;
     private javax.swing.JLabel txtCantidad;
     private javax.swing.JLabel txtConfirmbtn;
     private javax.swing.JLabel txtCosto;
-    private javax.swing.JLabel txtIdEquipment;
-    private javax.swing.JLabel txtIdValueEquipment;
     private javax.swing.JLabel txtTipoEquipo;
     private javax.swing.JLabel txtTitle;
     // End of variables declaration//GEN-END:variables

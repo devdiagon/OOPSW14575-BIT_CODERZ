@@ -1,8 +1,8 @@
 package ec.edu.espe.organivent.controller;
 
 import static com.mongodb.client.model.Filters.eq;
-import ec.edu.espe.organivent.iterfaces.IEmployee;
-import ec.edu.espe.organivent.model.Employee;
+import ec.edu.espe.organivent.iterfaces.IArtist;
+import ec.edu.espe.organivent.model.Artist;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import ec.edu.espe.organivent.utils.ManageMongoDB;
@@ -14,45 +14,45 @@ import org.bson.conversions.Bson;
  *
  * @author Frederick
  */
-public class EmployeeController extends ManageMongoDB implements IEmployee {
-    private String collectionName = "Employee";
-    private Class classType = Employee.class;
+public class ArtistController extends ManageMongoDB implements IArtist {
+    private String collectionName = "Artist";
+    private Class classType = Artist.class;
 
     @Override
-    public void create(Employee employee) {
+    public void create(Artist artist) {
         this.connectToDatabase();
         this.getFromCollection(collectionName);
         
-        Document doc = Document.parse(ManageJson.passObjectToJson(employee));
+        Document doc = Document.parse(ManageJson.passObjectToJson(artist));
         this.coll.insertOne(doc);
     }
 
     @Override
-    public ArrayList<Employee> read() {
+    public ArrayList<Artist> read() {
         this.connectToDatabase();
         this.getFromCollection(collectionName);
         
-        ArrayList<Employee> employeesInDB = ManageJson.passCollectionToList(this.coll, classType);
+        ArrayList<Artist> artistsInDB = ManageJson.passCollectionToList(this.coll, classType);
         
-        return employeesInDB;
+        return artistsInDB;
     }
 
     @Override
-    public void update(Employee employee) {
+    public void update(Artist artist) {
         this.connectToDatabase();
         this.getFromCollection(collectionName);
         
-        Bson filter = eq("id",employee.getId());
-        Document doc = Document.parse(ManageJson.passObjectToJson(employee));
+        Bson filter = eq("id",artist.getId());
+        Document doc = Document.parse(ManageJson.passObjectToJson(artist));
         
         this.coll.findOneAndUpdate(filter, doc);
     }
 
     @Override
-    public void delete(Employee employee) {
+    public void delete(Artist artist) {
         this.connectToDatabase();
         this.getFromCollection(collectionName);
-        Bson filter = eq("id",employee.getId());
+        Bson filter = eq("id",artist.getId());
         
         this.coll.deleteOne(filter);
     }

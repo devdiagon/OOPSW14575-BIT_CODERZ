@@ -36,5 +36,5 @@ public class ManageMongoDB {
     public void getFromCollection(String collectionName){
         coll = db.getCollection(collectionName);
     }
-    
+        
 }

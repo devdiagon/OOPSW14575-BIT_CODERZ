@@ -184,7 +184,6 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
 
         lbEyeImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eye_hide_icon.png"))); // NOI18N
         lbEyeImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lbEyeImage.setPreferredSize(new java.awt.Dimension(25, 25));
         lbEyeImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lbEyeImageMousePressed(evt);
@@ -243,6 +242,7 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
 
         fdlWage.setBorder(null);
         fdlWage.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0.00"))));
+        fdlWage.setText("0,00");
         fdlWage.setPreferredSize(new java.awt.Dimension(128, 16));
         background.add(fdlWage, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 317, 110, -1));
 

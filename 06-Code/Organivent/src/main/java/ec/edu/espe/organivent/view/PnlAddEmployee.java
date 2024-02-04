@@ -1,5 +1,8 @@
 package ec.edu.espe.organivent.view;
 
+import ec.edu.espe.organivent.controller.EmployeeController;
+import ec.edu.espe.organivent.model.Employee;
+import ec.edu.espe.organivent.utils.HandleInput;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
@@ -11,12 +14,14 @@ public class PnlAddEmployee extends javax.swing.JPanel {
 
     private Color btnDefaultColor = new Color(63,115,193);
     private Color btnHoverColor = new Color(48,88,149);
+    private Employee employee;
     
     /**
      * Creates new form PnlAddEmployee
      */
     public PnlAddEmployee() {
         initComponents();
+        asignNewId();
     }
 
     /**
@@ -36,7 +41,9 @@ public class PnlAddEmployee extends javax.swing.JPanel {
         txtConfirmbtn = new javax.swing.JLabel();
         tfdName = new javax.swing.JTextField();
         txtId1 = new javax.swing.JLabel();
-        FtdWage = new javax.swing.JFormattedTextField();
+        fdlWage = new javax.swing.JFormattedTextField();
+        sptNombre = new javax.swing.JSeparator();
+        sptSalario = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(390, 375));
@@ -48,7 +55,7 @@ public class PnlAddEmployee extends javax.swing.JPanel {
 
         txtSalario.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         txtSalario.setForeground(new java.awt.Color(135, 132, 132));
-        txtSalario.setText("Salario:");
+        txtSalario.setText("Salario:   $");
         add(txtSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 192, -1, -1));
 
         txtIdValue.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
@@ -69,6 +76,9 @@ public class PnlAddEmployee extends javax.swing.JPanel {
         txtConfirmbtn.setText("Confirmar");
         txtConfirmbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtConfirmbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtConfirmbtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 txtConfirmbtnMouseEntered(evt);
             }
@@ -97,13 +107,29 @@ public class PnlAddEmployee extends javax.swing.JPanel {
                 tfdNameKeyTyped(evt);
             }
         });
-        add(tfdName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 141, 230, -1));
+        add(tfdName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 141, 200, -1));
 
         txtId1.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         txtId1.setForeground(new java.awt.Color(135, 132, 132));
         txtId1.setText("Id:");
         add(txtId1, new org.netbeans.lib.awtextra.AbsoluteConstraints(161, 98, -1, -1));
-        add(FtdWage, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 220, -1));
+
+        fdlWage.setBorder(null);
+        fdlWage.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0.00"))));
+        fdlWage.setText("0,00");
+        add(fdlWage, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 192, 170, -1));
+
+        sptNombre.setBackground(new java.awt.Color(116, 178, 237));
+        sptNombre.setForeground(new java.awt.Color(116, 178, 237));
+        sptNombre.setOpaque(true);
+        sptNombre.setPreferredSize(new java.awt.Dimension(197, 1));
+        add(sptNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 162, -1, -1));
+
+        sptSalario.setBackground(new java.awt.Color(116, 178, 237));
+        sptSalario.setForeground(new java.awt.Color(116, 178, 237));
+        sptSalario.setOpaque(true);
+        sptSalario.setPreferredSize(new java.awt.Dimension(197, 1));
+        add(sptSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 214, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtConfirmbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseEntered
@@ -120,10 +146,56 @@ public class PnlAddEmployee extends javax.swing.JPanel {
     }
     }//GEN-LAST:event_tfdNameKeyTyped
 
+    private void txtConfirmbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseClicked
+        boolean canContinue = validateData();
+
+        if(canContinue==true){
+            sendEmployeeData();
+        } 
+    }//GEN-LAST:event_txtConfirmbtnMouseClicked
+
+    private boolean validateData(){
+        boolean passed = true;
+        
+        passed = HandleInput.validateRealName(tfdName.getText());
+        if(passed){
+            passed = HandleInput.validatePriceString(fdlWage.getText());
+        }
+        return passed;
+    }
+    
+    private void sendEmployeeData(){
+        int asignedId = Integer.parseInt(txtIdValue.getText());
+        String insertedName = tfdName.getText();
+        float insertedWage = HandleInput.returnFloat(fdlWage.getText());
+        
+        employee = new Employee(asignedId, insertedName, insertedWage);
+        
+        EmployeeController empc = new EmployeeController();
+        empc.create(employee);
+        
+        emptyFields();
+        asignNewId();
+    }
+    
+    private void emptyFields(){
+        tfdName.setText("");
+        fdlWage.setText("0,00");
+    }
+    
+    private void asignNewId(){
+        EmployeeController empc = new EmployeeController();
+        int asignedId = empc.asignNewId();
+        String displayNewId = Integer.toString(asignedId);
+        
+        txtIdValue.setText(displayNewId);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFormattedTextField FtdWage;
     private javax.swing.JPanel btnConfirm;
+    private javax.swing.JFormattedTextField fdlWage;
+    private javax.swing.JSeparator sptNombre;
+    private javax.swing.JSeparator sptSalario;
     private javax.swing.JTextField tfdName;
     private javax.swing.JLabel txtConfirmbtn;
     private javax.swing.JLabel txtId1;

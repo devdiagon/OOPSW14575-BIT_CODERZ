@@ -1,5 +1,8 @@
 package ec.edu.espe.organivent.view;
 
+import ec.edu.espe.organivent.controller.EventPlaceController;
+import ec.edu.espe.organivent.model.EventPlace;
+import ec.edu.espe.organivent.utils.HandleInput;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
@@ -11,6 +14,7 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
 
     private Color btnDefaultColor = new Color(63,115,193);
     private Color btnHoverColor = new Color(48,88,149);
+    private EventPlace eventPlace;
     
     /**
      * Creates new form PnlAddEmployee
@@ -29,18 +33,21 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
     private void initComponents() {
 
         txtTitle = new javax.swing.JLabel();
-        txtAdress = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JLabel();
         btnConfirm = new javax.swing.JPanel();
         txtConfirmbtn = new javax.swing.JLabel();
-        txtName = new javax.swing.JLabel();
-        txtCapacity = new javax.swing.JLabel();
-        txtRentCost = new javax.swing.JLabel();
-        txtEventPlaceName = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JLabel();
+        txtCapacidad = new javax.swing.JLabel();
+        txtCostoRenta = new javax.swing.JLabel();
+        tfdName = new javax.swing.JTextField();
         tfdAdress = new javax.swing.JTextField();
-        txdRentCost = new javax.swing.JTextField();
         sldCapacity = new javax.swing.JSlider();
         etiValor = new javax.swing.JLabel();
         etiCapacidad = new javax.swing.JLabel();
+        fdlRentCost = new javax.swing.JFormattedTextField();
+        sptNombre = new javax.swing.JSeparator();
+        sptDireccion = new javax.swing.JSeparator();
+        sptCostoRenta = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(390, 375));
@@ -48,12 +55,12 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
 
         txtTitle.setFont(new java.awt.Font("Inter SemiBold", 0, 20)); // NOI18N
         txtTitle.setText("Añadir Lugar");
-        add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
+        add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 20, -1, -1));
 
-        txtAdress.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        txtAdress.setForeground(new java.awt.Color(135, 132, 132));
-        txtAdress.setText("Dirección:");
-        add(txtAdress, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+        txtDireccion.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        txtDireccion.setForeground(new java.awt.Color(135, 132, 132));
+        txtDireccion.setText("Dirección:");
+        add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 120, -1, -1));
 
         btnConfirm.setBackground(new java.awt.Color(63, 115, 193));
         btnConfirm.setPreferredSize(new java.awt.Dimension(138, 31));
@@ -64,6 +71,9 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
         txtConfirmbtn.setText("Confirmar");
         txtConfirmbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtConfirmbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtConfirmbtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 txtConfirmbtnMouseEntered(evt);
             }
@@ -89,35 +99,38 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
 
         add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, -1, -1));
 
-        txtName.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        txtName.setForeground(new java.awt.Color(135, 132, 132));
-        txtName.setText("Nombre del sitio:");
-        add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 110, 20));
+        txtNombre.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        txtNombre.setForeground(new java.awt.Color(135, 132, 132));
+        txtNombre.setText("Nombre del sitio:");
+        add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, 20));
 
-        txtCapacity.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        txtCapacity.setForeground(new java.awt.Color(135, 132, 132));
-        txtCapacity.setText("Capacidad:");
-        add(txtCapacity, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
+        txtCapacidad.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        txtCapacidad.setForeground(new java.awt.Color(135, 132, 132));
+        txtCapacidad.setText("Capacidad:");
+        add(txtCapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
 
-        txtRentCost.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        txtRentCost.setForeground(new java.awt.Color(135, 132, 132));
-        txtRentCost.setText("Costo de renta:");
-        add(txtRentCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
+        txtCostoRenta.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        txtCostoRenta.setForeground(new java.awt.Color(135, 132, 132));
+        txtCostoRenta.setText("Costo de renta:  $");
+        add(txtCostoRenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
-        txtEventPlaceName.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfdName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tfdName.setBorder(null);
+        tfdName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtEventPlaceNameKeyTyped(evt);
+                tfdNameKeyTyped(evt);
             }
         });
-        add(txtEventPlaceName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 210, -1));
+        add(tfdName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 68, 200, -1));
 
+        tfdAdress.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tfdAdress.setBorder(null);
         tfdAdress.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfdAdressKeyTyped(evt);
             }
         });
-        add(tfdAdress, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 210, -1));
-        add(txdRentCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 210, -1));
+        add(tfdAdress, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 118, 200, -1));
 
         sldCapacity.setMajorTickSpacing(10000);
         sldCapacity.setMaximum(30000);
@@ -135,6 +148,29 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
 
         etiCapacidad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         add(etiCapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 170, 30));
+
+        fdlRentCost.setBorder(null);
+        fdlRentCost.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0.00"))));
+        fdlRentCost.setText("0,00");
+        add(fdlRentCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 170, -1));
+
+        sptNombre.setBackground(new java.awt.Color(116, 178, 237));
+        sptNombre.setForeground(new java.awt.Color(116, 178, 237));
+        sptNombre.setOpaque(true);
+        sptNombre.setPreferredSize(new java.awt.Dimension(200, 1));
+        add(sptNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, -1, -1));
+
+        sptDireccion.setBackground(new java.awt.Color(116, 178, 237));
+        sptDireccion.setForeground(new java.awt.Color(116, 178, 237));
+        sptDireccion.setOpaque(true);
+        sptDireccion.setPreferredSize(new java.awt.Dimension(200, 1));
+        add(sptDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, -1, -1));
+
+        sptCostoRenta.setBackground(new java.awt.Color(116, 178, 237));
+        sptCostoRenta.setForeground(new java.awt.Color(116, 178, 237));
+        sptCostoRenta.setOpaque(true);
+        sptCostoRenta.setPreferredSize(new java.awt.Dimension(195, 1));
+        add(sptCostoRenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 190, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtConfirmbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseEntered
@@ -146,15 +182,14 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
     }//GEN-LAST:event_txtConfirmbtnMouseExited
 
     private void sldCapacityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldCapacityStateChanged
-        // TODO add your handling code here:
         etiCapacidad.setText(sldCapacity.getValue()+" personas");
     }//GEN-LAST:event_sldCapacityStateChanged
 
-    private void txtEventPlaceNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEventPlaceNameKeyTyped
+    private void tfdNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdNameKeyTyped
         if (!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)){
         evt.consume();
     }
-    }//GEN-LAST:event_txtEventPlaceNameKeyTyped
+    }//GEN-LAST:event_tfdNameKeyTyped
 
     private void tfdAdressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdAdressKeyTyped
         char keyChar = evt.getKeyChar();
@@ -164,20 +199,70 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tfdAdressKeyTyped
 
+    private void txtConfirmbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseClicked
+        boolean canContinue = validateData();
+
+        if(canContinue==true){
+            sendEventPlaceData();
+        }
+    }//GEN-LAST:event_txtConfirmbtnMouseClicked
+
+    private boolean validateData(){
+        boolean passed = true;
+        
+        passed = HandleInput.validateRealName(tfdName.getText());
+        if(passed){
+            EventPlaceController evplc = new EventPlaceController();
+            passed = evplc.validateName(tfdName.getText());
+            if(passed){            
+                passed = HandleInput.validateStreetAdress(tfdAdress.getText());
+                if(passed){
+                    passed = HandleInput.validatePriceString(fdlRentCost.getText());
+                }
+            }
+        }
+        
+        return passed;
+    }
+    
+    private void sendEventPlaceData(){
+        String insertedName = tfdName.getText();
+        String insertedAdress = tfdAdress.getText();
+        float insertedRentCost = HandleInput.returnFloat(fdlRentCost.getText());
+        int insertedCapacity = sldCapacity.getValue();
+        
+        eventPlace = new EventPlace(insertedName, insertedAdress, insertedRentCost, insertedCapacity);
+        
+        EventPlaceController evplc = new EventPlaceController();
+        evplc.create(eventPlace);
+        
+        emptyFields();
+    }
+    
+    private void emptyFields(){
+        tfdName.setText("");
+        tfdAdress.setText("");
+        sldCapacity.setValue(0);
+        etiCapacidad.setText("");
+        fdlRentCost.setText("0,00");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnConfirm;
     private javax.swing.JLabel etiCapacidad;
     private javax.swing.JLabel etiValor;
+    private javax.swing.JFormattedTextField fdlRentCost;
     private javax.swing.JSlider sldCapacity;
+    private javax.swing.JSeparator sptCostoRenta;
+    private javax.swing.JSeparator sptDireccion;
+    private javax.swing.JSeparator sptNombre;
     private javax.swing.JTextField tfdAdress;
-    private javax.swing.JTextField txdRentCost;
-    private javax.swing.JLabel txtAdress;
-    private javax.swing.JLabel txtCapacity;
+    private javax.swing.JTextField tfdName;
+    private javax.swing.JLabel txtCapacidad;
     private javax.swing.JLabel txtConfirmbtn;
-    private javax.swing.JTextField txtEventPlaceName;
-    private javax.swing.JLabel txtName;
-    private javax.swing.JLabel txtRentCost;
+    private javax.swing.JLabel txtCostoRenta;
+    private javax.swing.JLabel txtDireccion;
+    private javax.swing.JLabel txtNombre;
     private javax.swing.JLabel txtTitle;
     // End of variables declaration//GEN-END:variables
 }

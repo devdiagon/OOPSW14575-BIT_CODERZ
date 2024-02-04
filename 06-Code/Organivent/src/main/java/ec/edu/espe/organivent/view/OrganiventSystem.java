@@ -11,7 +11,6 @@ public class OrganiventSystem {
 
     public static void main(String[] args) throws IOException {
         
-        
         int option;
         do{
             System.out.println("----- ORGANIVENT SYSTEM -----");
