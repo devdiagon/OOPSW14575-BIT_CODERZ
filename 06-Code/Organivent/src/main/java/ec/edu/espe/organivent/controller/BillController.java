@@ -7,6 +7,7 @@ import ec.edu.espe.organivent.iterfaces.IBill;
 import ec.edu.espe.organivent.model.Bill;
 import ec.edu.espe.organivent.utils.ManageJson;
 import ec.edu.espe.organivent.utils.ManageMongoDB;
+import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -57,5 +58,15 @@ public class BillController extends ManageMongoDB implements IBill {
         Bson filter = eq("id",bill.getId());
         
         this.coll.deleteOne(filter);
+    }
+
+    @Override
+    public ArrayList<Bill> readTable() {
+        this.connectToDatabase();
+        this.getFromCollection(collectionName);
+        
+        ArrayList<Bill> billInDB = ManageJson.passCollectionToList(this.coll, classType);
+        
+        return billInDB;
     }
 }

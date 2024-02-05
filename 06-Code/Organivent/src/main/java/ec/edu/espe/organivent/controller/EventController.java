@@ -8,6 +8,7 @@ import ec.edu.espe.organivent.model.Event;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import ec.edu.espe.organivent.utils.ManageMongoDB;
+import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -65,6 +66,16 @@ public class EventController extends ManageMongoDB implements IEvent {
         this.getFromCollection(collectionName);
 
         return HandleInput.increaseMaxId(this.coll);
+    }
+
+    @Override
+    public ArrayList<Event> readTable() {
+        this.connectToDatabase();
+        this.getFromCollection(collectionName);
+        
+        ArrayList<Event> eventInDB = ManageJson.passCollectionToList(this.coll, classType);
+        
+        return eventInDB;
     }
     
 }
