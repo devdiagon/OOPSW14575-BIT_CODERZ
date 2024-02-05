@@ -1,16 +1,33 @@
 package ec.edu.espe.organivent.view;
 
+import ec.edu.espe.organivent.controller.EmployeeController;
+import ec.edu.espe.organivent.controller.StaffController;
+import ec.edu.espe.organivent.model.Employee;
+import ec.edu.espe.organivent.model.Staff;
+import ec.edu.espe.organivent.utils.HandleInput;
+import java.awt.Color;
+import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
+
 /**
  *
  * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
  */
 public class PnlStaff extends javax.swing.JPanel {
 
+    private Color btnDefaultColor = new Color(63,115,193);
+    private Color btnHoverColor = new Color(48,88,149);
+    private Staff staff;
     /**
      * Creates new form PnlStaff
      */
     public PnlStaff() {
         initComponents();
+        asignNewId();
+        loadEmployees();
     }
 
     /**
@@ -24,216 +41,268 @@ public class PnlStaff extends javax.swing.JPanel {
 
         tfdName = new javax.swing.JTextField();
         txtTitle = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         txtId = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
-        txtType = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
+        txtTipo = new javax.swing.JLabel();
+        sptTipo = new javax.swing.JSeparator();
         txtEmployees = new javax.swing.JLabel();
-        cmbEmployees = new javax.swing.JComboBox<>();
-        txtTotalStaffCost = new javax.swing.JLabel();
-        tfdName1 = new javax.swing.JTextField();
-        sldTotalStaffCost = new javax.swing.JSlider();
-        txtTotalStaffCost1 = new javax.swing.JLabel();
-        txtTotalStaffCost2 = new javax.swing.JLabel();
+        txtCostoTotal = new javax.swing.JLabel();
+        tfdType = new javax.swing.JTextField();
+        txtDias = new javax.swing.JLabel();
+        txtHoras = new javax.swing.JLabel();
         btnConfirm = new javax.swing.JPanel();
         txtConfirmBtn = new javax.swing.JLabel();
         spnDaysWorked = new javax.swing.JSpinner();
         spnHoursWorked = new javax.swing.JSpinner();
+        scpnEmployees = new javax.swing.JScrollPane();
+        lstEmployees = new javax.swing.JList<>();
+        txtIdValue = new javax.swing.JLabel();
+        txtTotalCost = new javax.swing.JLabel();
 
         tfdName.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         tfdName.setBorder(null);
         tfdName.setPreferredSize(new java.awt.Dimension(210, 22));
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtTitle.setFont(new java.awt.Font("Inter SemiBold", 0, 20)); // NOI18N
         txtTitle.setForeground(new java.awt.Color(32, 108, 141));
         txtTitle.setText("Añadir Staff");
+        add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 14, -1, -1));
 
         txtId.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         txtId.setForeground(new java.awt.Color(135, 132, 132));
         txtId.setText("Id:");
+        add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, -1, -1));
 
-        jSeparator2.setForeground(new java.awt.Color(116, 178, 237));
+        txtTipo.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        txtTipo.setForeground(new java.awt.Color(135, 132, 132));
+        txtTipo.setText("Tipo de Staff:");
+        add(txtTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
-        txtType.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        txtType.setForeground(new java.awt.Color(135, 132, 132));
-        txtType.setText("Tipo de Staff:");
-
-        jSeparator3.setForeground(new java.awt.Color(116, 178, 237));
+        sptTipo.setBackground(new java.awt.Color(116, 178, 237));
+        sptTipo.setForeground(new java.awt.Color(116, 178, 237));
+        sptTipo.setOpaque(true);
+        sptTipo.setPreferredSize(new java.awt.Dimension(212, 1));
+        add(sptTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 122, -1, -1));
 
         txtEmployees.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         txtEmployees.setForeground(new java.awt.Color(135, 132, 132));
         txtEmployees.setText("Empleados:");
+        add(txtEmployees, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
 
-        cmbEmployees.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        cmbEmployees.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtCostoTotal.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        txtCostoTotal.setForeground(new java.awt.Color(135, 132, 132));
+        txtCostoTotal.setText("Costo total:");
+        add(txtCostoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, -1, -1));
 
-        txtTotalStaffCost.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        txtTotalStaffCost.setForeground(new java.awt.Color(135, 132, 132));
-        txtTotalStaffCost.setText("Costo total:");
-
-        tfdName1.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        tfdName1.setBorder(null);
-        tfdName1.setPreferredSize(new java.awt.Dimension(210, 22));
-        tfdName1.addActionListener(new java.awt.event.ActionListener() {
+        tfdType.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        tfdType.setBorder(null);
+        tfdType.setPreferredSize(new java.awt.Dimension(210, 22));
+        tfdType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfdName1ActionPerformed(evt);
+                tfdTypeActionPerformed(evt);
             }
         });
+        add(tfdType, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, -1, 20));
 
-        sldTotalStaffCost.setMajorTickSpacing(10000);
-        sldTotalStaffCost.setMaximum(10000);
-        sldTotalStaffCost.setMinorTickSpacing(1000);
-        sldTotalStaffCost.setPaintLabels(true);
-        sldTotalStaffCost.setPaintTicks(true);
-        sldTotalStaffCost.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        sldTotalStaffCost.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                sldTotalStaffCostStateChanged(evt);
-            }
-        });
+        txtDias.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        txtDias.setForeground(new java.awt.Color(135, 132, 132));
+        txtDias.setText("Dias de trabajo:");
+        add(txtDias, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, 20));
 
-        txtTotalStaffCost1.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        txtTotalStaffCost1.setForeground(new java.awt.Color(135, 132, 132));
-        txtTotalStaffCost1.setText("Dias de trabajo:");
-
-        txtTotalStaffCost2.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        txtTotalStaffCost2.setForeground(new java.awt.Color(135, 132, 132));
-        txtTotalStaffCost2.setText("Horas por cada dia:");
+        txtHoras.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        txtHoras.setForeground(new java.awt.Color(135, 132, 132));
+        txtHoras.setText("Horas de trabajo:");
+        add(txtHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
 
         btnConfirm.setBackground(new java.awt.Color(63, 115, 193));
         btnConfirm.setPreferredSize(new java.awt.Dimension(142, 27));
 
         txtConfirmBtn.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         txtConfirmBtn.setForeground(new java.awt.Color(255, 255, 255));
+        txtConfirmBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtConfirmBtn.setText("Confirmar");
+        txtConfirmBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtConfirmBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtConfirmBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtConfirmBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtConfirmBtnMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnConfirmLayout = new javax.swing.GroupLayout(btnConfirm);
         btnConfirm.setLayout(btnConfirmLayout);
         btnConfirmLayout.setHorizontalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnConfirmLayout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
-                .addComponent(txtConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+            .addComponent(txtConfirmBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
         );
         btnConfirmLayout.setVerticalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(txtConfirmBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(txtTitle))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(txtId)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtType)
-                                    .addComponent(txtEmployees)
-                                    .addComponent(txtTotalStaffCost)
-                                    .addComponent(txtTotalStaffCost1)
-                                    .addComponent(txtTotalStaffCost2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jSeparator3)
-                                        .addComponent(cmbEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(tfdName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(sldTotalStaffCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(spnDaysWorked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(spnHoursWorked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(txtTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtId)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtType)
-                    .addComponent(tfdName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEmployees)
-                    .addComponent(cmbEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(txtTotalStaffCost))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(sldTotalStaffCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTotalStaffCost1)
-                    .addComponent(spnDaysWorked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTotalStaffCost2)
-                    .addComponent(spnHoursWorked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
-        );
+        add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 328, -1, -1));
+
+        spnDaysWorked.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        add(spnDaysWorked, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, -1, -1));
+
+        spnHoursWorked.setModel(new javax.swing.SpinnerNumberModel(1, 1, 23, 1));
+        add(spnHoursWorked, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, -1, -1));
+
+        scpnEmployees.setBorder(null);
+
+        lstEmployees.setBorder(null);
+        lstEmployees.setFont(new java.awt.Font("Inter Light", 0, 12)); // NOI18N
+        lstEmployees.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        scpnEmployees.setViewportView(lstEmployees);
+
+        add(scpnEmployees, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 220, 90));
+
+        txtIdValue.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        txtIdValue.setText("0");
+        add(txtIdValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 40, -1));
+
+        txtTotalCost.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        txtTotalCost.setText("$ 0,00");
+        add(txtTotalCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfdName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdName1ActionPerformed
+    private void tfdTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdTypeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfdName1ActionPerformed
+    }//GEN-LAST:event_tfdTypeActionPerformed
 
-    private void sldTotalStaffCostStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldTotalStaffCostStateChanged
+    private void txtConfirmBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmBtnMouseEntered
+        btnConfirm.setBackground(btnHoverColor);
+    }//GEN-LAST:event_txtConfirmBtnMouseEntered
 
-    }//GEN-LAST:event_sldTotalStaffCostStateChanged
+    private void txtConfirmBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmBtnMouseExited
+        btnConfirm.setBackground(btnDefaultColor);
+    }//GEN-LAST:event_txtConfirmBtnMouseExited
 
+    private void txtConfirmBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmBtnMouseClicked
+        boolean canContinue = validateData();
+
+        if(canContinue==true){
+            sendStaffData();
+        } 
+    }//GEN-LAST:event_txtConfirmBtnMouseClicked
+
+    private boolean validateData(){
+        boolean passed = true;
+        
+        passed = HandleInput.validateRealName(tfdType.getText());
+        if(passed){
+            StaffController stfc = new StaffController();
+            passed = stfc.validateTypeName(tfdType.getText());
+            if(passed){
+                passed = HandleInput.validateInteger(spnDaysWorked.getValue().toString());
+                if(passed){
+                    passed = HandleInput.validateInteger(spnHoursWorked.getValue().toString());
+                }
+            }
+        }
+        return passed;
+    }
+    
+    private void sendStaffData(){
+        StaffController stfc = new StaffController();
+        
+        int asignedId = Integer.parseInt(txtIdValue.getText());
+        String insertedType = tfdType.getText();
+        int insertedWorkDays = Integer.parseInt(spnDaysWorked.getValue().toString());
+        int insertedWorkHours = Integer.parseInt(spnHoursWorked.getValue().toString());
+        
+        ArrayList<Employee> insertedEmployees = getSelectedEmployees();
+        
+        
+        float totalStaffCost = stfc.calculateTotalCost(insertedEmployees, insertedWorkHours, insertedWorkDays);
+        
+        staff = new Staff(asignedId, insertedType, insertedEmployees, totalStaffCost, insertedWorkDays, insertedWorkHours);
+
+        stfc.create(staff);
+        
+        emptyFields();
+        asignNewId();
+    }
+    
+    private void emptyFields(){
+        tfdType.setText("");
+        spnDaysWorked.setValue(1);
+        spnHoursWorked.setValue(1);
+        txtTotalCost.setText("$ 0,00");
+    }
+    
+    private void asignNewId(){
+        StaffController stfc = new StaffController();
+        int asignedId = stfc.asignNewId();
+        String displayNewId = Integer.toString(asignedId);
+        
+        txtIdValue.setText(displayNewId);
+    }
+    
+    private void loadEmployees(){
+        DefaultListModel listModel = new DefaultListModel();
+        EmployeeController emplc = new EmployeeController();
+        
+        ArrayList<Employee> availableEmployees = emplc.read();
+        
+        String display;
+        
+        for(Employee currentEmployee:availableEmployees){
+            display = currentEmployee.getId() + " " + currentEmployee.getName();
+            listModel.addElement(display);
+        }
+        
+        lstEmployees.setModel(listModel);
+    }
+    
+    private ArrayList<Employee> getSelectedEmployees(){
+        ArrayList<Employee> selectedEmployees = new ArrayList<>();
+        Employee fromEmployee;
+        EmployeeController emplc = new EmployeeController();
+        int reladtedId;
+        
+        List<String> selectedIndices = lstEmployees.getSelectedValuesList();
+        
+        
+        for(String index:selectedIndices){
+            reladtedId = Integer.parseInt(Character.toString(index.charAt(0)));
+            
+            fromEmployee = emplc.findOne(reladtedId);
+            selectedEmployees.add(fromEmployee);
+        }
+
+        return selectedEmployees;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnConfirm;
-    private javax.swing.JComboBox<String> cmbEmployees;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSlider sldTotalStaffCost;
+    private javax.swing.JList<String> lstEmployees;
+    private javax.swing.JScrollPane scpnEmployees;
     private javax.swing.JSpinner spnDaysWorked;
     private javax.swing.JSpinner spnHoursWorked;
+    private javax.swing.JSeparator sptTipo;
     private javax.swing.JTextField tfdName;
-    private javax.swing.JTextField tfdName1;
+    private javax.swing.JTextField tfdType;
     private javax.swing.JLabel txtConfirmBtn;
+    private javax.swing.JLabel txtCostoTotal;
+    private javax.swing.JLabel txtDias;
     private javax.swing.JLabel txtEmployees;
+    private javax.swing.JLabel txtHoras;
     private javax.swing.JLabel txtId;
+    private javax.swing.JLabel txtIdValue;
+    private javax.swing.JLabel txtTipo;
     private javax.swing.JLabel txtTitle;
-    private javax.swing.JLabel txtTotalStaffCost;
-    private javax.swing.JLabel txtTotalStaffCost1;
-    private javax.swing.JLabel txtTotalStaffCost2;
-    private javax.swing.JLabel txtType;
+    private javax.swing.JLabel txtTotalCost;
     // End of variables declaration//GEN-END:variables
 }

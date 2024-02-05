@@ -2,6 +2,7 @@ package ec.edu.espe.organivent.controller;
 
 import static com.mongodb.client.model.Filters.eq;
 import ec.edu.espe.organivent.iterfaces.IStaff;
+import ec.edu.espe.organivent.model.Employee;
 import ec.edu.espe.organivent.model.Staff;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
@@ -62,5 +63,51 @@ public class StaffController extends ManageMongoDB implements IStaff {
         this.getFromCollection(collectionName);
 
         return HandleInput.increaseMaxId(this.coll);
+    }
+    
+    public boolean validateTypeName(String typeNameToCheck){
+        this.connectToDatabase();
+        this.getFromCollection(collectionName);
+        
+        Bson filter = eq("type", typeNameToCheck);
+        Document doc = this.coll.find(filter).first();
+        
+        if(doc==null){
+            return true;
+        }else{
+            return doc.isEmpty();
+        }
+    }
+    
+    public float calculateTotalCost(ArrayList<Employee> employees, int workingHours, int workingDays){
+        float totalCostPerHour = computeTotalCostPerHour(employees,workingHours);
+        float totalStaffCost = totalCostPerHour;
+        
+        totalStaffCost *= workingDays;
+        
+        return totalStaffCost;
+    }
+    
+    public float computeTotalCostPerHour(ArrayList<Employee> employees, int workingHours){
+        float costPerHours = 0;
+        float totalEmployeeGroupCost = 0;
+        
+        for(Employee currentEmployee : employees) {
+            costPerHours = ((currentEmployee.getWage()) * workingHours);
+            totalEmployeeGroupCost += costPerHours;
+        }
+        
+        return totalEmployeeGroupCost;
+    }
+    
+    public Staff findOne(int idToSearch){
+        this.connectToDatabase();
+        this.getFromCollection(collectionName);
+        
+        Bson filter = eq("id",idToSearch);
+        Document doc = this.coll.find(filter).first();
+        
+        Staff staff = ManageJson.passJsonToObject(doc, classType);
+        return staff;
     }
 }

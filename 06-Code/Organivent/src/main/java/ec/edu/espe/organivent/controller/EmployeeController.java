@@ -64,4 +64,15 @@ public class EmployeeController extends ManageMongoDB implements IEmployee {
         return HandleInput.increaseMaxId(this.coll);
     }
     
+    public Employee findOne(int idToSearch){
+        this.connectToDatabase();
+        this.getFromCollection(collectionName);
+        
+        Bson filter = eq("id",idToSearch);
+        Document doc = this.coll.find(filter).first();
+        
+        Employee employee = ManageJson.passJsonToObject(doc, classType);
+        return employee;
+    }
+    
 }

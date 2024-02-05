@@ -21,6 +21,7 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
      */
     public FrmOrganiventMenu() {
         initComponents();
+        showPanel(new PnlAddEvent1());
     }
     
     private void showPanel(JPanel p){
@@ -414,6 +415,8 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         resetFontFormat();
         btnEvent.setBackground(btnHoverColor);
         txtEventbtn.setFont(pressedFont);
+        
+        showPanel(new PnlAddEvent1());
     }//GEN-LAST:event_txtEventbtnMouseClicked
 
     private void txtStaffbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtStaffbtnMouseClicked
@@ -421,6 +424,8 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         resetFontFormat();
         btnStaff.setBackground(btnHoverColor);
         txtStaffbtn.setFont(pressedFont);
+        
+        showPanel(new PnlStaff());
     }//GEN-LAST:event_txtStaffbtnMouseClicked
 
     private void txtArtistbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtArtistbtnMouseClicked
