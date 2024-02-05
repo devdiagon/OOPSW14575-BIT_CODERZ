@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.organivent.view;
 
 import ec.edu.espe.organivent.controller.ArtistController;
@@ -121,10 +117,7 @@ public class FrmReadArtist extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBackAritstbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackAritstbtnMouseClicked
-        resetButtonColors();
-        resetFontFormat();
-        btnBackArtist.setBackground(btnHoverColor);
-        txtBackAritstbtn.setFont(pressedFont);
+        this.dispose();
     }//GEN-LAST:event_txtBackAritstbtnMouseClicked
 
     private void txtBackAritstbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackAritstbtnMouseEntered

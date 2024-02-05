@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.organivent.view;
 
 import ec.edu.espe.organivent.controller.EquipmentController;
@@ -121,10 +117,7 @@ public class FrmReadEquipment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBackEquipmentbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackEquipmentbtnMouseClicked
-        resetButtonColors();
-        resetFontFormat();
-        btnBackEquipment.setBackground(btnHoverColor);
-        txtBackEquipmentbtn.setFont(pressedFont);
+        this.dispose();
     }//GEN-LAST:event_txtBackEquipmentbtnMouseClicked
 
     private void txtBackEquipmentbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackEquipmentbtnMouseEntered

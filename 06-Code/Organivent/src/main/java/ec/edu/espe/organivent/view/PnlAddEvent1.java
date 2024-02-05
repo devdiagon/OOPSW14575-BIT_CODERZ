@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -17,7 +18,7 @@ import javax.swing.DefaultComboBoxModel;
 public class PnlAddEvent1 extends javax.swing.JPanel {
     private Color btnDefaultColor = new Color(63,115,193);
     private Color btnHoverColor = new Color(48,88,149);
-
+    
     /**
      * Creates new form PnlAddEvent
      */
@@ -155,16 +156,7 @@ public class PnlAddEvent1 extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNextPagebtnMouseExited
 
     private void txtNextPagebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNextPagebtnMouseClicked
-        PnlAddEvent2 aevPnl2 = new PnlAddEvent2();
-        
-        aevPnl2.setSize(390, 375);
-        aevPnl2.setLocation(0, 0);
-        
-        this.removeAll();
-        this.add(aevPnl2, BorderLayout.CENTER);
-        this.revalidate();
-        this.repaint();
-        
+
     }//GEN-LAST:event_txtNextPagebtnMouseClicked
 
      private void asignNewId(){

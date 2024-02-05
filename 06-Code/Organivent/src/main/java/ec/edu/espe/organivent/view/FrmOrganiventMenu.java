@@ -21,7 +21,7 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
      */
     public FrmOrganiventMenu() {
         initComponents();
-        showPanel(new PnlAddEvent1());
+        showPanel(new PnlEventMainMenu());
     }
     
     private void showPanel(JPanel p){
@@ -301,7 +301,6 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
 
         lbLogOutIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout_icon.png"))); // NOI18N
         lbLogOutIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lbLogOutIcon.setPreferredSize(new java.awt.Dimension(25, 25));
         lbLogOutIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbLogOutIconMouseClicked(evt);
@@ -325,7 +324,7 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
             .addGap(0, 375, Short.MAX_VALUE)
         );
 
-        background.add(pnlContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, -1, -1));
+        background.add(pnlContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -416,7 +415,7 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         btnEvent.setBackground(btnHoverColor);
         txtEventbtn.setFont(pressedFont);
         
-        showPanel(new PnlAddEvent1());
+        showPanel(new PnlEventMainMenu());
     }//GEN-LAST:event_txtEventbtnMouseClicked
 
     private void txtStaffbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtStaffbtnMouseClicked

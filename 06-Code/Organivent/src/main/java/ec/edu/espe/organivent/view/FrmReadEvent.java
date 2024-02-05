@@ -46,8 +46,14 @@ public class FrmReadEvent extends javax.swing.JFrame {
         txtBackbtn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        setMaximumSize(new java.awt.Dimension(940, 546));
+        setMinimumSize(new java.awt.Dimension(940, 546));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(940, 546));
+        jPanel1.setMinimumSize(new java.awt.Dimension(940, 546));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtTitle.setFont(new java.awt.Font("Inter SemiBold", 0, 20)); // NOI18N
@@ -67,7 +73,7 @@ public class FrmReadEvent extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblReadEvent);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 940, 430));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 940, 400));
 
         btnBack.setBackground(new java.awt.Color(63, 115, 193));
         btnBack.setPreferredSize(new java.awt.Dimension(158, 56));
@@ -93,20 +99,14 @@ public class FrmReadEvent extends javax.swing.JFrame {
         btnBack.setLayout(btnBackLayout);
         btnBackLayout.setHorizontalGroup(
             btnBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnBackLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(txtBackbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(txtBackbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
         );
         btnBackLayout.setVerticalGroup(
             btnBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnBackLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(txtBackbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(txtBackbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 490, -1, -1));
+        jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 470, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,10 +123,7 @@ public class FrmReadEvent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBackbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackbtnMouseClicked
-        resetButtonColors();
-        resetFontFormat();
-        btnBack.setBackground(btnHoverColor);
-        txtBackbtn.setFont(pressedFont);
+        this.dispose();
     }//GEN-LAST:event_txtBackbtnMouseClicked
 
     private void txtBackbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackbtnMouseEntered

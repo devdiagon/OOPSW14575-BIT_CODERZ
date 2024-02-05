@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.organivent.view;
 
 import ec.edu.espe.organivent.controller.BillController;
@@ -121,10 +117,7 @@ public class FrmReadBill extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBackBillbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackBillbtnMouseClicked
-        resetButtonColors();
-        resetFontFormat();
-        btnBackBill.setBackground(btnHoverColor);
-        txtBackBillbtn.setFont(pressedFont);
+        this.dispose();
     }//GEN-LAST:event_txtBackBillbtnMouseClicked
 
     private void txtBackBillbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackBillbtnMouseEntered
