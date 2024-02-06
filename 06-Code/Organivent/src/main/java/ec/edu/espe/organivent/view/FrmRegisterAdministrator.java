@@ -174,7 +174,7 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
 
         psfdPassword.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         psfdPassword.setText("***********************");
-        psfdPassword.setToolTipText("La contraseña debe tener mínimo 10 dígitos, \nnumeros, mayúsculas, minúsculas y un caracter especial");
+        psfdPassword.setToolTipText("La contraseña debe tener mínimo 10 dígitos entre: numeros, mayúsculas, minúsculas y un caracter especial");
         psfdPassword.setBorder(null);
         psfdPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {

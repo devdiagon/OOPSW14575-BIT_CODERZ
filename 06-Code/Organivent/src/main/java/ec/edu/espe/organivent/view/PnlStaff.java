@@ -168,6 +168,7 @@ public class PnlStaff extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        lstEmployees.setToolTipText("Realice ctr + clic para seleccionar varios empleados a la vez");
         scpnEmployees.setViewportView(lstEmployees);
 
         add(scpnEmployees, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 220, 90));

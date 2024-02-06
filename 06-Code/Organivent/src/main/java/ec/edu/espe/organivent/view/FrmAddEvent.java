@@ -13,8 +13,10 @@ import ec.edu.espe.organivent.model.Expense;
 import ec.edu.espe.organivent.model.PenaltyFee;
 import ec.edu.espe.organivent.model.Schedule;
 import ec.edu.espe.organivent.model.Staff;
+import ec.edu.espe.organivent.utils.HandleInput;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
@@ -33,8 +35,8 @@ public class FrmAddEvent extends javax.swing.JFrame {
     private Schedule endTime;
     private ArrayList<Staff> staff;
     private ArrayList<Equipment> equipment;
-    private ArrayList<Expense> generalExpenses;
-    private ArrayList<PenaltyFee> penaltyFees;
+    private ArrayList<Expense> generalExpenses = new ArrayList<>();
+    private ArrayList<PenaltyFee> penaltyFees = new ArrayList<>();
     
     
     /**
@@ -464,6 +466,11 @@ public class FrmAddEvent extends javax.swing.JFrame {
         txtAddPntFee.setForeground(new java.awt.Color(255, 255, 255));
         txtAddPntFee.setText(org.openide.util.NbBundle.getMessage(FrmAddEvent.class, "FrmAddEvent.txtAddPntFee.text")); // NOI18N
         txtAddPntFee.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtAddPntFee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtAddPntFeeMouseClicked(evt);
+            }
+        });
         background.add(txtAddPntFee, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 244, -1, -1));
 
         txtGastos.setFont(new java.awt.Font("Inter SemiBold", 0, 14)); // NOI18N
@@ -480,6 +487,11 @@ public class FrmAddEvent extends javax.swing.JFrame {
         txtAddExpense.setForeground(new java.awt.Color(255, 255, 255));
         txtAddExpense.setText(org.openide.util.NbBundle.getMessage(FrmAddEvent.class, "FrmAddEvent.txtAddExpense.text")); // NOI18N
         txtAddExpense.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtAddExpense.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtAddExpenseMouseClicked(evt);
+            }
+        });
         background.add(txtAddExpense, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 121, -1, -1));
 
         txtInsertado.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
@@ -576,6 +588,7 @@ public class FrmAddEvent extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        lstEquipment.setToolTipText(org.openide.util.NbBundle.getMessage(FrmAddEvent.class, "FrmAddEvent.lstEquipment.toolTipText")); // NOI18N
         lstEquipment.setPreferredSize(new java.awt.Dimension(96, 96));
         scpnEquipment.setViewportView(lstEquipment);
 
@@ -587,6 +600,7 @@ public class FrmAddEvent extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        lstStaff.setToolTipText(org.openide.util.NbBundle.getMessage(FrmAddEvent.class, "FrmAddEvent.lstStaff.toolTipText")); // NOI18N
         lstStaff.setPreferredSize(new java.awt.Dimension(96, 96));
         scpnStaff.setViewportView(lstStaff);
 
@@ -635,23 +649,104 @@ public class FrmAddEvent extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_txtConfirmbtnMouseClicked
 
+    private void txtAddExpenseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAddExpenseMouseClicked
+        FrmAddExpense frmExpense = new FrmAddExpense();
+        frmExpense.setAddEventMenu(this);
+        frmExpense.setVisible(true);
+    }//GEN-LAST:event_txtAddExpenseMouseClicked
+
+    private void txtAddPntFeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAddPntFeeMouseClicked
+        FrmAddPenaltyFee frmPenaltyFee = new FrmAddPenaltyFee();
+        frmPenaltyFee.setAddEventMenu(this);
+        frmPenaltyFee.setVisible(true);
+    }//GEN-LAST:event_txtAddPntFeeMouseClicked
+
+    public void addExpense(Expense expense){
+        this.generalExpenses.add(expense);
+        updateExpenseList(generalExpenses);
+    }
+    
+    private void updateExpenseList(ArrayList<Expense> expensesList){
+        DefaultListModel listModel = new DefaultListModel();     
+        String display;
+        
+        for(Expense currentExpense:expensesList){
+            display = currentExpense.getType();
+            listModel.addElement(display);
+        }
+        
+        lstGnrExps.setModel(listModel);
+    }
+    
+    public void addPenaltyFee(PenaltyFee penaltyFee){
+        this.penaltyFees.add(penaltyFee);
+        updatePenaltyFeeList(penaltyFees);
+    }
+    
+    private void updatePenaltyFeeList(ArrayList<PenaltyFee> penaltyFeesList){
+        DefaultListModel listModel = new DefaultListModel();     
+        String display;
+        
+        for(PenaltyFee currentPenaltyFee:penaltyFeesList){
+            display = currentPenaltyFee.getType();
+            listModel.addElement(display);
+        }
+        
+        lsPntFs.setModel(listModel);
+    }
+    
     private boolean validateData(){
         boolean passed = true;
-        
+        passed = HandleInput.validateInteger(spnStHour.getValue().toString());
+        if(passed){
+            passed = HandleInput.validateInteger(spnStMin.getValue().toString());
+            if(passed){
+                passed = HandleInput.validateInteger(spnEndHour.getValue().toString());
+                if(passed){
+                    passed = HandleInput.validateInteger(spnEndMin.getValue().toString());
+                }
+            }
+        }
+                
         return passed;
     }
     
     private void sendEventData(){
+        EventController evtc = new EventController();
         
         int asignedId = Integer.parseInt(txtIdValue.getText());
         artist = getSelectedArtist();
         eventPlace = getSelectedEventPlace();
+        staff = getSelectedStaff();
+        equipment = getSelectedEquipment();
         
-        System.out.println(eventPlace);
+        startTime = getStartTime();
+        endTime = getEndTime();
         
+        event = new Event(asignedId, artist, eventPlace, startTime, endTime, staff, equipment, generalExpenses, penaltyFees);
+        
+        evtc.create(event);
         
         emptyFields();
         asignNewId();
+    }
+    
+    private Schedule getStartTime(){
+        
+        int hours = Integer.parseInt(spnStHour.getValue().toString());
+        int min = Integer.parseInt(spnStMin.getValue().toString());
+        
+        
+        return new Schedule(min, min, min, hours, min);
+    }
+    
+    private Schedule getEndTime(){
+        
+        int hours = Integer.parseInt(spnEndHour.getValue().toString());
+        int min = Integer.parseInt(spnEndMin.getValue().toString());
+        
+        
+        return new Schedule(min, min, min, hours, min);
     }
     
     
@@ -731,7 +826,8 @@ public class FrmAddEvent extends javax.swing.JFrame {
         spnEndMin.setValue(0);
         
         
-        
+        generalExpenses = new ArrayList<>();
+        penaltyFees = new ArrayList<>();
         DefaultListModel listModel = new DefaultListModel();
         listModel.addElement("Sin registros");
         
@@ -765,6 +861,44 @@ public class FrmAddEvent extends javax.swing.JFrame {
         selectedEventPalce = evtplc.findOne(relatedName);
         
         return selectedEventPalce;
+    }
+    
+    private ArrayList<Staff> getSelectedStaff(){
+        ArrayList<Staff> selectedStaff = new ArrayList<>();
+        Staff fromStaff;
+        
+        StaffController stfc = new StaffController();
+        int reladtedId;
+        
+        List<String> selectedIndices = lstStaff.getSelectedValuesList();
+        
+        for(String index:selectedIndices){
+            reladtedId = Integer.parseInt(Character.toString(index.charAt(0)));
+            
+            fromStaff = stfc.findOne(reladtedId);
+            selectedStaff.add(fromStaff);
+        }
+        
+        return selectedStaff;
+    }
+    
+    private ArrayList<Equipment> getSelectedEquipment(){
+        ArrayList<Equipment> selectedEquipment = new ArrayList<>();
+        Equipment fromEquipment;
+        
+        EquipmentController eqmc = new EquipmentController();
+        String reladtedType;
+        
+        List<String> selectedIndices = lstEquipment.getSelectedValuesList();
+        
+        for(String index:selectedIndices){
+            reladtedType = index;
+            
+            fromEquipment = eqmc.findOne(reladtedType);
+            selectedEquipment.add(fromEquipment);
+        }
+        
+        return selectedEquipment;
     }
     
     /**
