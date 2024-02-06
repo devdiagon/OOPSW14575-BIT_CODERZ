@@ -45,7 +45,7 @@ public class FrmReadEvent extends javax.swing.JFrame {
         btnBack = new javax.swing.JPanel();
         txtBackbtn = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(940, 546));
         setResizable(false);

@@ -41,7 +41,7 @@ public class FrmReadEmployee extends javax.swing.JFrame {
         btnBackEmployee = new javax.swing.JPanel();
         txtBackEmployeebtn = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

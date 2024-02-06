@@ -4,8 +4,6 @@ import ec.edu.espe.organivent.controller.BillController;
 import ec.edu.espe.organivent.model.Bill;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -53,7 +51,7 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
         txtDeleteBillbtn = new javax.swing.JLabel();
         txtTotalAmount = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

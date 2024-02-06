@@ -15,7 +15,9 @@ import ec.edu.espe.organivent.model.Schedule;
 import ec.edu.espe.organivent.model.Staff;
 import ec.edu.espe.organivent.utils.HandleInput;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -28,6 +30,11 @@ public class FrmAddEvent extends javax.swing.JFrame {
 
     private Color btnDefaultColor = new Color(63,115,193);
     private Color btnHoverColor = new Color(48,88,149);
+    
+    private SimpleDateFormat sdfY = new SimpleDateFormat ("yyyy");
+    private SimpleDateFormat sdfM = new SimpleDateFormat ("MM");
+    private SimpleDateFormat sdfD = new SimpleDateFormat ("dd");
+        
     private Event event;
     private Artist artist;
     private EventPlace eventPlace;
@@ -82,17 +89,11 @@ public class FrmAddEvent extends javax.swing.JFrame {
         pnlStartDate = new javax.swing.JPanel();
         spnStHour = new javax.swing.JSpinner();
         spnStMin = new javax.swing.JSpinner();
-        pnlStDate = new javax.swing.JPanel();
-        txtStartTime = new javax.swing.JLabel();
-        btnStDtOp = new javax.swing.JPanel();
-        txtOpStDate = new javax.swing.JLabel();
+        cldrStartDate = new com.toedter.calendar.JDateChooser();
         pnlEndDate = new javax.swing.JPanel();
         spnEndHour = new javax.swing.JSpinner();
         spnEndMin = new javax.swing.JSpinner();
-        pnlEdDate = new javax.swing.JPanel();
-        txtEndTime = new javax.swing.JLabel();
-        btnEdDtOp = new javax.swing.JPanel();
-        txtOpEdDate = new javax.swing.JLabel();
+        cldrEndDate = new com.toedter.calendar.JDateChooser();
         txtMultas = new javax.swing.JLabel();
         txtAddPntFee = new javax.swing.JLabel();
         txtGastos = new javax.swing.JLabel();
@@ -112,7 +113,7 @@ public class FrmAddEvent extends javax.swing.JFrame {
         scpnStaff = new javax.swing.JScrollPane();
         lstStaff = new javax.swing.JList<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
         setMaximumSize(new java.awt.Dimension(770, 375));
         setMinimumSize(new java.awt.Dimension(770, 375));
@@ -273,86 +274,27 @@ public class FrmAddEvent extends javax.swing.JFrame {
         spnStMin.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         spnStMin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
 
-        pnlStDate.setBackground(new java.awt.Color(255, 255, 255));
-        pnlStDate.setMaximumSize(new java.awt.Dimension(130, 20));
-        pnlStDate.setMinimumSize(new java.awt.Dimension(130, 20));
-        pnlStDate.setPreferredSize(new java.awt.Dimension(130, 20));
-
-        txtStartTime.setBackground(new java.awt.Color(255, 255, 255));
-        txtStartTime.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        txtStartTime.setText(org.openide.util.NbBundle.getMessage(FrmAddEvent.class, "FrmAddEvent.txtStartTime.text")); // NOI18N
-        txtStartTime.setMaximumSize(new java.awt.Dimension(130, 20));
-        txtStartTime.setMinimumSize(new java.awt.Dimension(130, 20));
-        txtStartTime.setPreferredSize(new java.awt.Dimension(130, 20));
-
-        javax.swing.GroupLayout pnlStDateLayout = new javax.swing.GroupLayout(pnlStDate);
-        pnlStDate.setLayout(pnlStDateLayout);
-        pnlStDateLayout.setHorizontalGroup(
-            pnlStDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlStDateLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        pnlStDateLayout.setVerticalGroup(
-            pnlStDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlStDateLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        btnStDtOp.setBackground(new java.awt.Color(73, 160, 208));
-        btnStDtOp.setMaximumSize(new java.awt.Dimension(30, 20));
-        btnStDtOp.setMinimumSize(new java.awt.Dimension(30, 20));
-        btnStDtOp.setPreferredSize(new java.awt.Dimension(30, 20));
-
-        txtOpStDate.setFont(new java.awt.Font("Inter ExtraBold", 0, 18)); // NOI18N
-        txtOpStDate.setForeground(new java.awt.Color(255, 255, 255));
-        txtOpStDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtOpStDate.setText(org.openide.util.NbBundle.getMessage(FrmAddEvent.class, "FrmAddEvent.txtOpStDate.text")); // NOI18N
-        txtOpStDate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        txtOpStDate.setMaximumSize(new java.awt.Dimension(30, 20));
-        txtOpStDate.setMinimumSize(new java.awt.Dimension(30, 20));
-        txtOpStDate.setPreferredSize(new java.awt.Dimension(30, 20));
-
-        javax.swing.GroupLayout btnStDtOpLayout = new javax.swing.GroupLayout(btnStDtOp);
-        btnStDtOp.setLayout(btnStDtOpLayout);
-        btnStDtOpLayout.setHorizontalGroup(
-            btnStDtOpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtOpStDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        btnStDtOpLayout.setVerticalGroup(
-            btnStDtOpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnStDtOpLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtOpStDate, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
         javax.swing.GroupLayout pnlStartDateLayout = new javax.swing.GroupLayout(pnlStartDate);
         pnlStartDate.setLayout(pnlStartDateLayout);
         pnlStartDateLayout.setHorizontalGroup(
             pnlStartDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlStartDateLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(pnlStartDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlStartDateLayout.createSequentialGroup()
-                        .addComponent(pnlStDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnStDtOp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(pnlStartDateLayout.createSequentialGroup()
-                        .addComponent(spnStHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                        .addComponent(spnStMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15))))
+                .addComponent(spnStHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(spnStMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlStartDateLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cldrStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pnlStartDateLayout.setVerticalGroup(
             pnlStartDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlStartDateLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addGroup(pnlStartDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlStDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnStDtOp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addComponent(cldrStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addGroup(pnlStartDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spnStHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(spnStMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -371,84 +313,27 @@ public class FrmAddEvent extends javax.swing.JFrame {
         spnEndMin.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         spnEndMin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
 
-        pnlEdDate.setBackground(new java.awt.Color(255, 255, 255));
-        pnlEdDate.setMaximumSize(new java.awt.Dimension(130, 20));
-        pnlEdDate.setMinimumSize(new java.awt.Dimension(130, 20));
-
-        txtEndTime.setBackground(new java.awt.Color(255, 255, 255));
-        txtEndTime.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        txtEndTime.setText(org.openide.util.NbBundle.getMessage(FrmAddEvent.class, "FrmAddEvent.txtEndTime.text")); // NOI18N
-        txtEndTime.setMaximumSize(new java.awt.Dimension(130, 20));
-        txtEndTime.setMinimumSize(new java.awt.Dimension(130, 20));
-        txtEndTime.setPreferredSize(new java.awt.Dimension(130, 20));
-
-        javax.swing.GroupLayout pnlEdDateLayout = new javax.swing.GroupLayout(pnlEdDate);
-        pnlEdDate.setLayout(pnlEdDateLayout);
-        pnlEdDateLayout.setHorizontalGroup(
-            pnlEdDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        pnlEdDateLayout.setVerticalGroup(
-            pnlEdDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEdDateLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        btnEdDtOp.setBackground(new java.awt.Color(73, 160, 208));
-        btnEdDtOp.setMaximumSize(new java.awt.Dimension(30, 20));
-        btnEdDtOp.setMinimumSize(new java.awt.Dimension(30, 20));
-        btnEdDtOp.setPreferredSize(new java.awt.Dimension(30, 20));
-
-        txtOpEdDate.setFont(new java.awt.Font("Inter ExtraBold", 0, 18)); // NOI18N
-        txtOpEdDate.setForeground(new java.awt.Color(255, 255, 255));
-        txtOpEdDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtOpEdDate.setText(org.openide.util.NbBundle.getMessage(FrmAddEvent.class, "FrmAddEvent.txtOpEdDate.text")); // NOI18N
-        txtOpEdDate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        txtOpEdDate.setMaximumSize(new java.awt.Dimension(30, 20));
-        txtOpEdDate.setMinimumSize(new java.awt.Dimension(30, 20));
-        txtOpEdDate.setPreferredSize(new java.awt.Dimension(30, 20));
-
-        javax.swing.GroupLayout btnEdDtOpLayout = new javax.swing.GroupLayout(btnEdDtOp);
-        btnEdDtOp.setLayout(btnEdDtOpLayout);
-        btnEdDtOpLayout.setHorizontalGroup(
-            btnEdDtOpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnEdDtOpLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtOpEdDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        btnEdDtOpLayout.setVerticalGroup(
-            btnEdDtOpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnEdDtOpLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtOpEdDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
         javax.swing.GroupLayout pnlEndDateLayout = new javax.swing.GroupLayout(pnlEndDate);
         pnlEndDate.setLayout(pnlEndDateLayout);
         pnlEndDateLayout.setHorizontalGroup(
             pnlEndDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEndDateLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(pnlEndDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlEndDateLayout.createSequentialGroup()
-                        .addComponent(pnlEdDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEdDtOp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlEndDateLayout.createSequentialGroup()
-                        .addComponent(spnEndHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(spnEndMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(spnEndHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(spnEndMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEndDateLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cldrEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pnlEndDateLayout.setVerticalGroup(
             pnlEndDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEndDateLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addGroup(pnlEndDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlEdDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdDtOp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(34, 34, 34)
+                .addComponent(cldrEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(pnlEndDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spnEndHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(spnEndMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -733,20 +618,31 @@ public class FrmAddEvent extends javax.swing.JFrame {
     
     private Schedule getStartTime(){
         
+        Date date = cldrStartDate.getCalendar().getTime();
+        
+        int day = Integer.parseInt(sdfD.format(date));
+        int month = Integer.parseInt(sdfM.format(date));
+        int year = Integer.parseInt(sdfY.format(date));
+        
         int hours = Integer.parseInt(spnStHour.getValue().toString());
         int min = Integer.parseInt(spnStMin.getValue().toString());
         
         
-        return new Schedule(min, min, min, hours, min);
+        return new Schedule(year, month, day, hours, min);
     }
     
     private Schedule getEndTime(){
         
+        Date date = cldrEndDate.getCalendar().getTime();
+        
+        int day = Integer.parseInt(sdfD.format(date));
+        int month = Integer.parseInt(sdfM.format(date));
+        int year = Integer.parseInt(sdfY.format(date));
+        
         int hours = Integer.parseInt(spnEndHour.getValue().toString());
         int min = Integer.parseInt(spnEndMin.getValue().toString());
         
-        
-        return new Schedule(min, min, min, hours, min);
+        return new Schedule(year, month, day, hours, min);
     }
     
     
@@ -817,11 +713,11 @@ public class FrmAddEvent extends javax.swing.JFrame {
     }
     
     private void emptyFields(){
-        txtStartTime.setText("");
+        
         spnStHour.setValue(1);
         spnStMin.setValue(0);
         
-        txtEndTime.setText("");
+        
         spnEndHour.setValue(1);
         spnEndMin.setValue(0);
         
@@ -939,20 +835,18 @@ public class FrmAddEvent extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JPanel btnConfirm;
-    private javax.swing.JPanel btnEdDtOp;
     private javax.swing.JPanel btnReturn;
-    private javax.swing.JPanel btnStDtOp;
+    private com.toedter.calendar.JDateChooser cldrEndDate;
+    private com.toedter.calendar.JDateChooser cldrStartDate;
     private javax.swing.JComboBox<String> cmbArtist;
     private javax.swing.JComboBox<String> cmbEventPlace;
     private javax.swing.JList<String> lsPntFs;
     private javax.swing.JList<String> lstEquipment;
     private javax.swing.JList<String> lstGnrExps;
     private javax.swing.JList<String> lstStaff;
-    private javax.swing.JPanel pnlEdDate;
     private javax.swing.JPanel pnlEndDate;
     private javax.swing.JPanel pnlGeneralExpenses;
     private javax.swing.JPanel pnlPenaltyFees;
-    private javax.swing.JPanel pnlStDate;
     private javax.swing.JPanel pnlStartDate;
     private javax.swing.JScrollPane scpnEquipment;
     private javax.swing.JScrollPane scpnGnrExps;
@@ -968,7 +862,6 @@ public class FrmAddEvent extends javax.swing.JFrame {
     private javax.swing.JLabel txtAddPntFee;
     private javax.swing.JLabel txtArtista;
     private javax.swing.JLabel txtConfirmbtn;
-    private javax.swing.JLabel txtEndTime;
     private javax.swing.JLabel txtEquipos;
     private javax.swing.JLabel txtFechaFin;
     private javax.swing.JLabel txtFechaInicio;
@@ -983,10 +876,7 @@ public class FrmAddEvent extends javax.swing.JFrame {
     private javax.swing.JLabel txtMinFin;
     private javax.swing.JLabel txtMinIn;
     private javax.swing.JLabel txtMultas;
-    private javax.swing.JLabel txtOpEdDate;
-    private javax.swing.JLabel txtOpStDate;
     private javax.swing.JLabel txtReturnbtn;
     private javax.swing.JLabel txtStaff;
-    private javax.swing.JLabel txtStartTime;
     // End of variables declaration//GEN-END:variables
 }

@@ -41,7 +41,7 @@ public class FrmReadEquipment extends javax.swing.JFrame {
         btnBackEquipment = new javax.swing.JPanel();
         txtBackEquipmentbtn = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));

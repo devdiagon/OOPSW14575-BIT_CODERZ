@@ -230,7 +230,7 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
                 .addGap(0, 17, Short.MAX_VALUE))
         );
 
-        add(btnCalculateEventCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 270, 30));
+        add(btnCalculateEventCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 225, 270, 30));
 
         btnSeeEvent.setBackground(new java.awt.Color(63, 115, 193));
         btnSeeEvent.setMaximumSize(new java.awt.Dimension(142, 47));

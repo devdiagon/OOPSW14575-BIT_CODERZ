@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.organivent.view;
 
 import ec.edu.espe.organivent.controller.EventController;
@@ -16,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author Jefferson Yepez, DCCO - ESPE, BitCoderz
  */
 public class FrmCreateBill extends javax.swing.JFrame {
-    Event event;
+    private Event event;
     private Color btnDefaultColor = new Color(63,115,193);
     private Color btnHoverColor = new Color(48,88,149);
     /**
@@ -44,7 +40,7 @@ public class FrmCreateBill extends javax.swing.JFrame {
         btnDeleteBill = new javax.swing.JPanel();
         txtCreateBillBtn = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
