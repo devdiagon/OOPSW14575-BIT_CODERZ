@@ -77,6 +77,9 @@ public class FrmDeleteBill extends javax.swing.JFrame {
         txtDeleteBillbtn.setText(org.openide.util.NbBundle.getMessage(FrmDeleteBill.class, "FrmDeleteBill.txtDeleteBillbtn.text")); // NOI18N
         txtDeleteBillbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtDeleteBillbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDeleteBillbtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 txtDeleteBillbtnMouseEntered(evt);
             }
@@ -183,6 +186,10 @@ public class FrmDeleteBill extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnDeleteBillMouseClicked
+
+    private void txtDeleteBillbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeleteBillbtnMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_txtDeleteBillbtnMouseClicked
 
     /**
      * @param args the command line arguments

@@ -96,6 +96,9 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
         txtDeleteBillbtn.setText(org.openide.util.NbBundle.getMessage(PnlEventMainMenu.class, "PnlEventMainMenu.txtDeleteBillbtn.text")); // NOI18N
         txtDeleteBillbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtDeleteBillbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDeleteBillbtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 txtDeleteBillbtnMouseEntered(evt);
             }
@@ -129,6 +132,9 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
         txtSeeBillbtn.setText(org.openide.util.NbBundle.getMessage(PnlEventMainMenu.class, "PnlEventMainMenu.txtSeeBillbtn.text")); // NOI18N
         txtSeeBillbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtSeeBillbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtSeeBillbtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 txtSeeBillbtnMouseEntered(evt);
             }
@@ -198,6 +204,9 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
         txtCalcEvnCstbtn.setText(org.openide.util.NbBundle.getMessage(PnlEventMainMenu.class, "PnlEventMainMenu.txtCalcEvnCstbtn.text")); // NOI18N
         txtCalcEvnCstbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtCalcEvnCstbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCalcEvnCstbtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 txtCalcEvnCstbtnMouseEntered(evt);
             }
@@ -310,6 +319,21 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
         FrmAddEvent addEventGUI = new FrmAddEvent();
         addEventGUI.setVisible(true);
     }//GEN-LAST:event_txtAddEventbtnMouseClicked
+
+    private void txtCalcEvnCstbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCalcEvnCstbtnMouseClicked
+        FrmCalculateTotalCostEvent calcTotalGUI = new FrmCalculateTotalCostEvent();
+        calcTotalGUI.setVisible(true);
+    }//GEN-LAST:event_txtCalcEvnCstbtnMouseClicked
+
+    private void txtSeeBillbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSeeBillbtnMouseClicked
+        FrmReadBill readBillGUI = new FrmReadBill();
+        readBillGUI.setVisible(true);
+    }//GEN-LAST:event_txtSeeBillbtnMouseClicked
+
+    private void txtDeleteBillbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeleteBillbtnMouseClicked
+        FrmDeleteBill deletedBillGUI = new FrmDeleteBill();
+        deletedBillGUI.setVisible(true);
+    }//GEN-LAST:event_txtDeleteBillbtnMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

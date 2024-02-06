@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.organivent.view;
 
 import ec.edu.espe.organivent.controller.BillController;
@@ -132,6 +128,9 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
         txtDeleteBillbtn.setText(org.openide.util.NbBundle.getMessage(FrmCalculateTotalCostEvent.class, "FrmCalculateTotalCostEvent.txtDeleteBillbtn.text")); // NOI18N
         txtDeleteBillbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtDeleteBillbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDeleteBillbtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 txtDeleteBillbtnMouseEntered(evt);
             }
@@ -284,6 +283,10 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
     private void btnBackMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMenuMouseClicked
         this.dispose();
     }//GEN-LAST:event_btnBackMenuMouseClicked
+
+    private void txtDeleteBillbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeleteBillbtnMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_txtDeleteBillbtnMouseClicked
 
     private void loadBill() {
         DefaultComboBoxModel<String> listModel = new DefaultComboBoxModel();

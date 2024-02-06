@@ -61,7 +61,7 @@ public class FrmReadBill extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblReadBill);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 540, 290));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 540, 260));
 
         btnBackBill.setBackground(new java.awt.Color(63, 115, 193));
         btnBackBill.setPreferredSize(new java.awt.Dimension(158, 56));
@@ -87,20 +87,14 @@ public class FrmReadBill extends javax.swing.JFrame {
         btnBackBill.setLayout(btnBackBillLayout);
         btnBackBillLayout.setHorizontalGroup(
             btnBackBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnBackBillLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(txtBackBillbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(txtBackBillbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
         );
         btnBackBillLayout.setVerticalGroup(
             btnBackBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnBackBillLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(txtBackBillbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(txtBackBillbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
-        jPanel1.add(btnBackBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, -1, 50));
+        jPanel1.add(btnBackBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, -1, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
