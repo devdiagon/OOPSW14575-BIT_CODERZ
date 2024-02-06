@@ -1,10 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.organivent.view;
 
+import ec.edu.espe.organivent.controller.ArtistController;
+import ec.edu.espe.organivent.controller.EquipmentController;
+import ec.edu.espe.organivent.controller.EventController;
+import ec.edu.espe.organivent.controller.EventPlaceController;
+import ec.edu.espe.organivent.controller.StaffController;
+import ec.edu.espe.organivent.model.Artist;
+import ec.edu.espe.organivent.model.Equipment;
+import ec.edu.espe.organivent.model.Event;
+import ec.edu.espe.organivent.model.EventPlace;
+import ec.edu.espe.organivent.model.Expense;
+import ec.edu.espe.organivent.model.PenaltyFee;
+import ec.edu.espe.organivent.model.Schedule;
+import ec.edu.espe.organivent.model.Staff;
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -14,12 +26,27 @@ public class FrmAddEvent extends javax.swing.JFrame {
 
     private Color btnDefaultColor = new Color(63,115,193);
     private Color btnHoverColor = new Color(48,88,149);
+    private Event event;
+    private Artist artist;
+    private EventPlace eventPlace;
+    private Schedule startTime;
+    private Schedule endTime;
+    private ArrayList<Staff> staff;
+    private ArrayList<Equipment> equipment;
+    private ArrayList<Expense> generalExpenses;
+    private ArrayList<PenaltyFee> penaltyFees;
+    
     
     /**
      * Creates new form FrmAddEvent
      */
     public FrmAddEvent() {
         initComponents();
+        asignNewId();
+        loadArtists();
+        loadEventPlaces();
+        loadStaff();
+        loadEquipment();
     }
 
     /**
@@ -124,6 +151,9 @@ public class FrmAddEvent extends javax.swing.JFrame {
         txtConfirmbtn.setText(org.openide.util.NbBundle.getMessage(FrmAddEvent.class, "FrmAddEvent.txtConfirmbtn.text")); // NOI18N
         txtConfirmbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtConfirmbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtConfirmbtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 txtConfirmbtnMouseEntered(evt);
             }
@@ -156,6 +186,9 @@ public class FrmAddEvent extends javax.swing.JFrame {
         txtReturnbtn.setText(org.openide.util.NbBundle.getMessage(FrmAddEvent.class, "FrmAddEvent.txtReturnbtn.text")); // NOI18N
         txtReturnbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtReturnbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtReturnbtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 txtReturnbtnMouseEntered(evt);
             }
@@ -590,6 +623,150 @@ public class FrmAddEvent extends javax.swing.JFrame {
         btnConfirm.setBackground(btnDefaultColor);
     }//GEN-LAST:event_txtConfirmbtnMouseExited
 
+    private void txtReturnbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReturnbtnMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_txtReturnbtnMouseClicked
+
+    private void txtConfirmbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseClicked
+        boolean canContinue = validateData();
+
+        if(canContinue==true){
+            sendEventData();
+        } 
+    }//GEN-LAST:event_txtConfirmbtnMouseClicked
+
+    private boolean validateData(){
+        boolean passed = true;
+        
+        return passed;
+    }
+    
+    private void sendEventData(){
+        
+        int asignedId = Integer.parseInt(txtIdValue.getText());
+        artist = getSelectedArtist();
+        eventPlace = getSelectedEventPlace();
+        
+        System.out.println(eventPlace);
+        
+        
+        emptyFields();
+        asignNewId();
+    }
+    
+    
+    private void asignNewId(){
+        EventController evtc = new EventController();
+        int asignedId = evtc.asignNewId();
+        String displayNewId = Integer.toString(asignedId);
+        
+        txtIdValue.setText(displayNewId);
+    }
+    
+    private void loadArtists(){
+         DefaultComboBoxModel<String> listModel = new DefaultComboBoxModel();
+         ArtistController artsc = new ArtistController();
+         
+         ArrayList<Artist> availableArtists = artsc.read();
+         
+         String display;
+         
+         for(Artist currentArtist:availableArtists){
+            display = currentArtist.getId() + " " + currentArtist.getName();
+            listModel.addElement(display);
+         }
+         
+         cmbArtist.setModel(listModel);
+     }
+     
+     private void loadEventPlaces(){
+         DefaultComboBoxModel<String> listModel = new DefaultComboBoxModel();
+         EventPlaceController evtplc = new EventPlaceController();
+         
+         ArrayList<EventPlace> availablePlaces = evtplc.read();
+         
+         for(EventPlace currentPlace:availablePlaces){
+            listModel.addElement(currentPlace.getName());
+         }
+         
+         cmbEventPlace.setModel(listModel);
+     }
+     
+     private void loadStaff(){
+        DefaultListModel listModel = new DefaultListModel();
+        StaffController stfc = new StaffController();
+        
+        ArrayList<Staff> availableStaff = stfc.read();
+        
+        String display;
+        
+        for(Staff currentStaff:availableStaff){
+            display = currentStaff.getId() + " " + currentStaff.getType();
+            listModel.addElement(display);
+        }
+        
+        lstStaff.setModel(listModel);
+    }
+    
+    private void loadEquipment(){
+        DefaultListModel listModel = new DefaultListModel();
+        EquipmentController eqmc = new EquipmentController();
+        
+        ArrayList<Equipment> availableEquip = eqmc.read();
+        
+        for(Equipment currentEquip:availableEquip){
+            listModel.addElement(currentEquip.getType());
+        }
+        
+        lstEquipment.setModel(listModel);
+    }
+    
+    private void emptyFields(){
+        txtStartTime.setText("");
+        spnStHour.setValue(1);
+        spnStMin.setValue(0);
+        
+        txtEndTime.setText("");
+        spnEndHour.setValue(1);
+        spnEndMin.setValue(0);
+        
+        
+        
+        DefaultListModel listModel = new DefaultListModel();
+        listModel.addElement("Sin registros");
+        
+        lstGnrExps.setModel(listModel);
+        lsPntFs.setModel(listModel);
+    }
+    
+    
+    
+    private Artist getSelectedArtist(){
+        Artist selectedArtist;
+        ArtistController artsc = new ArtistController();
+        int reladtedId;
+        
+        String indexContent = String.valueOf(cmbArtist.getSelectedItem());
+        
+        reladtedId = Integer.parseInt(Character.toString(indexContent.charAt(0)));
+        
+        selectedArtist = artsc.findOne(reladtedId);
+        
+        return selectedArtist;
+    }
+    
+    private EventPlace getSelectedEventPlace(){
+        EventPlace selectedEventPalce;
+        
+        EventPlaceController evtplc = new EventPlaceController();
+        
+        String relatedName = String.valueOf(cmbEventPlace.getSelectedItem());
+        
+        selectedEventPalce = evtplc.findOne(relatedName);
+        
+        return selectedEventPalce;
+    }
+    
     /**
      * @param args the command line arguments
      */

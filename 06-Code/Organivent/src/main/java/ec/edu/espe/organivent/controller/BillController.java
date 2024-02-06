@@ -69,4 +69,15 @@ public class BillController extends ManageMongoDB implements IBill {
         
         return billInDB;
     }
+    
+    public Bill findOne(int idToSearch){
+        this.connectToDatabase();
+        this.getFromCollection(collectionName);
+        
+        Bson filter = eq("id",idToSearch);
+        Document doc = this.coll.find(filter).first();
+        
+        Bill bill = ManageJson.passJsonToObject(doc, classType);
+        return bill;
+    }
 }

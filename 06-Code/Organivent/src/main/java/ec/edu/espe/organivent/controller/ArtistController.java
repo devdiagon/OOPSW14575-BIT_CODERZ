@@ -64,4 +64,15 @@ public class ArtistController extends ManageMongoDB implements IArtist {
         return HandleInput.increaseMaxId(this.coll);
     }
     
+    public Artist findOne(int idToSearch){
+        this.connectToDatabase();
+        this.getFromCollection(collectionName);
+        
+        Bson filter = eq("id",idToSearch);
+        Document doc = this.coll.find(filter).first();
+        
+        Artist artist = ManageJson.passJsonToObject(doc, classType);
+        return artist;
+    }
+    
 }

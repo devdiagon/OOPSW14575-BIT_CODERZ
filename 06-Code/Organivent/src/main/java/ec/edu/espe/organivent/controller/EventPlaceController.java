@@ -69,4 +69,15 @@ public class EventPlaceController extends ManageMongoDB implements IEventPlace {
             return doc.isEmpty();
         }
     }
+    
+    public EventPlace findOne(String nameToSearch){
+        this.connectToDatabase();
+        this.getFromCollection(collectionName);
+        
+        Bson filter = eq("name",nameToSearch);
+        Document doc = this.coll.find(filter).first();
+        
+        EventPlace eventPlace = ManageJson.passJsonToObject(doc, classType);
+        return eventPlace;
+    }
 }

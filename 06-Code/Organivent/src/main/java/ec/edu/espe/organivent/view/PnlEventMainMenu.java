@@ -162,6 +162,9 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
         txtAddEventbtn.setText(org.openide.util.NbBundle.getMessage(PnlEventMainMenu.class, "PnlEventMainMenu.txtAddEventbtn.text")); // NOI18N
         txtAddEventbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtAddEventbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtAddEventbtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 txtAddEventbtnMouseEntered(evt);
             }
@@ -302,6 +305,11 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
         FrmReadEvent showEvent = new FrmReadEvent();
         showEvent.setVisible(true);
     }//GEN-LAST:event_txtSeeEventMouseClicked
+
+    private void txtAddEventbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAddEventbtnMouseClicked
+        FrmAddEvent addEventGUI = new FrmAddEvent();
+        addEventGUI.setVisible(true);
+    }//GEN-LAST:event_txtAddEventbtnMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

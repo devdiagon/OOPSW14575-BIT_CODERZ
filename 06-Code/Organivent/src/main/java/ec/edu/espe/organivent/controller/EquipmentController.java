@@ -70,4 +70,15 @@ public class EquipmentController extends ManageMongoDB implements IEquipment {
         }
     }
     
+    public Equipment findOne(String typeToSearch){
+        this.connectToDatabase();
+        this.getFromCollection(collectionName);
+        
+        Bson filter = eq("type",typeToSearch);
+        Document doc = this.coll.find(filter).first();
+        
+        Equipment equipment = ManageJson.passJsonToObject(doc, classType);
+        return equipment;
+    }
+    
 }

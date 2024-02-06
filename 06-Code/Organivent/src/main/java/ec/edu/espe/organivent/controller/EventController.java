@@ -67,6 +67,17 @@ public class EventController extends ManageMongoDB implements IEvent {
 
         return HandleInput.increaseMaxId(this.coll);
     }
+    
+    public Event findOne(int idToSearch){
+        this.connectToDatabase();
+        this.getFromCollection(collectionName);
+        
+        Bson filter = eq("id",idToSearch);
+        Document doc = this.coll.find(filter).first();
+        
+        Event event = ManageJson.passJsonToObject(doc, classType);
+        return event;
+    }
 
     @Override
     public ArrayList<Event> readTable() {
