@@ -42,6 +42,8 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
         txtCalcEvnCstbtn = new javax.swing.JLabel();
         btnSeeEvent = new javax.swing.JPanel();
         txtSeeEvent = new javax.swing.JLabel();
+        btnAddEvent1 = new javax.swing.JPanel();
+        txtCreateBill = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(390, 375));
@@ -67,24 +69,24 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
             .addGroup(pnlHeaderLayout.createSequentialGroup()
                 .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlHeaderLayout.createSequentialGroup()
-                        .addGap(119, 119, 119)
+                        .addGap(120, 120, 120)
                         .addComponent(title1))
                     .addGroup(pnlHeaderLayout.createSequentialGroup()
-                        .addGap(134, 134, 134)
+                        .addGap(136, 136, 136)
                         .addComponent(title2)))
                 .addContainerGap(127, Short.MAX_VALUE))
         );
         pnlHeaderLayout.setVerticalGroup(
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHeaderLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addComponent(title1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(title2)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        add(pnlHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 90));
+        add(pnlHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 70));
 
         btnDeleteBill.setBackground(new java.awt.Color(63, 115, 193));
         btnDeleteBill.setMaximumSize(new java.awt.Dimension(142, 47));
@@ -156,7 +158,7 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        add(btnSeeBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 265, 270, 30));
+        add(btnSeeBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 270, 30));
 
         btnAddEvent.setBackground(new java.awt.Color(63, 115, 193));
         btnAddEvent.setMaximumSize(new java.awt.Dimension(142, 47));
@@ -192,7 +194,7 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
                 .addGap(0, 17, Short.MAX_VALUE))
         );
 
-        add(btnAddEvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 165, 270, 30));
+        add(btnAddEvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 270, 30));
 
         btnCalculateEventCost.setBackground(new java.awt.Color(63, 115, 193));
         btnCalculateEventCost.setMaximumSize(new java.awt.Dimension(142, 47));
@@ -228,7 +230,7 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
                 .addGap(0, 17, Short.MAX_VALUE))
         );
 
-        add(btnCalculateEventCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 215, 270, 30));
+        add(btnCalculateEventCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 270, 30));
 
         btnSeeEvent.setBackground(new java.awt.Color(63, 115, 193));
         btnSeeEvent.setMaximumSize(new java.awt.Dimension(142, 47));
@@ -257,8 +259,8 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
         btnSeeEventLayout.setHorizontalGroup(
             btnSeeEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnSeeEventLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtSeeEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 6, Short.MAX_VALUE)
+                .addComponent(txtSeeEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         btnSeeEventLayout.setVerticalGroup(
             btnSeeEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,7 +269,43 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
                 .addGap(0, 17, Short.MAX_VALUE))
         );
 
-        add(btnSeeEvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 115, 270, 30));
+        add(btnSeeEvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 270, 30));
+
+        btnAddEvent1.setBackground(new java.awt.Color(63, 115, 193));
+        btnAddEvent1.setMaximumSize(new java.awt.Dimension(142, 47));
+        btnAddEvent1.setMinimumSize(new java.awt.Dimension(142, 47));
+
+        txtCreateBill.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        txtCreateBill.setForeground(new java.awt.Color(255, 255, 255));
+        txtCreateBill.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtCreateBill.setText(org.openide.util.NbBundle.getMessage(PnlEventMainMenu.class, "PnlEventMainMenu.txtCreateBill.text")); // NOI18N
+        txtCreateBill.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtCreateBill.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCreateBillMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtCreateBillMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtCreateBillMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnAddEvent1Layout = new javax.swing.GroupLayout(btnAddEvent1);
+        btnAddEvent1.setLayout(btnAddEvent1Layout);
+        btnAddEvent1Layout.setHorizontalGroup(
+            btnAddEvent1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtCreateBill, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+        );
+        btnAddEvent1Layout.setVerticalGroup(
+            btnAddEvent1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAddEvent1Layout.createSequentialGroup()
+                .addComponent(txtCreateBill, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        add(btnAddEvent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 270, 30));
     }// </editor-fold>//GEN-END:initComponents
     
     private void txtSeeEventMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSeeEventMouseEntered
@@ -335,9 +373,23 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
         deletedBillGUI.setVisible(true);
     }//GEN-LAST:event_txtDeleteBillbtnMouseClicked
 
+    private void txtCreateBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCreateBillMouseClicked
+        FrmCreateBill createBill = new FrmCreateBill();
+        createBill.setVisible(true);
+    }//GEN-LAST:event_txtCreateBillMouseClicked
+
+    private void txtCreateBillMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCreateBillMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCreateBillMouseEntered
+
+    private void txtCreateBillMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCreateBillMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCreateBillMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnAddEvent;
+    private javax.swing.JPanel btnAddEvent1;
     private javax.swing.JPanel btnCalculateEventCost;
     private javax.swing.JPanel btnDeleteBill;
     private javax.swing.JPanel btnSeeBill;
@@ -347,6 +399,7 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
     private javax.swing.JLabel title2;
     private javax.swing.JLabel txtAddEventbtn;
     private javax.swing.JLabel txtCalcEvnCstbtn;
+    private javax.swing.JLabel txtCreateBill;
     private javax.swing.JLabel txtDeleteBillbtn;
     private javax.swing.JLabel txtSeeBillbtn;
     private javax.swing.JLabel txtSeeEvent;

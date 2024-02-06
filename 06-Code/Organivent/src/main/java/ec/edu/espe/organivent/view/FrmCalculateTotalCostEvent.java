@@ -1,9 +1,7 @@
 package ec.edu.espe.organivent.view;
 
 import ec.edu.espe.organivent.controller.BillController;
-import ec.edu.espe.organivent.controller.EventController;
 import ec.edu.espe.organivent.model.Bill;
-import ec.edu.espe.organivent.model.Event;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -20,9 +18,10 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
      */
     public FrmCalculateTotalCostEvent() {
         initComponents();
-        loadEvent();
+        loadBill();
     }
-
+       
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -256,21 +255,15 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbIdEventMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbIdEventMouseClicked
-        EventController evtc = new EventController();
-        Event event = getSelectedEvent();
-        evtc.calculateEventCost(event);
-        System.out.println("Hola");
-        BillController bllc = new BillController();
-        Bill bill = bllc.findOne(event.getId());
-        System.out.println(bill);
+        Bill bill = getSelectedBill();
         txtArtistCost.setText(String.valueOf(bill.getArtistCost()));
         txtVenueCost.setText(String.valueOf(bill.getVenueCost()));
         txtStaffCost.setText(String.valueOf(bill.getStaffCost()));
         txtEquipmentCost.setText(String.valueOf(bill.getEquipmentCost()));
         txtGeneralExpensesCost.setText(String.valueOf(bill.getGeneralExpensesCost()));
-        txtPenaltyFeesCost.setText(String.valueOf(bill.getPenaltyFeesCost()));
+        txtPenaltyFeesCost.setText(String.valueOf(bill.getPenaltyFeesCost()));      
         txtTotalAmount.setText(String.valueOf(bill.getTotalAmount()));
-
+        
     }//GEN-LAST:event_cmbIdEventMouseClicked
 
     private void txtDeleteBillbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeleteBillbtnMouseEntered
@@ -289,34 +282,20 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_txtDeleteBillbtnMouseClicked
 
-    private void loadEvent() {
+    private void loadBill() {
         DefaultComboBoxModel<String> listModel = new DefaultComboBoxModel();
-        EventController evtc = new EventController();
+        BillController bll = new BillController();
 
-        ArrayList<Event> availableEvents = evtc.readTable();
+        ArrayList<Bill> availableBills = bll.readTable();
 
         String display;
 
-        for (Event currentEvents : availableEvents) {
-            display = String.valueOf(currentEvents.getId());
+        for (Bill currentBill : availableBills) {
+            display = String.valueOf(currentBill.getId());
             listModel.addElement(display);
         }
 
         cmbIdEvent.setModel(listModel);
-    }
-
-    private Event getSelectedEvent() {
-        Event selectedEvent;
-        EventController evtc = new EventController();
-        int reladtedId;
-
-        String indexContent = String.valueOf(cmbIdEvent.getSelectedItem());
-
-        reladtedId = Integer.parseInt(Character.toString(indexContent.charAt(0)));
-
-        selectedEvent = evtc.findOne(reladtedId);
-
-        return selectedEvent;
     }
 
     private Bill getSelectedBill() {
@@ -330,6 +309,7 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
 
         selectedBill = bll.findOne(reladtedId);
 
+        
         return selectedBill;
     }
 

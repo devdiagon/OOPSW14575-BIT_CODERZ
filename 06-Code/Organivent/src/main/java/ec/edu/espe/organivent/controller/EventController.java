@@ -124,9 +124,10 @@ public class EventController extends ManageMongoDB implements IEvent {
         
         float totalPenaltyFeeCost=PenaltyFee.calculateTotalPenaltyFeeCost(currentEvent.getPenaltyFees());
         estimatedEventCost += totalPenaltyFeeCost;
-                
+        
+        BillController bllc = new BillController();
         Bill tempBill = new Bill(currentEvent.getId(),artistHiringCost,placeRentCost,totalStaffCost,totalEquipmentCost,totalGeneralExpenseCost,totalPenaltyFeeCost,estimatedEventCost);
-        Bill.saveBill(tempBill);
+        bllc.create(tempBill);
         
     }
 }
