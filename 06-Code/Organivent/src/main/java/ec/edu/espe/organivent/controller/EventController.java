@@ -4,7 +4,12 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Projections.excludeId;
 import static com.mongodb.client.model.Projections.fields;
 import ec.edu.espe.organivent.iterfaces.IEvent;
+import ec.edu.espe.organivent.model.Bill;
+import ec.edu.espe.organivent.model.Equipment;
 import ec.edu.espe.organivent.model.Event;
+import ec.edu.espe.organivent.model.Expense;
+import ec.edu.espe.organivent.model.PenaltyFee;
+import ec.edu.espe.organivent.model.Staff;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import ec.edu.espe.organivent.utils.ManageMongoDB;
@@ -89,4 +94,39 @@ public class EventController extends ManageMongoDB implements IEvent {
         return eventInDB;
     }
     
+    public void calculateEventCost(Event currentEvent){
+        float estimatedEventCost=0;
+        float totalStaffCost=0;
+        float totalEquipmentCost=0;
+        float individualEquipmentCost=0;
+        
+        float artistHiringCost=currentEvent.getArtist().getWage();
+        float placeRentCost=currentEvent.getPlace().getRentCost();
+        
+        artistHiringCost = Bill.calculateIVA(artistHiringCost);
+        estimatedEventCost += artistHiringCost;
+        
+        placeRentCost += Bill.calculateIVA(placeRentCost);
+        estimatedEventCost += placeRentCost;
+        
+        for(Staff currentStaff:currentEvent.getStaff()){
+            totalStaffCost += currentStaff.getTotalStaffCost();
+        }
+        estimatedEventCost += totalStaffCost;
+        
+        for(Equipment currentEquipment:currentEvent.getEquipment()){
+            individualEquipmentCost=Equipment.getIndividualEquipmentCost(currentEquipment);
+            totalEquipmentCost += individualEquipmentCost;
+        }
+        estimatedEventCost += totalEquipmentCost;
+        float totalGeneralExpenseCost=Expense.calculateTotalCost(currentEvent.getGeneralExpenses());
+        estimatedEventCost += totalGeneralExpenseCost;
+        
+        float totalPenaltyFeeCost=PenaltyFee.calculateTotalPenaltyFeeCost(currentEvent.getPenaltyFees());
+        estimatedEventCost += totalPenaltyFeeCost;
+                
+        Bill tempBill = new Bill(currentEvent.getId(),artistHiringCost,placeRentCost,totalStaffCost,totalEquipmentCost,totalGeneralExpenseCost,totalPenaltyFeeCost,estimatedEventCost);
+        Bill.saveBill(tempBill);
+        
+    }
 }

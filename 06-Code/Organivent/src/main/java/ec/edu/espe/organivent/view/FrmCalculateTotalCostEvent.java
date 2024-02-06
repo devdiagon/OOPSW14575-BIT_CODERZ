@@ -1,7 +1,9 @@
 package ec.edu.espe.organivent.view;
 
 import ec.edu.espe.organivent.controller.BillController;
+import ec.edu.espe.organivent.controller.EventController;
 import ec.edu.espe.organivent.model.Bill;
+import ec.edu.espe.organivent.model.Event;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -18,10 +20,9 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
      */
     public FrmCalculateTotalCostEvent() {
         initComponents();
-        loadBill();
+        loadEvent();
     }
-       
-        
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,7 +36,7 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
         txtTitle = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         txtId = new javax.swing.JLabel();
-        cmbIdBill = new javax.swing.JComboBox<>();
+        cmbIdEvent = new javax.swing.JComboBox<>();
         txtArtistCost1 = new javax.swing.JLabel();
         txtVenueCost = new javax.swing.JLabel();
         txtVenueCost1 = new javax.swing.JLabel();
@@ -66,11 +67,11 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
         txtId.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         txtId.setText(org.openide.util.NbBundle.getMessage(FrmCalculateTotalCostEvent.class, "FrmCalculateTotalCostEvent.txtId.text")); // NOI18N
 
-        cmbIdBill.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
-        cmbIdBill.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbIdBill.addMouseListener(new java.awt.event.MouseAdapter() {
+        cmbIdEvent.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
+        cmbIdEvent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbIdEvent.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cmbIdBillMouseClicked(evt);
+                cmbIdEventMouseClicked(evt);
             }
         });
 
@@ -143,7 +144,7 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
         btnBackMenu.setLayout(btnBackMenuLayout);
         btnBackMenuLayout.setHorizontalGroup(
             btnBackMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtDeleteBillbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 270, Short.MAX_VALUE)
+            .addComponent(txtDeleteBillbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
         );
         btnBackMenuLayout.setVerticalGroup(
             btnBackMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,44 +163,38 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(114, 114, 114)
-                                .addComponent(txtId)
-                                .addGap(23, 23, 23))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtVenueCost1)
-                                    .addComponent(txtArtistCost1)
-                                    .addComponent(txtStaffCost1)
-                                    .addComponent(txtEquipmentCost1)
-                                    .addComponent(txtGeneralExpensesCost1)
-                                    .addComponent(txtPenaltyFeesCost1)
-                                    .addComponent(txtTotalAmount1))
-                                .addGap(18, 18, 18)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbIdBill, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtVenueCost, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtArtistCost, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtStaffCost, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEquipmentCost, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPenaltyFeesCost, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtGeneralExpensesCost, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(114, 114, 114)
+                        .addComponent(txtId)
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtVenueCost1)
+                            .addComponent(txtArtistCost1)
+                            .addComponent(txtStaffCost1)
+                            .addComponent(txtEquipmentCost1)
+                            .addComponent(txtGeneralExpensesCost1)
+                            .addComponent(txtPenaltyFeesCost1)
+                            .addComponent(txtTotalAmount1))
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnBackMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(99, 99, 99))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtTitle)
-                        .addGap(110, 110, 110))))
+                    .addComponent(cmbIdEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtVenueCost, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtArtistCost, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtStaffCost, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEquipmentCost, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPenaltyFeesCost, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGeneralExpensesCost, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(107, 107, 107)
+                .addComponent(txtTitle))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(82, 82, 82)
+                .addComponent(btnBackMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +205,7 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbIdBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbIdEvent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtId, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -240,16 +235,16 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTotalAmount1)
                     .addComponent(txtTotalAmount))
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(btnBackMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,17 +255,23 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmbIdBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbIdBillMouseClicked
-        Bill bill = getSelectedBill();
+    private void cmbIdEventMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbIdEventMouseClicked
+        EventController evtc = new EventController();
+        Event event = getSelectedEvent();
+        evtc.calculateEventCost(event);
+        System.out.println("Hola");
+        BillController bllc = new BillController();
+        Bill bill = bllc.findOne(event.getId());
+        System.out.println(bill);
         txtArtistCost.setText(String.valueOf(bill.getArtistCost()));
         txtVenueCost.setText(String.valueOf(bill.getVenueCost()));
         txtStaffCost.setText(String.valueOf(bill.getStaffCost()));
         txtEquipmentCost.setText(String.valueOf(bill.getEquipmentCost()));
         txtGeneralExpensesCost.setText(String.valueOf(bill.getGeneralExpensesCost()));
-        txtPenaltyFeesCost.setText(String.valueOf(bill.getPenaltyFeesCost()));      
+        txtPenaltyFeesCost.setText(String.valueOf(bill.getPenaltyFeesCost()));
         txtTotalAmount.setText(String.valueOf(bill.getTotalAmount()));
-        
-    }//GEN-LAST:event_cmbIdBillMouseClicked
+
+    }//GEN-LAST:event_cmbIdEventMouseClicked
 
     private void txtDeleteBillbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeleteBillbtnMouseEntered
 
@@ -288,20 +289,34 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_txtDeleteBillbtnMouseClicked
 
-    private void loadBill() {
+    private void loadEvent() {
         DefaultComboBoxModel<String> listModel = new DefaultComboBoxModel();
-        BillController bll = new BillController();
+        EventController evtc = new EventController();
 
-        ArrayList<Bill> availableBills = bll.readTable();
+        ArrayList<Event> availableEvents = evtc.readTable();
 
         String display;
 
-        for (Bill currentBill : availableBills) {
-            display = String.valueOf(currentBill.getId());
+        for (Event currentEvents : availableEvents) {
+            display = String.valueOf(currentEvents.getId());
             listModel.addElement(display);
         }
 
-        cmbIdBill.setModel(listModel);
+        cmbIdEvent.setModel(listModel);
+    }
+
+    private Event getSelectedEvent() {
+        Event selectedEvent;
+        EventController evtc = new EventController();
+        int reladtedId;
+
+        String indexContent = String.valueOf(cmbIdEvent.getSelectedItem());
+
+        reladtedId = Integer.parseInt(Character.toString(indexContent.charAt(0)));
+
+        selectedEvent = evtc.findOne(reladtedId);
+
+        return selectedEvent;
     }
 
     private Bill getSelectedBill() {
@@ -309,13 +324,12 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
         BillController bll = new BillController();
         int reladtedId;
 
-        String indexContent = String.valueOf(cmbIdBill.getSelectedItem());
+        String indexContent = String.valueOf(cmbIdEvent.getSelectedItem());
 
         reladtedId = Integer.parseInt(Character.toString(indexContent.charAt(0)));
 
         selectedBill = bll.findOne(reladtedId);
 
-        
         return selectedBill;
     }
 
@@ -359,7 +373,7 @@ public class FrmCalculateTotalCostEvent extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnBackMenu;
-    private javax.swing.JComboBox<String> cmbIdBill;
+    private javax.swing.JComboBox<String> cmbIdEvent;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel txtArtistCost;

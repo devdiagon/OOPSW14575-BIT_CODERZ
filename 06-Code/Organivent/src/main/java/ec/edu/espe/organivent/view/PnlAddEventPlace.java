@@ -199,10 +199,7 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
         btnReadEventPlace.setLayout(btnReadEventPlaceLayout);
         btnReadEventPlaceLayout.setHorizontalGroup(
             btnReadEventPlaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnReadEventPlaceLayout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
-                .addComponent(txtReadEventPlaceBtn)
-                .addGap(55, 55, 55))
+            .addComponent(txtReadEventPlaceBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
         btnReadEventPlaceLayout.setVerticalGroup(
             btnReadEventPlaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

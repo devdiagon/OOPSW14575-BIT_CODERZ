@@ -161,10 +161,7 @@ public class PnlAddArtist extends javax.swing.JPanel {
         btnReadArtist.setLayout(btnReadArtistLayout);
         btnReadArtistLayout.setHorizontalGroup(
             btnReadArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnReadArtistLayout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
-                .addComponent(txtReadArtistBtn)
-                .addGap(57, 57, 57))
+            .addComponent(txtReadArtistBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
         btnReadArtistLayout.setVerticalGroup(
             btnReadArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -262,11 +262,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                  <Component id="txtReadEquipmentsBtn" min="-2" pref="153" max="-2" attributes="0"/>
-                  <EmptySpace pref="60" max="32767" attributes="0"/>
-              </Group>
+              <Component id="txtReadEquipmentsBtn" alignment="1" pref="270" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">

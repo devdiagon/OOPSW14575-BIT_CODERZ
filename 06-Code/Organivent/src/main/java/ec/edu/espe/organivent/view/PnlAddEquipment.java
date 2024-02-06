@@ -166,10 +166,7 @@ public class PnlAddEquipment extends javax.swing.JPanel {
         btnReadEquipments.setLayout(btnReadEquipmentsLayout);
         btnReadEquipmentsLayout.setHorizontalGroup(
             btnReadEquipmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnReadEquipmentsLayout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(txtReadEquipmentsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+            .addComponent(txtReadEquipmentsBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
         );
         btnReadEquipmentsLayout.setVerticalGroup(
             btnReadEquipmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -6,6 +6,7 @@ package ec.edu.espe.organivent.view;
 
 import ec.edu.espe.organivent.controller.BillController;
 import ec.edu.espe.organivent.model.Bill;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -15,7 +16,10 @@ import javax.swing.JOptionPane;
  * @author Jefferson Yepez, DCCO - ESPE, BitCoderz
  */
 public class FrmDeleteBill extends javax.swing.JFrame {
-
+    Bill bill;
+    private Color btnDefaultColor = new Color(63,115,193);
+    private Color btnHoverColor = new Color(48,88,149);
+    
     /**
      * Creates new form FrmDeleteBill
      */
@@ -39,7 +43,7 @@ public class FrmDeleteBill extends javax.swing.JFrame {
         txtId = new javax.swing.JLabel();
         cmbIdBill = new javax.swing.JComboBox<>();
         btnDeleteBill = new javax.swing.JPanel();
-        txtDeleteBillbtn = new javax.swing.JLabel();
+        txtDeleteBillBtn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,28 +67,25 @@ public class FrmDeleteBill extends javax.swing.JFrame {
         });
 
         btnDeleteBill.setBackground(new java.awt.Color(63, 115, 193));
-        btnDeleteBill.setMaximumSize(new java.awt.Dimension(142, 47));
-        btnDeleteBill.setMinimumSize(new java.awt.Dimension(142, 47));
+        btnDeleteBill.setPreferredSize(new java.awt.Dimension(138, 31));
         btnDeleteBill.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnDeleteBillMouseClicked(evt);
             }
         });
 
-        txtDeleteBillbtn.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        txtDeleteBillbtn.setForeground(new java.awt.Color(255, 255, 255));
-        txtDeleteBillbtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtDeleteBillbtn.setText(org.openide.util.NbBundle.getMessage(FrmDeleteBill.class, "FrmDeleteBill.txtDeleteBillbtn.text")); // NOI18N
-        txtDeleteBillbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        txtDeleteBillbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtDeleteBillBtn.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
+        txtDeleteBillBtn.setForeground(new java.awt.Color(255, 255, 255));
+        txtDeleteBillBtn.setText(org.openide.util.NbBundle.getMessage(FrmDeleteBill.class, "FrmDeleteBill.txtDeleteBillBtn.text")); // NOI18N
+        txtDeleteBillBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtDeleteBillbtnMouseClicked(evt);
+                txtDeleteBillBtnMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                txtDeleteBillbtnMouseEntered(evt);
+                txtDeleteBillBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtDeleteBillbtnMouseExited(evt);
+                txtDeleteBillBtnMouseExited(evt);
             }
         });
 
@@ -92,13 +93,11 @@ public class FrmDeleteBill extends javax.swing.JFrame {
         btnDeleteBill.setLayout(btnDeleteBillLayout);
         btnDeleteBillLayout.setHorizontalGroup(
             btnDeleteBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtDeleteBillbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+            .addComponent(txtDeleteBillBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
         );
         btnDeleteBillLayout.setVerticalGroup(
             btnDeleteBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnDeleteBillLayout.createSequentialGroup()
-                .addComponent(txtDeleteBillbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(txtDeleteBillBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -119,12 +118,11 @@ public class FrmDeleteBill extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cmbIdBill, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtId))))))
-                .addContainerGap(26, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(60, 60, 60)
-                    .addComponent(btnDeleteBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(60, Short.MAX_VALUE)))
+                .addContainerGap(41, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnDeleteBill, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,12 +135,9 @@ public class FrmDeleteBill extends javax.swing.JFrame {
                 .addComponent(txtId)
                 .addGap(18, 18, 18)
                 .addComponent(cmbIdBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(172, 172, 172)
-                    .addComponent(btnDeleteBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(36, Short.MAX_VALUE)))
+                .addGap(34, 34, 34)
+                .addComponent(btnDeleteBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -157,39 +152,32 @@ public class FrmDeleteBill extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbIdBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbIdBillMouseClicked
-        Bill bill = getSelectedBill();
+        bill = getSelectedBill();
     }//GEN-LAST:event_cmbIdBillMouseClicked
 
-    private void txtDeleteBillbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeleteBillbtnMouseEntered
-
-    }//GEN-LAST:event_txtDeleteBillbtnMouseEntered
-
-    private void txtDeleteBillbtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeleteBillbtnMouseExited
-
-    }//GEN-LAST:event_txtDeleteBillbtnMouseExited
-
     private void btnDeleteBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteBillMouseClicked
-        BillController billController = new BillController();
-        String selectedIndex = String.valueOf(cmbIdBill.getSelectedItem());
-
-        int selectedId = Integer.parseInt(selectedIndex);
-        Bill bill = billController.findOne(selectedId);
-
-        int opcionSeleccionada = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea eliminar esta factura?", "Confirmación", JOptionPane.YES_NO_OPTION);
-
-        if (opcionSeleccionada == JOptionPane.YES_OPTION) {
-            billController.delete(bill);
-            this.dispose();
-        }
-
     }//GEN-LAST:event_btnDeleteBillMouseClicked
 
-    private void txtDeleteBillbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeleteBillbtnMouseClicked
+    private void txtDeleteBillBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeleteBillBtnMouseEntered
+         btnDeleteBill.setBackground(btnHoverColor); 
+    }//GEN-LAST:event_txtDeleteBillBtnMouseEntered
+
+    private void txtDeleteBillBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeleteBillBtnMouseExited
+        btnDeleteBill.setBackground(btnDefaultColor);
+    }//GEN-LAST:event_txtDeleteBillBtnMouseExited
+
+    private void txtDeleteBillBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeleteBillBtnMouseClicked
+        BillController bllc = new BillController();
+        int option = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea eliminar la factura?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if(option == JOptionPane.YES_OPTION){
+            bllc.delete(bill);
+        }
         this.dispose();
-    }//GEN-LAST:event_txtDeleteBillbtnMouseClicked
+    }//GEN-LAST:event_txtDeleteBillBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -262,7 +250,7 @@ public class FrmDeleteBill extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbIdBill;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel txtDeleteBillbtn;
+    private javax.swing.JLabel txtDeleteBillBtn;
     private javax.swing.JLabel txtId;
     private javax.swing.JLabel txtTitle;
     // End of variables declaration//GEN-END:variables

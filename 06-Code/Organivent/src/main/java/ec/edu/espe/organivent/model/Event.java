@@ -184,7 +184,7 @@ public class Event {
         }
     }
     
-    private static void calculateEventCost(Event currentEvent){
+    public static void calculateEventCost(Event currentEvent){
         float estimatedEventCost=0;
         float totalStaffCost=0;
         float totalEquipmentCost=0;

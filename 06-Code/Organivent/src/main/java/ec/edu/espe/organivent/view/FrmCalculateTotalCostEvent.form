@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -43,59 +43,49 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
-                                  <Component id="txtId" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="txtVenueCost1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtArtistCost1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtStaffCost1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtEquipmentCost1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtGeneralExpensesCost1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtPenaltyFeesCost1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtTotalAmount1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="cmbIdBill" min="-2" pref="123" max="-2" attributes="0"/>
-                              <Component id="txtVenueCost" min="-2" pref="181" max="-2" attributes="0"/>
-                              <Component id="txtArtistCost" min="-2" pref="181" max="-2" attributes="0"/>
-                              <Component id="txtStaffCost" min="-2" pref="181" max="-2" attributes="0"/>
-                              <Component id="txtEquipmentCost" min="-2" pref="181" max="-2" attributes="0"/>
-                              <Component id="txtPenaltyFeesCost" min="-2" pref="181" max="-2" attributes="0"/>
-                              <Component id="txtGeneralExpensesCost" min="-2" pref="181" max="-2" attributes="0"/>
-                              <Component id="txtTotalAmount" min="-2" pref="181" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
+                          <Component id="txtId" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                          <Component id="jSeparator1" min="-2" pref="430" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="txtVenueCost1" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtArtistCost1" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtStaffCost1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtEquipmentCost1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtGeneralExpensesCost1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPenaltyFeesCost1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTotalAmount1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="23" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="cmbIdEvent" min="-2" pref="123" max="-2" attributes="0"/>
+                      <Component id="txtVenueCost" min="-2" pref="181" max="-2" attributes="0"/>
+                      <Component id="txtArtistCost" min="-2" pref="181" max="-2" attributes="0"/>
+                      <Component id="txtStaffCost" min="-2" pref="181" max="-2" attributes="0"/>
+                      <Component id="txtEquipmentCost" min="-2" pref="181" max="-2" attributes="0"/>
+                      <Component id="txtPenaltyFeesCost" min="-2" pref="181" max="-2" attributes="0"/>
+                      <Component id="txtGeneralExpensesCost" min="-2" pref="181" max="-2" attributes="0"/>
+                      <Component id="txtTotalAmount" min="-2" pref="181" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="btnBackMenu" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="txtTitle" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Component id="jSeparator1" min="-2" pref="430" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                  <Component id="txtTitle" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                  <Component id="btnBackMenu" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -108,7 +98,7 @@
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="cmbIdBill" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbIdEvent" min="-2" max="-2" attributes="0"/>
                       <Component id="txtId" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -146,9 +136,9 @@
                       <Component id="txtTotalAmount1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtTotalAmount" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnBackMenu" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="25" max="32767" attributes="0"/>
+                  <EmptySpace pref="38" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -184,7 +174,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cmbIdBill">
+        <Component class="javax.swing.JComboBox" name="cmbIdEvent">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Inter" size="15" style="0"/>
@@ -199,7 +189,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmbIdBillMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmbIdEventMouseClicked"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
