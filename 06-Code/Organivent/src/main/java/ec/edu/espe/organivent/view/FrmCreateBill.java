@@ -157,7 +157,7 @@ public class FrmCreateBill extends javax.swing.JFrame {
 
     private void txtCreateBillBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCreateBillBtnMouseClicked
         EventController evtc = new EventController();
-        int option = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea eliminar la factura?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        int option = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea crear esta la factura?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if(option == JOptionPane.YES_OPTION){
             evtc.calculateEventCost(event);
         }
