@@ -244,7 +244,9 @@ public class PnlEventMainMenu extends javax.swing.JPanel {
         btnSeeEvent.setLayout(btnSeeEventLayout);
         btnSeeEventLayout.setHorizontalGroup(
             btnSeeEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtSeeEvent, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnSeeEventLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtSeeEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         btnSeeEventLayout.setVerticalGroup(
             btnSeeEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -46,6 +46,8 @@ public class PnlAddEquipment extends javax.swing.JPanel {
         fdlCost = new javax.swing.JFormattedTextField();
         sptTipo = new javax.swing.JSeparator();
         sptCosto = new javax.swing.JSeparator();
+        btnReadEquipments = new javax.swing.JPanel();
+        txtReadEquipmentsBtn = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(390, 375));
@@ -89,9 +91,7 @@ public class PnlAddEquipment extends javax.swing.JPanel {
         btnConfirm.setLayout(btnConfirmLayout);
         btnConfirmLayout.setHorizontalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnConfirmLayout.createSequentialGroup()
-                .addComponent(txtConfirmbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(txtConfirmbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
         );
         btnConfirmLayout.setVerticalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,6 +141,44 @@ public class PnlAddEquipment extends javax.swing.JPanel {
         sptCosto.setOpaque(true);
         sptCosto.setPreferredSize(new java.awt.Dimension(205, 1));
         add(sptCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 222, -1, -1));
+
+        btnReadEquipments.setBackground(new java.awt.Color(63, 115, 193));
+        btnReadEquipments.setPreferredSize(new java.awt.Dimension(138, 31));
+
+        txtReadEquipmentsBtn.setFont(new java.awt.Font("Inter SemiBold", 0, 15)); // NOI18N
+        txtReadEquipmentsBtn.setForeground(new java.awt.Color(255, 255, 255));
+        txtReadEquipmentsBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtReadEquipmentsBtn.setText("Visualizar Equipos");
+        txtReadEquipmentsBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtReadEquipmentsBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtReadEquipmentsBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtReadEquipmentsBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtReadEquipmentsBtnMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnReadEquipmentsLayout = new javax.swing.GroupLayout(btnReadEquipments);
+        btnReadEquipments.setLayout(btnReadEquipmentsLayout);
+        btnReadEquipmentsLayout.setHorizontalGroup(
+            btnReadEquipmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnReadEquipmentsLayout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(txtReadEquipmentsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
+        );
+        btnReadEquipmentsLayout.setVerticalGroup(
+            btnReadEquipmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnReadEquipmentsLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtReadEquipmentsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        add(btnReadEquipments, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 270, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtConfirmbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseEntered
@@ -164,6 +202,19 @@ public class PnlAddEquipment extends javax.swing.JPanel {
             sendEquipmentData();
         }
     }//GEN-LAST:event_txtConfirmbtnMouseClicked
+
+    private void txtReadEquipmentsBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadEquipmentsBtnMouseClicked
+        FrmReadEquipment frmReadEquipment = new FrmReadEquipment();
+        frmReadEquipment.setVisible(true);
+    }//GEN-LAST:event_txtReadEquipmentsBtnMouseClicked
+
+    private void txtReadEquipmentsBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadEquipmentsBtnMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtReadEquipmentsBtnMouseEntered
+
+    private void txtReadEquipmentsBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadEquipmentsBtnMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtReadEquipmentsBtnMouseExited
 
 
     private boolean validateData(){
@@ -205,6 +256,7 @@ public class PnlAddEquipment extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnConfirm;
+    private javax.swing.JPanel btnReadEquipments;
     private javax.swing.JFormattedTextField fdlCost;
     private javax.swing.JSpinner spnQuantity;
     private javax.swing.JSeparator sptCosto;
@@ -213,6 +265,7 @@ public class PnlAddEquipment extends javax.swing.JPanel {
     private javax.swing.JLabel txtCantidad;
     private javax.swing.JLabel txtConfirmbtn;
     private javax.swing.JLabel txtCosto;
+    private javax.swing.JLabel txtReadEquipmentsBtn;
     private javax.swing.JLabel txtTipoEquipo;
     private javax.swing.JLabel txtTitle;
     // End of variables declaration//GEN-END:variables

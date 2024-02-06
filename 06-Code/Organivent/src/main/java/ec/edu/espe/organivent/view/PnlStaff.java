@@ -57,6 +57,8 @@ public class PnlStaff extends javax.swing.JPanel {
         lstEmployees = new javax.swing.JList<>();
         txtIdValue = new javax.swing.JLabel();
         txtTotalCost = new javax.swing.JLabel();
+        btnReadStaff = new javax.swing.JPanel();
+        txtReadStaffBtn = new javax.swing.JLabel();
 
         tfdName.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         tfdName.setBorder(null);
@@ -140,14 +142,16 @@ public class PnlStaff extends javax.swing.JPanel {
         btnConfirm.setLayout(btnConfirmLayout);
         btnConfirmLayout.setHorizontalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtConfirmBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+            .addGroup(btnConfirmLayout.createSequentialGroup()
+                .addComponent(txtConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 22, Short.MAX_VALUE))
         );
         btnConfirmLayout.setVerticalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(txtConfirmBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
         );
 
-        add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 328, -1, -1));
+        add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, -1, -1));
 
         spnDaysWorked.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
         add(spnDaysWorked, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, -1, -1));
@@ -175,6 +179,42 @@ public class PnlStaff extends javax.swing.JPanel {
         txtTotalCost.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         txtTotalCost.setText("$ 0,00");
         add(txtTotalCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, -1, -1));
+
+        btnReadStaff.setBackground(new java.awt.Color(63, 115, 193));
+        btnReadStaff.setPreferredSize(new java.awt.Dimension(142, 27));
+
+        txtReadStaffBtn.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
+        txtReadStaffBtn.setForeground(new java.awt.Color(255, 255, 255));
+        txtReadStaffBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtReadStaffBtn.setText("Visualizar Staff");
+        txtReadStaffBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtReadStaffBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtReadStaffBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtReadStaffBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtReadStaffBtnMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnReadStaffLayout = new javax.swing.GroupLayout(btnReadStaff);
+        btnReadStaff.setLayout(btnReadStaffLayout);
+        btnReadStaffLayout.setHorizontalGroup(
+            btnReadStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnReadStaffLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(txtReadStaffBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+        );
+        btnReadStaffLayout.setVerticalGroup(
+            btnReadStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtReadStaffBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+        );
+
+        add(btnReadStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 220, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfdTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdTypeActionPerformed
@@ -196,6 +236,18 @@ public class PnlStaff extends javax.swing.JPanel {
             sendStaffData();
         } 
     }//GEN-LAST:event_txtConfirmBtnMouseClicked
+
+    private void txtReadStaffBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadStaffBtnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtReadStaffBtnMouseClicked
+
+    private void txtReadStaffBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadStaffBtnMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtReadStaffBtnMouseEntered
+
+    private void txtReadStaffBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadStaffBtnMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtReadStaffBtnMouseExited
 
     private boolean validateData(){
         boolean passed = true;
@@ -287,6 +339,7 @@ public class PnlStaff extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnConfirm;
+    private javax.swing.JPanel btnReadStaff;
     private javax.swing.JList<String> lstEmployees;
     private javax.swing.JScrollPane scpnEmployees;
     private javax.swing.JSpinner spnDaysWorked;
@@ -301,6 +354,7 @@ public class PnlStaff extends javax.swing.JPanel {
     private javax.swing.JLabel txtHoras;
     private javax.swing.JLabel txtId;
     private javax.swing.JLabel txtIdValue;
+    private javax.swing.JLabel txtReadStaffBtn;
     private javax.swing.JLabel txtTipo;
     private javax.swing.JLabel txtTitle;
     private javax.swing.JLabel txtTotalCost;

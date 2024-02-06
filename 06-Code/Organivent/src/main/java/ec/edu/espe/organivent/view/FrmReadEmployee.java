@@ -115,19 +115,19 @@ public class FrmReadEmployee extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtBackEmployeebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackEmployeebtnMouseClicked
-        this.dispose();
-    }//GEN-LAST:event_txtBackEmployeebtnMouseClicked
-
-    private void txtBackEmployeebtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackEmployeebtnMouseEntered
-        btnBackEmployee.setBackground(btnHoverColor);
-    }//GEN-LAST:event_txtBackEmployeebtnMouseEntered
-
     private void txtBackEmployeebtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackEmployeebtnMouseExited
         if(txtBackEmployeebtn.getFont().equals(defaultFont)){
             btnBackEmployee.setBackground(btnDefaultColor);
         }
     }//GEN-LAST:event_txtBackEmployeebtnMouseExited
+
+    private void txtBackEmployeebtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackEmployeebtnMouseEntered
+        btnBackEmployee.setBackground(btnHoverColor);
+    }//GEN-LAST:event_txtBackEmployeebtnMouseEntered
+
+    private void txtBackEmployeebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackEmployeebtnMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_txtBackEmployeebtnMouseClicked
 
     /**
      * @param args the command line arguments

@@ -45,6 +45,8 @@ public class PnlAddArtist extends javax.swing.JPanel {
         fdlWage = new javax.swing.JFormattedTextField();
         sptNombre = new javax.swing.JSeparator();
         sptSalario = new javax.swing.JSeparator();
+        btnReadArtist = new javax.swing.JPanel();
+        txtReadArtistBtn = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(390, 375));
@@ -92,14 +94,17 @@ public class PnlAddArtist extends javax.swing.JPanel {
         btnConfirm.setLayout(btnConfirmLayout);
         btnConfirmLayout.setHorizontalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtConfirmbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+            .addGroup(btnConfirmLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(txtConfirmbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         btnConfirmLayout.setVerticalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(txtConfirmbtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
         );
 
-        add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 267, -1, -1));
+        add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, -1, -1));
 
         txtId1.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         txtId1.setForeground(new java.awt.Color(135, 132, 132));
@@ -131,6 +136,42 @@ public class PnlAddArtist extends javax.swing.JPanel {
         sptSalario.setOpaque(true);
         sptSalario.setPreferredSize(new java.awt.Dimension(197, 1));
         add(sptSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 214, -1, -1));
+
+        btnReadArtist.setBackground(new java.awt.Color(63, 115, 193));
+        btnReadArtist.setPreferredSize(new java.awt.Dimension(138, 31));
+
+        txtReadArtistBtn.setFont(new java.awt.Font("Inter SemiBold", 0, 15)); // NOI18N
+        txtReadArtistBtn.setForeground(new java.awt.Color(255, 255, 255));
+        txtReadArtistBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtReadArtistBtn.setText("Visualizar artistas");
+        txtReadArtistBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtReadArtistBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtReadArtistBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtReadArtistBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtReadArtistBtnMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnReadArtistLayout = new javax.swing.GroupLayout(btnReadArtist);
+        btnReadArtist.setLayout(btnReadArtistLayout);
+        btnReadArtistLayout.setHorizontalGroup(
+            btnReadArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnReadArtistLayout.createSequentialGroup()
+                .addContainerGap(61, Short.MAX_VALUE)
+                .addComponent(txtReadArtistBtn)
+                .addGap(57, 57, 57))
+        );
+        btnReadArtistLayout.setVerticalGroup(
+            btnReadArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtReadArtistBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+        );
+
+        add(btnReadArtist, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 250, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtConfirmbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseEntered
@@ -154,6 +195,19 @@ public class PnlAddArtist extends javax.swing.JPanel {
             sendArtistData();
         } 
     }//GEN-LAST:event_txtConfirmbtnMouseClicked
+
+    private void txtReadArtistBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadArtistBtnMouseClicked
+        FrmReadArtist frmReadArtist = new FrmReadArtist();
+        frmReadArtist.setVisible(true);
+    }//GEN-LAST:event_txtReadArtistBtnMouseClicked
+
+    private void txtReadArtistBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadArtistBtnMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtReadArtistBtnMouseEntered
+
+    private void txtReadArtistBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadArtistBtnMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtReadArtistBtnMouseExited
 
     private boolean validateData(){
         boolean passed = true;
@@ -194,6 +248,7 @@ public class PnlAddArtist extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnConfirm;
+    private javax.swing.JPanel btnReadArtist;
     private javax.swing.JFormattedTextField fdlWage;
     private javax.swing.JSeparator sptNombre;
     private javax.swing.JSeparator sptSalario;
@@ -202,6 +257,7 @@ public class PnlAddArtist extends javax.swing.JPanel {
     private javax.swing.JLabel txtId1;
     private javax.swing.JLabel txtIdValue;
     private javax.swing.JLabel txtNombre;
+    private javax.swing.JLabel txtReadArtistBtn;
     private javax.swing.JLabel txtSalario;
     private javax.swing.JLabel txtTitle;
     // End of variables declaration//GEN-END:variables

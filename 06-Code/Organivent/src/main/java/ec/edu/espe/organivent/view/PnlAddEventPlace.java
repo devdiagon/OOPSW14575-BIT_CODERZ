@@ -48,6 +48,8 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
         sptNombre = new javax.swing.JSeparator();
         sptDireccion = new javax.swing.JSeparator();
         sptCostoRenta = new javax.swing.JSeparator();
+        btnReadEventPlace = new javax.swing.JPanel();
+        txtReadEventPlaceBtn = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(390, 375));
@@ -87,8 +89,9 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
         btnConfirmLayout.setHorizontalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnConfirmLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtConfirmbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtConfirmbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
         btnConfirmLayout.setVerticalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +100,7 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
                 .addComponent(txtConfirmbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, -1, -1));
+        add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, -1, -1));
 
         txtNombre.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(135, 132, 132));
@@ -171,6 +174,44 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
         sptCostoRenta.setOpaque(true);
         sptCostoRenta.setPreferredSize(new java.awt.Dimension(195, 1));
         add(sptCostoRenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 190, -1, -1));
+
+        btnReadEventPlace.setBackground(new java.awt.Color(63, 115, 193));
+        btnReadEventPlace.setPreferredSize(new java.awt.Dimension(138, 31));
+
+        txtReadEventPlaceBtn.setFont(new java.awt.Font("Inter SemiBold", 0, 15)); // NOI18N
+        txtReadEventPlaceBtn.setForeground(new java.awt.Color(255, 255, 255));
+        txtReadEventPlaceBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtReadEventPlaceBtn.setText("Visualizar Lugares");
+        txtReadEventPlaceBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtReadEventPlaceBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtReadEventPlaceBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtReadEventPlaceBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtReadEventPlaceBtnMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnReadEventPlaceLayout = new javax.swing.GroupLayout(btnReadEventPlace);
+        btnReadEventPlace.setLayout(btnReadEventPlaceLayout);
+        btnReadEventPlaceLayout.setHorizontalGroup(
+            btnReadEventPlaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnReadEventPlaceLayout.createSequentialGroup()
+                .addContainerGap(61, Short.MAX_VALUE)
+                .addComponent(txtReadEventPlaceBtn)
+                .addGap(55, 55, 55))
+        );
+        btnReadEventPlaceLayout.setVerticalGroup(
+            btnReadEventPlaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnReadEventPlaceLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtReadEventPlaceBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        add(btnReadEventPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 250, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtConfirmbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseEntered
@@ -206,6 +247,19 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
             sendEventPlaceData();
         }
     }//GEN-LAST:event_txtConfirmbtnMouseClicked
+
+    private void txtReadEventPlaceBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadEventPlaceBtnMouseClicked
+        FrmReadEventPlace frmReadEventPlace = new FrmReadEventPlace();
+        frmReadEventPlace.setVisible(true);
+    }//GEN-LAST:event_txtReadEventPlaceBtnMouseClicked
+
+    private void txtReadEventPlaceBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadEventPlaceBtnMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtReadEventPlaceBtnMouseEntered
+
+    private void txtReadEventPlaceBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadEventPlaceBtnMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtReadEventPlaceBtnMouseExited
 
     private boolean validateData(){
         boolean passed = true;
@@ -249,6 +303,7 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnConfirm;
+    private javax.swing.JPanel btnReadEventPlace;
     private javax.swing.JLabel etiCapacidad;
     private javax.swing.JLabel etiValor;
     private javax.swing.JFormattedTextField fdlRentCost;
@@ -263,6 +318,7 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
     private javax.swing.JLabel txtCostoRenta;
     private javax.swing.JLabel txtDireccion;
     private javax.swing.JLabel txtNombre;
+    private javax.swing.JLabel txtReadEventPlaceBtn;
     private javax.swing.JLabel txtTitle;
     // End of variables declaration//GEN-END:variables
 }

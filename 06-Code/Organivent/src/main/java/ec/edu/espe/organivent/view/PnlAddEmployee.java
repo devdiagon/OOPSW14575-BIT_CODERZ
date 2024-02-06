@@ -33,6 +33,7 @@ public class PnlAddEmployee extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnSeeEvent = new javax.swing.JPanel();
         txtTitle = new javax.swing.JLabel();
         txtSalario = new javax.swing.JLabel();
         txtIdValue = new javax.swing.JLabel();
@@ -44,6 +45,23 @@ public class PnlAddEmployee extends javax.swing.JPanel {
         fdlWage = new javax.swing.JFormattedTextField();
         sptNombre = new javax.swing.JSeparator();
         sptSalario = new javax.swing.JSeparator();
+        btnReadEmployees = new javax.swing.JPanel();
+        txtReadEmployeesBtn = new javax.swing.JLabel();
+
+        btnSeeEvent.setBackground(new java.awt.Color(63, 115, 193));
+        btnSeeEvent.setMaximumSize(new java.awt.Dimension(142, 47));
+        btnSeeEvent.setMinimumSize(new java.awt.Dimension(142, 47));
+
+        javax.swing.GroupLayout btnSeeEventLayout = new javax.swing.GroupLayout(btnSeeEvent);
+        btnSeeEvent.setLayout(btnSeeEventLayout);
+        btnSeeEventLayout.setHorizontalGroup(
+            btnSeeEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 270, Short.MAX_VALUE)
+        );
+        btnSeeEventLayout.setVerticalGroup(
+            btnSeeEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(390, 375));
@@ -91,7 +109,10 @@ public class PnlAddEmployee extends javax.swing.JPanel {
         btnConfirm.setLayout(btnConfirmLayout);
         btnConfirmLayout.setHorizontalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtConfirmbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+            .addGroup(btnConfirmLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(txtConfirmbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         btnConfirmLayout.setVerticalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,6 +151,42 @@ public class PnlAddEmployee extends javax.swing.JPanel {
         sptSalario.setOpaque(true);
         sptSalario.setPreferredSize(new java.awt.Dimension(197, 1));
         add(sptSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 214, -1, -1));
+
+        btnReadEmployees.setBackground(new java.awt.Color(63, 115, 193));
+        btnReadEmployees.setPreferredSize(new java.awt.Dimension(138, 31));
+
+        txtReadEmployeesBtn.setFont(new java.awt.Font("Inter SemiBold", 0, 15)); // NOI18N
+        txtReadEmployeesBtn.setForeground(new java.awt.Color(255, 255, 255));
+        txtReadEmployeesBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtReadEmployeesBtn.setText("Visualizar empleados");
+        txtReadEmployeesBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtReadEmployeesBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtReadEmployeesBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtReadEmployeesBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtReadEmployeesBtnMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnReadEmployeesLayout = new javax.swing.GroupLayout(btnReadEmployees);
+        btnReadEmployees.setLayout(btnReadEmployeesLayout);
+        btnReadEmployeesLayout.setHorizontalGroup(
+            btnReadEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnReadEmployeesLayout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
+                .addComponent(txtReadEmployeesBtn)
+                .addGap(56, 56, 56))
+        );
+        btnReadEmployeesLayout.setVerticalGroup(
+            btnReadEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtReadEmployeesBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+        );
+
+        add(btnReadEmployees, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 270, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtConfirmbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseEntered
@@ -153,6 +210,19 @@ public class PnlAddEmployee extends javax.swing.JPanel {
             sendEmployeeData();
         } 
     }//GEN-LAST:event_txtConfirmbtnMouseClicked
+
+    private void txtReadEmployeesBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadEmployeesBtnMouseClicked
+        FrmReadEmployee frmReadEmployees = new FrmReadEmployee();
+        frmReadEmployees.setVisible(true);
+    }//GEN-LAST:event_txtReadEmployeesBtnMouseClicked
+
+    private void txtReadEmployeesBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadEmployeesBtnMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtReadEmployeesBtnMouseEntered
+
+    private void txtReadEmployeesBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadEmployeesBtnMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtReadEmployeesBtnMouseExited
 
     private boolean validateData(){
         boolean passed = true;
@@ -193,6 +263,8 @@ public class PnlAddEmployee extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnConfirm;
+    private javax.swing.JPanel btnReadEmployees;
+    private javax.swing.JPanel btnSeeEvent;
     private javax.swing.JFormattedTextField fdlWage;
     private javax.swing.JSeparator sptNombre;
     private javax.swing.JSeparator sptSalario;
@@ -201,6 +273,7 @@ public class PnlAddEmployee extends javax.swing.JPanel {
     private javax.swing.JLabel txtId1;
     private javax.swing.JLabel txtIdValue;
     private javax.swing.JLabel txtNombre;
+    private javax.swing.JLabel txtReadEmployeesBtn;
     private javax.swing.JLabel txtSalario;
     private javax.swing.JLabel txtTitle;
     // End of variables declaration//GEN-END:variables

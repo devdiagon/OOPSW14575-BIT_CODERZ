@@ -47,7 +47,6 @@ public class FrmReadEvent extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(940, 546));
         setMinimumSize(new java.awt.Dimension(940, 546));
         setResizable(false);
 
