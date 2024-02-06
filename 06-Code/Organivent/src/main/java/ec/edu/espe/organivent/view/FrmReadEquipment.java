@@ -114,6 +114,7 @@ public class FrmReadEquipment extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBackEquipmentbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackEquipmentbtnMouseClicked

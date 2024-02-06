@@ -113,6 +113,7 @@ public class FrmReadEmployee extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBackEmployeebtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackEmployeebtnMouseExited

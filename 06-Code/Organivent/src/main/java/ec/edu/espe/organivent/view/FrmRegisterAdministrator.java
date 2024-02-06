@@ -60,7 +60,6 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
         fdlPhoneNumber = new javax.swing.JFormattedTextField();
         fdlWage = new javax.swing.JFormattedTextField();
         sptTelefono1 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -175,6 +174,7 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
 
         psfdPassword.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         psfdPassword.setText("***********************");
+        psfdPassword.setToolTipText("La contraseña debe tener mínimo 10 dígitos, \nnumeros, mayúsculas, minúsculas y un caracter especial");
         psfdPassword.setBorder(null);
         psfdPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -253,9 +253,6 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
         sptTelefono1.setPreferredSize(new java.awt.Dimension(128, 1));
         background.add(sptTelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 337, -1, -1));
 
-        jLabel1.setText("Debe tener 10 dígitos, numeros, mayúsculas, minúsculas y caracter especial");
-        background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 200, 400, -1));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -268,6 +265,7 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtReturnbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReturnbtnMouseClicked
@@ -407,7 +405,6 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
     private javax.swing.JPanel btnConfirm;
     private javax.swing.JFormattedTextField fdlPhoneNumber;
     private javax.swing.JFormattedTextField fdlWage;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbEyeImage;
     private javax.swing.JPanel pnlBottomLayer;
     private javax.swing.JPasswordField psfdPassword;

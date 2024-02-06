@@ -48,6 +48,7 @@ public class FrmLogIn extends javax.swing.JFrame {
         sptUser = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Organivent");
         setLocationByPlatform(true);
         setResizable(false);
 
@@ -209,6 +210,7 @@ public class FrmLogIn extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtLogInbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLogInbtnMouseEntered

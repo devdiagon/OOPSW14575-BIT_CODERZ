@@ -51,12 +51,16 @@ public class FrmSpashcreen extends javax.swing.JFrame  {
         logoImg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle(org.openide.util.NbBundle.getMessage(FrmSpashcreen.class, "FrmSpashcreen.title")); // NOI18N
         setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
         setSize(new java.awt.Dimension(576, 323));
 
         background.setBackground(new java.awt.Color(245, 254, 255));
+        background.setMaximumSize(new java.awt.Dimension(576, 323));
+        background.setMinimumSize(new java.awt.Dimension(576, 323));
+        background.setPreferredSize(new java.awt.Dimension(576, 323));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlRectangle.setBackground(new java.awt.Color(235, 251, 251));
@@ -98,7 +102,6 @@ public class FrmSpashcreen extends javax.swing.JFrame  {
 
         logoImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/organivent_logo.png"))); // NOI18N
         logoImg.setText(org.openide.util.NbBundle.getMessage(FrmSpashcreen.class, "FrmSpashcreen.logoImg.text")); // NOI18N
-        logoImg.setPreferredSize(new java.awt.Dimension(378, 177));
         background.add(logoImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 26, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -113,6 +116,7 @@ public class FrmSpashcreen extends javax.swing.JFrame  {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

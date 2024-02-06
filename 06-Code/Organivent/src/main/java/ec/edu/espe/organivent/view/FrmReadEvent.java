@@ -119,6 +119,7 @@ public class FrmReadEvent extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBackbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackbtnMouseClicked

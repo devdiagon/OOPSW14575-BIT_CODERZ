@@ -61,6 +61,7 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         pnlContent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Organivent");
         setLocationByPlatform(true);
         setResizable(false);
 
@@ -338,6 +339,7 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtEmployeebtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEmployeebtnMouseEntered
