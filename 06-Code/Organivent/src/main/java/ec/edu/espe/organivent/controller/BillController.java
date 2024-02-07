@@ -80,4 +80,18 @@ public class BillController extends ManageMongoDB implements IBill {
         Bill bill = ManageJson.passJsonToObject(doc, classType);
         return bill;
     }
+    
+    public boolean decectIdinDB(int idToSearch){
+        this.connectToDatabase();
+        this.getFromCollection(collectionName);
+        
+        Bson filter = eq("id",idToSearch);
+        Document doc = this.coll.find(filter).first();
+        
+        if(doc == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

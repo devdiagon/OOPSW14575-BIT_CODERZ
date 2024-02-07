@@ -171,14 +171,19 @@ public class FrmDeleteBill extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDeleteBillBtnMouseExited
 
     private void txtDeleteBillBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDeleteBillBtnMouseClicked
-        BillController bllc = new BillController();
+       
         int option = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea eliminar la factura?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if(option == JOptionPane.YES_OPTION){
-            bllc.delete(bill);
+            deleteSelectedBill();
         }
         this.dispose();
     }//GEN-LAST:event_txtDeleteBillBtnMouseClicked
 
+    private void deleteSelectedBill(){
+        bill = getSelectedBill();
+        BillController bllc = new BillController();
+        bllc.delete(bill);
+    }
     /**
      * @param args the command line arguments
      */

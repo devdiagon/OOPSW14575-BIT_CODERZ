@@ -94,7 +94,7 @@ public class EventController extends ManageMongoDB implements IEvent {
         return eventInDB;
     }
     
-    public void calculateEventCost(Event currentEvent){
+    public Bill calculateEventCost(Event currentEvent){
         float estimatedEventCost=0;
         float totalStaffCost=0;
         float totalEquipmentCost=0;
@@ -125,9 +125,10 @@ public class EventController extends ManageMongoDB implements IEvent {
         float totalPenaltyFeeCost=PenaltyFee.calculateTotalPenaltyFeeCost(currentEvent.getPenaltyFees());
         estimatedEventCost += totalPenaltyFeeCost;
         
-        BillController bllc = new BillController();
-        Bill tempBill = new Bill(currentEvent.getId(),artistHiringCost,placeRentCost,totalStaffCost,totalEquipmentCost,totalGeneralExpenseCost,totalPenaltyFeeCost,estimatedEventCost);
-        bllc.create(tempBill);
+        //BillController bllc = new BillController();
+        //Bill tempBill = new Bill(currentEvent.getId(),artistHiringCost,placeRentCost,totalStaffCost,totalEquipmentCost,totalGeneralExpenseCost,totalPenaltyFeeCost,estimatedEventCost);
+        //bllc.create(tempBill);
         
+        return new Bill(currentEvent.getId(),artistHiringCost,placeRentCost,totalStaffCost,totalEquipmentCost,totalGeneralExpenseCost,totalPenaltyFeeCost,estimatedEventCost);
     }
 }
