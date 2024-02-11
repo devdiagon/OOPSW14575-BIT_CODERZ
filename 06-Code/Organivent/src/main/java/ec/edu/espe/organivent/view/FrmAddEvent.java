@@ -1,9 +1,12 @@
 package ec.edu.espe.organivent.view;
 
+import com.raven.datechooser.SelectedDate;
+import com.raven.scroll.win11.ScrollBarWin11UI;
 import ec.edu.espe.organivent.controller.ArtistController;
 import ec.edu.espe.organivent.controller.EquipmentController;
 import ec.edu.espe.organivent.controller.EventController;
 import ec.edu.espe.organivent.controller.EventPlaceController;
+import ec.edu.espe.organivent.controller.ScheduleController;
 import ec.edu.espe.organivent.controller.StaffController;
 import ec.edu.espe.organivent.model.Artist;
 import ec.edu.espe.organivent.model.Equipment;
@@ -15,12 +18,12 @@ import ec.edu.espe.organivent.model.Schedule;
 import ec.edu.espe.organivent.model.Staff;
 import ec.edu.espe.organivent.utils.HandleInput;
 import java.awt.Color;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
 
 /**
  *
@@ -30,18 +33,14 @@ public class FrmAddEvent extends javax.swing.JFrame {
 
     private Color btnDefaultColor = new Color(63,115,193);
     private Color btnHoverColor = new Color(48,88,149);
-    
-    private SimpleDateFormat sdfY = new SimpleDateFormat ("yyyy");
-    private SimpleDateFormat sdfM = new SimpleDateFormat ("MM");
-    private SimpleDateFormat sdfD = new SimpleDateFormat ("dd");
         
     private Event event;
     private Artist artist;
     private EventPlace eventPlace;
     private Schedule startTime;
     private Schedule endTime;
-    private ArrayList<Staff> staff;
-    private ArrayList<Equipment> equipment;
+    private ArrayList<Staff> staff = new ArrayList<>();
+    private ArrayList<Equipment> equipment = new ArrayList<>();
     private ArrayList<Expense> generalExpenses = new ArrayList<>();
     private ArrayList<PenaltyFee> penaltyFees = new ArrayList<>();
     
@@ -67,6 +66,8 @@ public class FrmAddEvent extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dateStart = new com.raven.datechooser.DateChooser();
+        dateEnd = new com.raven.datechooser.DateChooser();
         background = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         sptTitle = new javax.swing.JSeparator();
@@ -89,11 +90,15 @@ public class FrmAddEvent extends javax.swing.JFrame {
         pnlStartDate = new javax.swing.JPanel();
         spnStHour = new javax.swing.JSpinner();
         spnStMin = new javax.swing.JSpinner();
-        cldrStartDate = new com.toedter.calendar.JDateChooser();
+        tfdStartTime = new javax.swing.JTextField();
+        btnAddStartTime = new javax.swing.JPanel();
+        txtStartTimebtn = new javax.swing.JLabel();
         pnlEndDate = new javax.swing.JPanel();
         spnEndHour = new javax.swing.JSpinner();
         spnEndMin = new javax.swing.JSpinner();
-        cldrEndDate = new com.toedter.calendar.JDateChooser();
+        tfdEndTime = new javax.swing.JTextField();
+        btnAddEndTime = new javax.swing.JPanel();
+        txtEndTimebtn = new javax.swing.JLabel();
         txtMultas = new javax.swing.JLabel();
         txtAddPntFee = new javax.swing.JLabel();
         txtGastos = new javax.swing.JLabel();
@@ -113,13 +118,25 @@ public class FrmAddEvent extends javax.swing.JFrame {
         scpnStaff = new javax.swing.JScrollPane();
         lstStaff = new javax.swing.JList<>();
 
+        dateStart.setForeground(new java.awt.Color(85, 134, 201));
+        dateStart.setDateFormat(org.openide.util.NbBundle.getMessage(FrmAddEvent.class, "FrmAddEvent.dateStart.dateFormat")); // NOI18N
+        dateStart.setTextRefernce(tfdStartTime);
+
+        dateEnd.setForeground(new java.awt.Color(85, 134, 201));
+        dateEnd.setDateFormat(org.openide.util.NbBundle.getMessage(FrmAddEvent.class, "FrmAddEvent.dateEnd.dateFormat")); // NOI18N
+        dateEnd.setTextRefernce(tfdEndTime);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(770, 375));
-        setMinimumSize(new java.awt.Dimension(770, 375));
+        setMaximumSize(new java.awt.Dimension(785, 420));
+        setMinimumSize(new java.awt.Dimension(785, 420));
+        setPreferredSize(new java.awt.Dimension(785, 420));
         setResizable(false);
 
         background.setBackground(new java.awt.Color(255, 255, 255));
+        background.setMaximumSize(new java.awt.Dimension(785, 420));
+        background.setMinimumSize(new java.awt.Dimension(785, 420));
+        background.setPreferredSize(new java.awt.Dimension(785, 420));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         title.setFont(new java.awt.Font("Inter SemiBold", 0, 20)); // NOI18N
@@ -274,27 +291,62 @@ public class FrmAddEvent extends javax.swing.JFrame {
         spnStMin.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         spnStMin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
 
+        tfdStartTime.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        tfdStartTime.setBorder(null);
+
+        btnAddStartTime.setBackground(new java.awt.Color(70, 136, 175));
+
+        txtStartTimebtn.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        txtStartTimebtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtStartTimebtn.setText(org.openide.util.NbBundle.getMessage(FrmAddEvent.class, "FrmAddEvent.txtStartTimebtn.text")); // NOI18N
+        txtStartTimebtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtStartTimebtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtStartTimebtnMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnAddStartTimeLayout = new javax.swing.GroupLayout(btnAddStartTime);
+        btnAddStartTime.setLayout(btnAddStartTimeLayout);
+        btnAddStartTimeLayout.setHorizontalGroup(
+            btnAddStartTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAddStartTimeLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtStartTimebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        btnAddStartTimeLayout.setVerticalGroup(
+            btnAddStartTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAddStartTimeLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtStartTimebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout pnlStartDateLayout = new javax.swing.GroupLayout(pnlStartDate);
         pnlStartDate.setLayout(pnlStartDateLayout);
         pnlStartDateLayout.setHorizontalGroup(
             pnlStartDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlStartDateLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(spnStHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(spnStMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlStartDateLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cldrStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(pnlStartDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlStartDateLayout.createSequentialGroup()
+                        .addComponent(tfdStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAddStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlStartDateLayout.createSequentialGroup()
+                        .addComponent(spnStHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addComponent(spnStMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))))
         );
         pnlStartDateLayout.setVerticalGroup(
             pnlStartDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlStartDateLayout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
-                .addComponent(cldrStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
+                .addGroup(pnlStartDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAddStartTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfdStartTime))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(pnlStartDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spnStHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(spnStMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -313,27 +365,62 @@ public class FrmAddEvent extends javax.swing.JFrame {
         spnEndMin.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         spnEndMin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
 
+        tfdEndTime.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        tfdEndTime.setBorder(null);
+
+        btnAddEndTime.setBackground(new java.awt.Color(70, 136, 175));
+
+        txtEndTimebtn.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        txtEndTimebtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtEndTimebtn.setText(org.openide.util.NbBundle.getMessage(FrmAddEvent.class, "FrmAddEvent.txtEndTimebtn.text")); // NOI18N
+        txtEndTimebtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtEndTimebtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtEndTimebtnMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnAddEndTimeLayout = new javax.swing.GroupLayout(btnAddEndTime);
+        btnAddEndTime.setLayout(btnAddEndTimeLayout);
+        btnAddEndTimeLayout.setHorizontalGroup(
+            btnAddEndTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAddEndTimeLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtEndTimebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        btnAddEndTimeLayout.setVerticalGroup(
+            btnAddEndTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAddEndTimeLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtEndTimebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout pnlEndDateLayout = new javax.swing.GroupLayout(pnlEndDate);
         pnlEndDate.setLayout(pnlEndDateLayout);
         pnlEndDateLayout.setHorizontalGroup(
             pnlEndDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEndDateLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(spnEndHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(spnEndMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEndDateLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cldrEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(pnlEndDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEndDateLayout.createSequentialGroup()
+                        .addComponent(tfdEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAddEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(15, Short.MAX_VALUE))
+                    .addGroup(pnlEndDateLayout.createSequentialGroup()
+                        .addComponent(spnEndHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(spnEndMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))))
         );
         pnlEndDateLayout.setVerticalGroup(
             pnlEndDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEndDateLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(cldrEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addContainerGap(38, Short.MAX_VALUE)
+                .addGroup(pnlEndDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAddEndTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfdEndTime))
+                .addGap(33, 33, 33)
                 .addGroup(pnlEndDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spnEndHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(spnEndMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -495,11 +582,15 @@ public class FrmAddEvent extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -546,6 +637,14 @@ public class FrmAddEvent extends javax.swing.JFrame {
         frmPenaltyFee.setVisible(true);
     }//GEN-LAST:event_txtAddPntFeeMouseClicked
 
+    private void txtStartTimebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtStartTimebtnMouseClicked
+        dateStart.showPopup();
+    }//GEN-LAST:event_txtStartTimebtnMouseClicked
+
+    private void txtEndTimebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEndTimebtnMouseClicked
+        dateEnd.showPopup();
+    }//GEN-LAST:event_txtEndTimebtnMouseClicked
+
     public void addExpense(Expense expense){
         this.generalExpenses.add(expense);
         updateExpenseList(generalExpenses);
@@ -581,7 +680,31 @@ public class FrmAddEvent extends javax.swing.JFrame {
     }
     
     private boolean validateData(){
-        boolean passed = true;
+        boolean passed;
+        passed = getCorrectTimeInput();
+        if(passed){
+            startTime = getStartTime();
+            endTime = getEndTime();
+            
+            ScheduleController schdlc = new ScheduleController();
+            passed = schdlc.compareSchedules(startTime, endTime);
+            if(passed){
+                passed = !staff.isEmpty();
+                if(passed){
+                    passed = !equipment.isEmpty();
+                    if(passed){
+                        passed = !generalExpenses.isEmpty();
+                    }
+                }
+            }
+        } 
+        
+        return passed;
+    }
+    
+    private boolean getCorrectTimeInput(){
+        boolean passed;
+        
         passed = HandleInput.validateInteger(spnStHour.getValue().toString());
         if(passed){
             passed = HandleInput.validateInteger(spnStMin.getValue().toString());
@@ -589,6 +712,9 @@ public class FrmAddEvent extends javax.swing.JFrame {
                 passed = HandleInput.validateInteger(spnEndHour.getValue().toString());
                 if(passed){
                     passed = HandleInput.validateInteger(spnEndMin.getValue().toString());
+                    if(passed){
+                        startTime = getStartTime();
+                    }
                 }
             }
         }
@@ -618,11 +744,11 @@ public class FrmAddEvent extends javax.swing.JFrame {
     
     private Schedule getStartTime(){
         
-        Date date = cldrStartDate.getCalendar().getTime();
+        SelectedDate date = dateStart.getSelectedDate();
         
-        int day = Integer.parseInt(sdfD.format(date));
-        int month = Integer.parseInt(sdfM.format(date));
-        int year = Integer.parseInt(sdfY.format(date));
+        int day = date.getDay();
+        int month = date.getMonth();
+        int year = date.getYear();
         
         int hours = Integer.parseInt(spnStHour.getValue().toString());
         int min = Integer.parseInt(spnStMin.getValue().toString());
@@ -633,11 +759,11 @@ public class FrmAddEvent extends javax.swing.JFrame {
     
     private Schedule getEndTime(){
         
-        Date date = cldrEndDate.getCalendar().getTime();
+        SelectedDate date = dateEnd.getSelectedDate();
         
-        int day = Integer.parseInt(sdfD.format(date));
-        int month = Integer.parseInt(sdfM.format(date));
-        int year = Integer.parseInt(sdfY.format(date));
+        int day = date.getDay();
+        int month = date.getMonth();
+        int year = date.getYear();
         
         int hours = Integer.parseInt(spnEndHour.getValue().toString());
         int min = Integer.parseInt(spnEndMin.getValue().toString());
@@ -823,8 +949,11 @@ public class FrmAddEvent extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmAddEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
+        UIDefaults ui = UIManager.getDefaults();
+        ui.put("ScrollBarUI", ScrollBarWin11UI.class.getCanonicalName());
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmAddEvent().setVisible(true);
@@ -834,12 +963,14 @@ public class FrmAddEvent extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
+    private javax.swing.JPanel btnAddEndTime;
+    private javax.swing.JPanel btnAddStartTime;
     private javax.swing.JPanel btnConfirm;
     private javax.swing.JPanel btnReturn;
-    private com.toedter.calendar.JDateChooser cldrEndDate;
-    private com.toedter.calendar.JDateChooser cldrStartDate;
     private javax.swing.JComboBox<String> cmbArtist;
     private javax.swing.JComboBox<String> cmbEventPlace;
+    private com.raven.datechooser.DateChooser dateEnd;
+    private com.raven.datechooser.DateChooser dateStart;
     private javax.swing.JList<String> lsPntFs;
     private javax.swing.JList<String> lstEquipment;
     private javax.swing.JList<String> lstGnrExps;
@@ -857,11 +988,14 @@ public class FrmAddEvent extends javax.swing.JFrame {
     private javax.swing.JSpinner spnStHour;
     private javax.swing.JSpinner spnStMin;
     private javax.swing.JSeparator sptTitle;
+    private javax.swing.JTextField tfdEndTime;
+    private javax.swing.JTextField tfdStartTime;
     private javax.swing.JLabel title;
     private javax.swing.JLabel txtAddExpense;
     private javax.swing.JLabel txtAddPntFee;
     private javax.swing.JLabel txtArtista;
     private javax.swing.JLabel txtConfirmbtn;
+    private javax.swing.JLabel txtEndTimebtn;
     private javax.swing.JLabel txtEquipos;
     private javax.swing.JLabel txtFechaFin;
     private javax.swing.JLabel txtFechaInicio;
@@ -878,5 +1012,6 @@ public class FrmAddEvent extends javax.swing.JFrame {
     private javax.swing.JLabel txtMultas;
     private javax.swing.JLabel txtReturnbtn;
     private javax.swing.JLabel txtStaff;
+    private javax.swing.JLabel txtStartTimebtn;
     // End of variables declaration//GEN-END:variables
 }
