@@ -1,6 +1,7 @@
 package ec.edu.espe.organivent.view;
 
 import com.raven.datechooser.SelectedDate;
+import com.raven.glasspanepopup.GlassPanePopup;
 import com.raven.scroll.win11.ScrollBarWin11UI;
 import ec.edu.espe.organivent.controller.ArtistController;
 import ec.edu.espe.organivent.controller.EquipmentController;
@@ -55,6 +56,8 @@ public class FrmAddEvent extends javax.swing.JFrame {
         loadEventPlaces();
         loadStaff();
         loadEquipment();
+        
+        GlassPanePopup.install(this);
     }
 
     /**
@@ -130,7 +133,6 @@ public class FrmAddEvent extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setMaximumSize(new java.awt.Dimension(785, 420));
         setMinimumSize(new java.awt.Dimension(785, 420));
-        setPreferredSize(new java.awt.Dimension(785, 420));
         setResizable(false);
 
         background.setBackground(new java.awt.Color(255, 255, 255));
@@ -681,6 +683,8 @@ public class FrmAddEvent extends javax.swing.JFrame {
     
     private boolean validateData(){
         boolean passed;
+        String errorMessage;
+                
         passed = getCorrectTimeInput();
         if(passed){
             startTime = getStartTime();
@@ -689,13 +693,28 @@ public class FrmAddEvent extends javax.swing.JFrame {
             ScheduleController schdlc = new ScheduleController();
             passed = schdlc.compareSchedules(startTime, endTime);
             if(passed){
+                staff = getSelectedStaff();
                 passed = !staff.isEmpty();
                 if(passed){
+                    equipment = getSelectedEquipment();
                     passed = !equipment.isEmpty();
                     if(passed){
                         passed = !generalExpenses.isEmpty();
+                        if(!passed){
+                            errorMessage = "No ha ingresado ningún tipo de gasto general";
+                            showErrorPopup(errorMessage);
+                        }
+                    }else{
+                        errorMessage = "No ha seleccionado ningún equipo";
+                        showErrorPopup(errorMessage);
                     }
+                }else{
+                    errorMessage = "No ha seleccionado ningún staff";
+                    showErrorPopup(errorMessage);
                 }
+            }else{
+                errorMessage = "Las fechas ingresadas para la entrada y salida son inválidas, intente de nuevo";
+                showErrorPopup(errorMessage);
             }
         } 
         
@@ -704,6 +723,7 @@ public class FrmAddEvent extends javax.swing.JFrame {
     
     private boolean getCorrectTimeInput(){
         boolean passed;
+        String errorMessage;
         
         passed = HandleInput.validateInteger(spnStHour.getValue().toString());
         if(passed){
@@ -714,9 +734,21 @@ public class FrmAddEvent extends javax.swing.JFrame {
                     passed = HandleInput.validateInteger(spnEndMin.getValue().toString());
                     if(passed){
                         startTime = getStartTime();
+                    }else{
+                        errorMessage = "Por favor ingrese un número válido para los minutos de salida";
+                        showErrorPopup(errorMessage);
                     }
+                }else{
+                    errorMessage = "Por favor ingrese un número válido para la hora de salida";
+                    showErrorPopup(errorMessage);
                 }
+            }else{
+                errorMessage = "Por favor ingrese un número válido para los minutos de entrada";
+                showErrorPopup(errorMessage);
             }
+        }else{
+            errorMessage = "Por favor ingrese un número válido para la hora de entrada";
+            showErrorPopup(errorMessage);
         }
                 
         return passed;
@@ -728,11 +760,6 @@ public class FrmAddEvent extends javax.swing.JFrame {
         int asignedId = Integer.parseInt(txtIdValue.getText());
         artist = getSelectedArtist();
         eventPlace = getSelectedEventPlace();
-        staff = getSelectedStaff();
-        equipment = getSelectedEquipment();
-        
-        startTime = getStartTime();
-        endTime = getEndTime();
         
         event = new Event(asignedId, artist, eventPlace, startTime, endTime, staff, equipment, generalExpenses, penaltyFees);
         
@@ -847,6 +874,8 @@ public class FrmAddEvent extends javax.swing.JFrame {
         spnEndHour.setValue(1);
         spnEndMin.setValue(0);
         
+        staff = new ArrayList<>();
+        equipment = new ArrayList<>();
         
         generalExpenses = new ArrayList<>();
         penaltyFees = new ArrayList<>();
@@ -921,6 +950,12 @@ public class FrmAddEvent extends javax.swing.JFrame {
         }
         
         return selectedEquipment;
+    }
+    
+    private void showErrorPopup(String errorMessage){
+        Message popup = new Message();
+        popup.setMessage(errorMessage);
+        GlassPanePopup.showPopup(popup);
     }
     
     /**

@@ -49,7 +49,7 @@ public class FrmReadEventPlace extends javax.swing.JFrame {
 
         txtTitle.setFont(new java.awt.Font("Inter SemiBold", 0, 20)); // NOI18N
         txtTitle.setText(org.openide.util.NbBundle.getMessage(FrmReadEventPlace.class, "FrmReadEventPlace.txtTitle.text")); // NOI18N
-        jPanel1.add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 20, -1, -1));
+        jPanel1.add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
 
         tblReadEventPlace.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -100,7 +100,7 @@ public class FrmReadEventPlace extends javax.swing.JFrame {
             .addComponent(txtBackbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 460, -1, -1));
+        jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -57,7 +57,7 @@ public class FrmReadEvent extends javax.swing.JFrame {
 
         txtTitle.setFont(new java.awt.Font("Inter SemiBold", 0, 20)); // NOI18N
         txtTitle.setText(org.openide.util.NbBundle.getMessage(FrmReadEvent.class, "FrmReadEvent.txtTitle.text_1")); // NOI18N
-        jPanel1.add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, -1, -1));
+        jPanel1.add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
 
         tblReadEvent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

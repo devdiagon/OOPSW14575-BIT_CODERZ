@@ -1,5 +1,6 @@
 package ec.edu.espe.organivent.view;
 
+import com.raven.glasspanepopup.GlassPanePopup;
 import ec.edu.espe.organivent.model.PenaltyFee;
 import ec.edu.espe.organivent.utils.HandleInput;
 import java.awt.Color;
@@ -20,6 +21,8 @@ public class FrmAddPenaltyFee extends javax.swing.JFrame {
      */
     public FrmAddPenaltyFee() {
         initComponents();
+        
+        GlassPanePopup.install(this);
     }
 
     /**
@@ -190,7 +193,28 @@ public class FrmAddPenaltyFee extends javax.swing.JFrame {
     }
     
     private boolean validateData(){
-        boolean passed = HandleInput.validatePriceString(fdlCost.getText());
+        boolean passed;
+        String errorMessage;
+        String insertedType = tfdType.getText();
+        
+        passed = !insertedType.isEmpty();
+        if(passed){
+            String insertedDescription = txaDescription.getText();
+            passed = !insertedDescription.isEmpty();
+            if(passed){
+                passed = HandleInput.validatePriceString(fdlCost.getText());
+                if(!passed){
+                    errorMessage = "Asegúrese de haber insertado un valor monetario válido";
+                    showErrorPopup(errorMessage);
+                }
+            }else{
+                errorMessage = "No se ha específicado ningúna descripción sobre la multa";
+                showErrorPopup(errorMessage);
+            }
+        }else{
+            errorMessage = "No se ha específicado ningún tipo de multa";
+            showErrorPopup(errorMessage);
+        }
         
         return passed;
     }
@@ -205,6 +229,12 @@ public class FrmAddPenaltyFee extends javax.swing.JFrame {
         frmAddEventMenu.addPenaltyFee(penaltyFee);
         
         this.dispose();
+    }
+    
+    private void showErrorPopup(String errorMessage){
+        Message popup = new Message();
+        popup.setMessage(errorMessage);
+        GlassPanePopup.showPopup(popup);
     }
     
     /**

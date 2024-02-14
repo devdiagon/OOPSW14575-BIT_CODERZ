@@ -1,5 +1,6 @@
 package ec.edu.espe.organivent.view;
 
+import com.raven.glasspanepopup.GlassPanePopup;
 import ec.edu.espe.organivent.controller.AdministratorController;
 import ec.edu.espe.organivent.model.Administrator;
 import ec.edu.espe.organivent.utils.Encriptation;
@@ -22,6 +23,8 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
         initComponents();
         String underlined = "<html><u>Iniciar Sesión</u></html>";
         txtReturnbtn.setText(underlined);
+        
+        GlassPanePopup.install(this);
     }
 
     /**
@@ -318,7 +321,8 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
     }//GEN-LAST:event_txtConfirmbtnMouseClicked
 
     private boolean validateData(){
-        boolean passed = true;
+        boolean passed;
+        String errorMessage;
         
         passed = HandleInput.validateRealName(tfdName.getText());
         
@@ -331,12 +335,31 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
                     passed = HandleInput.validatePassword(String.valueOf(psfdPassword.getPassword()));
                     if(passed){
                         passed = HandleInput.validatePriceString(fdlWage.getText());
+                    }else{
+                        errorMessage = "La contraseña ingresada es inválida. Debe tener mínimo 10 carácteres, con mayúsculas, minúsculas, por lo menos un número y un caracter especial.";
+                        showErrorPopup(errorMessage);
                     }
+                }else{
+                    errorMessage = "El email ingresado es inválido.";
+                    showErrorPopup(errorMessage);
                 }
+            }else{
+                errorMessage = "El nombre de usuario que usted ha ingresado ya existe, por favor intente de nuevo.";
+                showErrorPopup(errorMessage);
             }
+        }else{
+            errorMessage = "No es posible que el nombre insertado tenga números o carácteres especiales.";
+            showErrorPopup(errorMessage);
         }
         return passed;
     }
+    
+    private void showErrorPopup(String errorMessage){
+        Message popup = new Message();
+        popup.setMessage(errorMessage);
+        GlassPanePopup.showPopup(popup);
+    }
+    
     private void sendAdministratorData(){
         String insertedName = tfdName.getText();
         String insertedUserName = tfdUserName.getText();

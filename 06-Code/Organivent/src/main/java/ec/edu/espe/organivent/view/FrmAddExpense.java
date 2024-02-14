@@ -1,12 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.organivent.view;
 
+import com.raven.glasspanepopup.GlassPanePopup;
 import ec.edu.espe.organivent.model.Expense;
 import ec.edu.espe.organivent.utils.HandleInput;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -24,6 +23,8 @@ public class FrmAddExpense extends javax.swing.JFrame {
      */
     public FrmAddExpense() {
         initComponents();
+        
+        GlassPanePopup.install(this);
     }
 
     /**
@@ -179,7 +180,21 @@ public class FrmAddExpense extends javax.swing.JFrame {
     }
     
     private boolean validateData(){
-        boolean passed = HandleInput.validatePriceString(fdlCost.getText());
+        boolean passed;
+        String errorMessage;
+        String insertedType = tfdType.getText();
+        
+        passed = !insertedType.isEmpty();
+        if(passed){
+            passed = HandleInput.validatePriceString(fdlCost.getText());
+            if(!passed){
+                errorMessage = "Asegúrese de haber insertado un valor monetario válido";
+                showErrorPopup(errorMessage);
+            }
+        }else{
+            errorMessage = "No se ha específicado ningún tipo de gasto general";
+            showErrorPopup(errorMessage);
+        }
         
         return passed;
     }
@@ -194,6 +209,13 @@ public class FrmAddExpense extends javax.swing.JFrame {
         
         this.dispose();
     }
+    
+    private void showErrorPopup(String errorMessage){
+        Message popup = new Message();
+        popup.setMessage(errorMessage);
+        GlassPanePopup.showPopup(popup);
+    }
+    
     /**
      * @param args the command line arguments
      */

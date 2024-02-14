@@ -454,7 +454,7 @@ public class FrmGenerateBill extends javax.swing.JFrame {
         boolean isInDB = billc.decectIdinDB(bill.getId());
         
         if(isInDB){
-            //billc.update(bill);
+            billc.update(bill);
         }else{
             billc.create(bill);
         }

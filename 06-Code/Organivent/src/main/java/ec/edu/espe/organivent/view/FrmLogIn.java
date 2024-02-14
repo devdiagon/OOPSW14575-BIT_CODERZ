@@ -1,5 +1,6 @@
 package ec.edu.espe.organivent.view;
 
+import com.raven.glasspanepopup.GlassPanePopup;
 import ec.edu.espe.organivent.controller.AdministratorController;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -17,6 +18,8 @@ public class FrmLogIn extends javax.swing.JFrame {
         initComponents();
         String underlined = "<html><u>aquí</u></html>";
         txtRegisterbtn.setText(underlined);
+        
+        GlassPanePopup.install(this);
     }
 
     /**
@@ -270,11 +273,13 @@ public class FrmLogIn extends javax.swing.JFrame {
         AdministratorController admc = new AdministratorController();
         boolean canEnter = admc.validateCredentials(insertedUserName, insertedPassword);
 
-        if(canEnter == true){
+        if(canEnter){
             FrmOrganiventMenu frmOrganiventMenu = new FrmOrganiventMenu();
             frmOrganiventMenu.setVisible(true);
             this.setVisible(false);
         }else{
+            String errorMessage = "El usuario o la contraseña ingresados son incorrectos.";
+            showErrorPopup(errorMessage);
         }
     }//GEN-LAST:event_txtLogInbtnMouseClicked
 
@@ -284,6 +289,12 @@ public class FrmLogIn extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_txtRegisterbtnMouseClicked
 
+    private void showErrorPopup(String errorMessage){
+        Message popup = new Message();
+        popup.setMessage(errorMessage);
+        GlassPanePopup.showPopup(popup);
+    }
+    
     /**
      * @param args the command line arguments
      */
