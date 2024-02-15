@@ -233,12 +233,6 @@ public class FrmDeleteBill extends javax.swing.JFrame {
         
         String askAction = "¿Está seguro que desea eliminar la factura " + reladtedId + " ?";
         showConfirmationPopup(askAction);
-        
-        /*int option = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea eliminar la factura?", "Confirmación", JOptionPane.YES_NO_OPTION);
-        if(option == JOptionPane.YES_OPTION){
-            deleteSelectedBill();
-        }*/
-        //this.dispose();
     }//GEN-LAST:event_txtDeleteBillBtnMouseClicked
 
     private void txtReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReturnMouseClicked

@@ -48,7 +48,7 @@ public class BillController extends ManageMongoDB implements IBill {
         Bson filter = eq("id",bill.getId());
         Document doc = Document.parse(ManageJson.passObjectToJson(bill));
         
-        this.coll.findOneAndUpdate(filter, doc);
+        this.coll.findOneAndReplace(filter, doc);
     }
 
     @Override

@@ -134,17 +134,24 @@ public class HandleInput {
     
     public static boolean validateRealName(String inputString){
         boolean passed = true;
-         for(char currentchar:inputString.toCharArray()){
-            if(Character.isDigit(currentchar)){ 
-                passed=false;
-                break;
-            }else if(!Character.isLetter(currentchar) && !Character.isWhitespace(currentchar)){
+        
+        if(passed != inputString.isEmpty()){
+            for(char currentchar:inputString.toCharArray()){
+                if(Character.isDigit(currentchar)){ 
                     passed=false;
                     break;
-            }else{
-                passed = true;
+                }else if(!Character.isLetter(currentchar) && !Character.isWhitespace(currentchar)){
+                        passed=false;
+                        break;
+                }else{
+                    passed = true;
+                }
             }
+        }else{
+            passed = false;
         }
+        
+        
         return passed;
     }
     
@@ -172,36 +179,44 @@ public class HandleInput {
     
     public static boolean validateEquipmentName(String inputString){
         boolean passed = true;
-         for(char currentchar:inputString.toCharArray()){
-            if(!Character.isLetter(currentchar) && !Character.isWhitespace(currentchar) && !Character.isDigit(currentchar)){
-                if((currentchar != '.') && (currentchar != '-') && 
-                    (currentchar != '_') && (currentchar != ',') && 
-                    (currentchar != ';') && (currentchar != ':')){
-                    System.out.println(currentchar);
-                    passed = false;
-                    break;
+        
+        if(passed != inputString.isEmpty()){
+            for(char currentchar:inputString.toCharArray()){
+                if(!Character.isLetter(currentchar) && !Character.isWhitespace(currentchar) && !Character.isDigit(currentchar)){
+                    if((currentchar != '.') && (currentchar != '-') && 
+                        (currentchar != '_') && (currentchar != ',') && 
+                        (currentchar != ';') && (currentchar != ':')){
+                        passed = false;
+                        break;
+                    }
+                }else{
+                    passed = true;
                 }
-            }else{
-                passed = true;
             }
+        }else{
+            passed = false;
         }
+         
         return passed;
     }
     
     public static boolean validateStreetAdress(String inputString){
         boolean passed = true;
-         for(char currentchar:inputString.toCharArray()){
-            if(!Character.isLetter(currentchar) && !Character.isWhitespace(currentchar) && !Character.isDigit(currentchar)){
-                if((currentchar != '.') && (currentchar != '-') && 
-                    (currentchar != '_') && (currentchar != ',') && 
-                    (currentchar != ';') && (currentchar != ':')){
-                    System.out.println(currentchar);
-                    passed = false;
-                    break;
+        if(passed != inputString.isEmpty()){
+            for(char currentchar:inputString.toCharArray()){
+                if(!Character.isLetter(currentchar) && !Character.isWhitespace(currentchar) && !Character.isDigit(currentchar)){
+                    if((currentchar != '.') && (currentchar != '-') && 
+                        (currentchar != '_') && (currentchar != ',') && 
+                        (currentchar != ';') && (currentchar != ':')){
+                        passed = false;
+                        break;
+                    }
+                }else{
+                    passed = true;
                 }
-            }else{
-                passed = true;
             }
+        }else{
+            passed = false;
         }
         return passed;
     }

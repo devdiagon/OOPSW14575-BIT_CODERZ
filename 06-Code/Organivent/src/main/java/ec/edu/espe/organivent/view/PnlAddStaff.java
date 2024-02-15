@@ -6,30 +6,38 @@ import ec.edu.espe.organivent.model.Employee;
 import ec.edu.espe.organivent.model.Staff;
 import ec.edu.espe.organivent.utils.HandleInput;
 import java.awt.Color;
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
 
 /**
  *
  * @author Frederick Tipan, Gabriel Vivanco, Jefferson Yepez - Bit Coderz - DCCO ESPE
  */
-public class PnlStaff extends javax.swing.JPanel {
+public class PnlAddStaff extends javax.swing.JPanel {
 
     private Color btnDefaultColor = new Color(63,115,193);
     private Color btnHoverColor = new Color(48,88,149);
     private Staff staff;
+    private int workingHours;
+    private int workingDays;
+    private float totalStaffCost;
+    private ArrayList<Employee> employees = new ArrayList<>();
+    private FrmOrganiventMenu frmOrganiventMenu;
+    
     /**
      * Creates new form PnlStaff
      */
-    public PnlStaff() {
+    public PnlAddStaff() {
         initComponents();
         asignNewId();
         loadEmployees();
     }
 
+    public void setOrganiventMenu(FrmOrganiventMenu frmOrganiventMenu){
+        this.frmOrganiventMenu = frmOrganiventMenu;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,7 +61,7 @@ public class PnlStaff extends javax.swing.JPanel {
         txtConfirmBtn = new javax.swing.JLabel();
         spnDaysWorked = new javax.swing.JSpinner();
         spnHoursWorked = new javax.swing.JSpinner();
-        scpnEmployees = new javax.swing.JScrollPane();
+        scpnEmployees = new com.raven.scroll.win11.ScrollPaneWin11();
         lstEmployees = new javax.swing.JList<>();
         txtIdValue = new javax.swing.JLabel();
         txtTotalCost = new javax.swing.JLabel();
@@ -144,19 +152,29 @@ public class PnlStaff extends javax.swing.JPanel {
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnConfirmLayout.createSequentialGroup()
                 .addComponent(txtConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         btnConfirmLayout.setVerticalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(txtConfirmBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
         );
 
-        add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, -1, -1));
+        add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 120, -1));
 
         spnDaysWorked.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        spnDaysWorked.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnDaysWorkedStateChanged(evt);
+            }
+        });
         add(spnDaysWorked, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, -1, -1));
 
         spnHoursWorked.setModel(new javax.swing.SpinnerNumberModel(1, 1, 23, 1));
+        spnHoursWorked.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnHoursWorkedStateChanged(evt);
+            }
+        });
         add(spnHoursWorked, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, -1, -1));
 
         scpnEmployees.setBorder(null);
@@ -169,6 +187,11 @@ public class PnlStaff extends javax.swing.JPanel {
             public String getElementAt(int i) { return strings[i]; }
         });
         lstEmployees.setToolTipText("Realice ctr + clic para seleccionar varios empleados a la vez");
+        lstEmployees.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstEmployeesMouseClicked(evt);
+            }
+        });
         scpnEmployees.setViewportView(lstEmployees);
 
         add(scpnEmployees, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 220, 90));
@@ -178,8 +201,9 @@ public class PnlStaff extends javax.swing.JPanel {
         add(txtIdValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 40, -1));
 
         txtTotalCost.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        txtTotalCost.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtTotalCost.setText("$ 0,00");
-        add(txtTotalCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, -1, -1));
+        add(txtTotalCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 100, -1));
 
         btnReadStaff.setBackground(new java.awt.Color(63, 115, 193));
         btnReadStaff.setPreferredSize(new java.awt.Dimension(142, 27));
@@ -205,17 +229,14 @@ public class PnlStaff extends javax.swing.JPanel {
         btnReadStaff.setLayout(btnReadStaffLayout);
         btnReadStaffLayout.setHorizontalGroup(
             btnReadStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnReadStaffLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(txtReadStaffBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+            .addComponent(txtReadStaffBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
         );
         btnReadStaffLayout.setVerticalGroup(
             btnReadStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(txtReadStaffBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
         );
 
-        add(btnReadStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 220, -1));
+        add(btnReadStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 330, 130, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfdTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdTypeActionPerformed
@@ -233,7 +254,7 @@ public class PnlStaff extends javax.swing.JPanel {
     private void txtConfirmBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmBtnMouseClicked
         boolean canContinue = validateData();
 
-        if(canContinue==true){
+        if(canContinue){
             sendStaffData();
         } 
     }//GEN-LAST:event_txtConfirmBtnMouseClicked
@@ -243,26 +264,91 @@ public class PnlStaff extends javax.swing.JPanel {
     }//GEN-LAST:event_txtReadStaffBtnMouseClicked
 
     private void txtReadStaffBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadStaffBtnMouseEntered
-        // TODO add your handling code here:
+        btnReadStaff.setBackground(btnHoverColor);
     }//GEN-LAST:event_txtReadStaffBtnMouseEntered
 
     private void txtReadStaffBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadStaffBtnMouseExited
-        // TODO add your handling code here:
+        btnReadStaff.setBackground(btnDefaultColor);
     }//GEN-LAST:event_txtReadStaffBtnMouseExited
 
+    private void lstEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstEmployeesMouseClicked
+        employees = getSelectedEmployees();
+        updateTotalCost();
+    }//GEN-LAST:event_lstEmployeesMouseClicked
+
+    private void spnDaysWorkedStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnDaysWorkedStateChanged
+        updateTotalCost();
+    }//GEN-LAST:event_spnDaysWorkedStateChanged
+
+    private void spnHoursWorkedStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnHoursWorkedStateChanged
+         updateTotalCost();
+    }//GEN-LAST:event_spnHoursWorkedStateChanged
+
+    private void updateTotalCost(){
+        boolean passed;
+        
+        passed = !employees.isEmpty();
+        
+        if(passed){
+            passed = HandleInput.validateInteger(spnDaysWorked.getValue().toString());
+            if(passed){
+                passed = HandleInput.validateInteger(spnHoursWorked.getValue().toString());
+                if(passed){
+                    StaffController stfc = new StaffController();
+                    workingDays = Integer.parseInt(spnDaysWorked.getValue().toString());
+                    workingHours = Integer.parseInt(spnHoursWorked.getValue().toString());
+                    totalStaffCost = stfc.calculateTotalCost(employees, workingHours, workingDays);
+                    
+                    txtTotalCost.setForeground(new Color(187,187,187));
+                    txtTotalCost.setText("$"+totalStaffCost);
+                }else{
+                    txtTotalCost.setForeground(new Color(223,87,74));
+                    txtTotalCost.setText("¡Error!");
+                }
+            }else{
+                txtTotalCost.setForeground(new Color(223,87,74));
+                txtTotalCost.setText("¡Error!");
+            }
+        }else{
+            txtTotalCost.setForeground(new Color(223,87,74));
+            txtTotalCost.setText("¡Error!");
+        }
+    }
+    
     private boolean validateData(){
-        boolean passed = true;
+        boolean passed;
+        String errorMessage;
         
         passed = HandleInput.validateRealName(tfdType.getText());
         if(passed){
             StaffController stfc = new StaffController();
             passed = stfc.validateTypeName(tfdType.getText());
             if(passed){
-                passed = HandleInput.validateInteger(spnDaysWorked.getValue().toString());
+                employees = getSelectedEmployees();
+                passed = !employees.isEmpty();
                 if(passed){
-                    passed = HandleInput.validateInteger(spnHoursWorked.getValue().toString());
+                    passed = HandleInput.validateInteger(spnDaysWorked.getValue().toString());
+                    if(passed){
+                        passed = HandleInput.validateInteger(spnHoursWorked.getValue().toString());
+                        if(!passed){
+                            errorMessage = "El número de horas laborales especificado es inválido";
+                            frmOrganiventMenu.showErrorPopup(errorMessage);
+                        }
+                    }else{
+                        errorMessage = "El número de dias laborales especificado es inválido";
+                        frmOrganiventMenu.showErrorPopup(errorMessage);
+                    }
+                }else{
+                    errorMessage = "No ha seleccionado ningún empleado";
+                    frmOrganiventMenu.showErrorPopup(errorMessage);
                 }
+            }else{
+                errorMessage = "El tipo de Staff insertado ya existe, intente de nuevo";
+                frmOrganiventMenu.showErrorPopup(errorMessage);
             }
+        }else{
+            errorMessage = "Asegúrese de haber insertado un nombre real válido";
+            frmOrganiventMenu.showErrorPopup(errorMessage);
         }
         return passed;
     }
@@ -272,15 +358,8 @@ public class PnlStaff extends javax.swing.JPanel {
         
         int asignedId = Integer.parseInt(txtIdValue.getText());
         String insertedType = tfdType.getText();
-        int insertedWorkDays = Integer.parseInt(spnDaysWorked.getValue().toString());
-        int insertedWorkHours = Integer.parseInt(spnHoursWorked.getValue().toString());
         
-        ArrayList<Employee> insertedEmployees = getSelectedEmployees();
-        
-        
-        float totalStaffCost = stfc.calculateTotalCost(insertedEmployees, insertedWorkHours, insertedWorkDays);
-        
-        staff = new Staff(asignedId, insertedType, insertedEmployees, totalStaffCost, insertedWorkDays, insertedWorkHours);
+        staff = new Staff(asignedId, insertedType, employees, totalStaffCost, workingDays, workingHours);
 
         stfc.create(staff);
         

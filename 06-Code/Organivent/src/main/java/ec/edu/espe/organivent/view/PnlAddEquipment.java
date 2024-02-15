@@ -15,6 +15,7 @@ public class PnlAddEquipment extends javax.swing.JPanel {
     private Color btnDefaultColor = new Color(63,115,193);
     private Color btnHoverColor = new Color(48,88,149);
     private Equipment equipment;
+    private FrmOrganiventMenu frmOrganiventMenu;
     
     /**
      * Creates new form PnlAddEmployee
@@ -24,7 +25,9 @@ public class PnlAddEquipment extends javax.swing.JPanel {
         
     }
     
-    
+    public void setOrganiventMenu(FrmOrganiventMenu frmOrganiventMenu){
+        this.frmOrganiventMenu = frmOrganiventMenu;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -195,7 +198,7 @@ public class PnlAddEquipment extends javax.swing.JPanel {
     private void txtConfirmbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseClicked
        boolean canContinue = validateData();
 
-        if(canContinue==true){
+        if(canContinue){
             sendEquipmentData();
         }
     }//GEN-LAST:event_txtConfirmbtnMouseClicked
@@ -215,7 +218,8 @@ public class PnlAddEquipment extends javax.swing.JPanel {
 
 
     private boolean validateData(){
-        boolean passed = true;
+        boolean passed;
+        String errorMessage;
         
         passed = HandleInput.validateEquipmentName(tfdType.getText());
         if(passed){
@@ -225,8 +229,21 @@ public class PnlAddEquipment extends javax.swing.JPanel {
                 passed = HandleInput.validateInteger(spnQuantity.getValue().toString());
                 if(passed){
                     passed = HandleInput.validatePriceString(fdlCost.getText());
+                    if(!passed){
+                        errorMessage = "Asegúrese de haber insertado un valor monetario válido";
+                        frmOrganiventMenu.showErrorPopup(errorMessage);
+                    }
+                }else{
+                    errorMessage = "La cantidad especificada es inválida";
+                    frmOrganiventMenu.showErrorPopup(errorMessage);
                 }
+            }else{
+                errorMessage = "El tipo de equipo insertado ya existe, intente de nuevo";
+                frmOrganiventMenu.showErrorPopup(errorMessage);
             }
+        }else{
+            errorMessage = "Asegúrese de haber insertado un nombre de equipo válido";
+            frmOrganiventMenu.showErrorPopup(errorMessage);
         }
         
         return passed;
