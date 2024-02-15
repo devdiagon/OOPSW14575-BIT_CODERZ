@@ -15,6 +15,7 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
     private Color btnDefaultColor = new Color(63,115,193);
     private Color btnHoverColor = new Color(48,88,149);
     private EventPlace eventPlace;
+    private FrmOrganiventMenu frmOrganiventMenu;
     
     /**
      * Creates new form PnlAddEmployee
@@ -23,6 +24,10 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
         initComponents();
     }
 
+    public void setOrganiventMenu(FrmOrganiventMenu frmOrganiventMenu){
+        this.frmOrganiventMenu = frmOrganiventMenu;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,13 +48,13 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
         tfdAdress = new javax.swing.JTextField();
         sldCapacity = new javax.swing.JSlider();
         etiValor = new javax.swing.JLabel();
-        etiCapacidad = new javax.swing.JLabel();
         fdlRentCost = new javax.swing.JFormattedTextField();
         sptNombre = new javax.swing.JSeparator();
         sptDireccion = new javax.swing.JSeparator();
         sptCostoRenta = new javax.swing.JSeparator();
         btnReadEventPlace = new javax.swing.JPanel();
         txtReadEventPlaceBtn = new javax.swing.JLabel();
+        tfdNumPeople = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(390, 375));
@@ -88,10 +93,7 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
         btnConfirm.setLayout(btnConfirmLayout);
         btnConfirmLayout.setHorizontalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnConfirmLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtConfirmbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+            .addComponent(txtConfirmbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
         );
         btnConfirmLayout.setVerticalGroup(
             btnConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,7 +102,7 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
                 .addComponent(txtConfirmbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, -1, -1));
+        add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
 
         txtNombre.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(135, 132, 132));
@@ -146,11 +148,8 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
                 sldCapacityStateChanged(evt);
             }
         });
-        add(sldCapacity, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 210, 40));
+        add(sldCapacity, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 210, 50));
         add(etiValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 80, -1));
-
-        etiCapacidad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        add(etiCapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 170, 30));
 
         fdlRentCost.setBorder(null);
         fdlRentCost.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0.00"))));
@@ -199,7 +198,7 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
         btnReadEventPlace.setLayout(btnReadEventPlaceLayout);
         btnReadEventPlaceLayout.setHorizontalGroup(
             btnReadEventPlaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtReadEventPlaceBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+            .addComponent(txtReadEventPlaceBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
         );
         btnReadEventPlaceLayout.setVerticalGroup(
             btnReadEventPlaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,7 +207,13 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
                 .addComponent(txtReadEventPlaceBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        add(btnReadEventPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 250, -1));
+        add(btnReadEventPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 160, -1));
+
+        tfdNumPeople.setEditable(false);
+        tfdNumPeople.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        tfdNumPeople.setText("0 personas");
+        tfdNumPeople.setBorder(null);
+        add(tfdNumPeople, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 272, 180, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtConfirmbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseEntered
@@ -220,7 +225,7 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
     }//GEN-LAST:event_txtConfirmbtnMouseExited
 
     private void sldCapacityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldCapacityStateChanged
-        etiCapacidad.setText(sldCapacity.getValue()+" personas");
+        tfdNumPeople.setText(sldCapacity.getValue()+" personas");   
     }//GEN-LAST:event_sldCapacityStateChanged
 
     private void tfdNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdNameKeyTyped
@@ -240,7 +245,7 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
     private void txtConfirmbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseClicked
         boolean canContinue = validateData();
 
-        if(canContinue==true){
+        if(canContinue){
             sendEventPlaceData();
         }
     }//GEN-LAST:event_txtConfirmbtnMouseClicked
@@ -259,7 +264,8 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
     }//GEN-LAST:event_txtReadEventPlaceBtnMouseExited
 
     private boolean validateData(){
-        boolean passed = true;
+        boolean passed;
+        String errorMessage;
         
         passed = HandleInput.validateRealName(tfdName.getText());
         if(passed){
@@ -269,8 +275,21 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
                 passed = HandleInput.validateStreetAdress(tfdAdress.getText());
                 if(passed){
                     passed = HandleInput.validatePriceString(fdlRentCost.getText());
+                    if(!passed){
+                        errorMessage = "Asegúrese de haber insertado un valor monetario válido";
+                        frmOrganiventMenu.showErrorPopup(errorMessage);
+                    }
+                }else{
+                    errorMessage = "Asegúrese de haber insertado una dirección válida";
+                    frmOrganiventMenu.showErrorPopup(errorMessage);
                 }
+            }else{
+                errorMessage = "El lugar insertado ya existe, intente de nuevo";
+                frmOrganiventMenu.showErrorPopup(errorMessage);
             }
+        }else{
+            errorMessage = "Asegúrese de haber insertado un nombre real válido";
+            frmOrganiventMenu.showErrorPopup(errorMessage);
         }
         
         return passed;
@@ -294,14 +313,13 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
         tfdName.setText("");
         tfdAdress.setText("");
         sldCapacity.setValue(0);
-        etiCapacidad.setText("");
+        tfdNumPeople.setText("");
         fdlRentCost.setText("0,00");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnConfirm;
     private javax.swing.JPanel btnReadEventPlace;
-    private javax.swing.JLabel etiCapacidad;
     private javax.swing.JLabel etiValor;
     private javax.swing.JFormattedTextField fdlRentCost;
     private javax.swing.JSlider sldCapacity;
@@ -310,6 +328,7 @@ public class PnlAddEventPlace extends javax.swing.JPanel {
     private javax.swing.JSeparator sptNombre;
     private javax.swing.JTextField tfdAdress;
     private javax.swing.JTextField tfdName;
+    private javax.swing.JTextField tfdNumPeople;
     private javax.swing.JLabel txtCapacidad;
     private javax.swing.JLabel txtConfirmbtn;
     private javax.swing.JLabel txtCostoRenta;

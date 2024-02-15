@@ -1,5 +1,6 @@
 package ec.edu.espe.organivent.view;
 
+import com.raven.glasspanepopup.GlassPanePopup;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -22,6 +23,8 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
     public FrmOrganiventMenu() {
         initComponents();
         showPanel(new PnlEventMainMenu());
+        
+        GlassPanePopup.install(this);
     }
     
     private void showPanel(JPanel p){
@@ -398,7 +401,9 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         btnEmployee.setBackground(btnHoverColor);
         txtEmployeebtn.setFont(pressedFont);
         
-        showPanel(new PnlAddEmployee());
+        PnlAddEmployee pnlEmployee = new PnlAddEmployee();
+        pnlEmployee.setOrganiventMenu(this);
+        showPanel(pnlEmployee);
     }//GEN-LAST:event_txtEmployeebtnMouseClicked
 
     private void txtEventbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEventbtnMouseEntered
@@ -426,7 +431,9 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         btnStaff.setBackground(btnHoverColor);
         txtStaffbtn.setFont(pressedFont);
         
-        showPanel(new PnlStaff());
+        PnlAddStaff pnlStaff = new PnlAddStaff();
+        pnlStaff.setOrganiventMenu(this);
+        showPanel(pnlStaff);
     }//GEN-LAST:event_txtStaffbtnMouseClicked
 
     private void txtArtistbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtArtistbtnMouseClicked
@@ -435,7 +442,9 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         btnArtist.setBackground(btnHoverColor);
         txtArtistbtn.setFont(pressedFont);
         
-        showPanel(new PnlAddArtist());
+        PnlAddArtist pnlArtist = new PnlAddArtist();
+        pnlArtist.setOrganiventMenu(this);
+        showPanel(pnlArtist);
     }//GEN-LAST:event_txtArtistbtnMouseClicked
 
     private void txtEquipmentbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEquipmentbtnMouseClicked
@@ -444,7 +453,9 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         btnEquipment.setBackground(btnHoverColor);
         txtEquipmentbtn.setFont(pressedFont);
         
-        showPanel(new PnlAddEquipment());
+        PnlAddEquipment pnlEquipment = new PnlAddEquipment();
+        pnlEquipment.setOrganiventMenu(this);
+        showPanel(pnlEquipment);
     }//GEN-LAST:event_txtEquipmentbtnMouseClicked
 
     private void txtEventPlacebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEventPlacebtnMouseClicked
@@ -453,7 +464,9 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         btnEventPlace.setBackground(btnHoverColor);
         txtEventPlacebtn.setFont(pressedFont);
         
-        showPanel(new PnlAddEventPlace());
+        PnlAddEventPlace pnlEventPlace = new PnlAddEventPlace();
+        pnlEventPlace.setOrganiventMenu(this);
+        showPanel(pnlEventPlace);
     }//GEN-LAST:event_txtEventPlacebtnMouseClicked
 
     private void lbLogOutIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLogOutIconMouseClicked
@@ -481,6 +494,11 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
         txtEventPlacebtn.setFont(defaultFont);
     }
     
+    public void showErrorPopup(String errorMessage){
+        Message popup = new Message();
+        popup.setMessage(errorMessage);
+        GlassPanePopup.showPopup(popup);
+    }
     
     /**
      * @param args the command line arguments

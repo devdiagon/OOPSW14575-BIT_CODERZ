@@ -15,6 +15,7 @@ public class PnlAddEmployee extends javax.swing.JPanel {
     private Color btnDefaultColor = new Color(63,115,193);
     private Color btnHoverColor = new Color(48,88,149);
     private Employee employee;
+    private FrmOrganiventMenu frmOrganiventMenu;
     
     /**
      * Creates new form PnlAddEmployee
@@ -24,6 +25,10 @@ public class PnlAddEmployee extends javax.swing.JPanel {
         asignNewId();
     }
 
+    public void setOrganiventMenu(FrmOrganiventMenu frmOrganiventMenu){
+        this.frmOrganiventMenu = frmOrganiventMenu;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -177,7 +182,7 @@ public class PnlAddEmployee extends javax.swing.JPanel {
         btnReadEmployeesLayout.setHorizontalGroup(
             btnReadEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnReadEmployeesLayout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
+                .addContainerGap(56, Short.MAX_VALUE)
                 .addComponent(txtReadEmployeesBtn)
                 .addGap(56, 56, 56))
         );
@@ -206,7 +211,7 @@ public class PnlAddEmployee extends javax.swing.JPanel {
     private void txtConfirmbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseClicked
         boolean canContinue = validateData();
 
-        if(canContinue==true){
+        if(canContinue){
             sendEmployeeData();
         } 
     }//GEN-LAST:event_txtConfirmbtnMouseClicked
@@ -225,11 +230,19 @@ public class PnlAddEmployee extends javax.swing.JPanel {
     }//GEN-LAST:event_txtReadEmployeesBtnMouseExited
 
     private boolean validateData(){
-        boolean passed = true;
+        boolean passed;
+        String errorMessage;
         
         passed = HandleInput.validateRealName(tfdName.getText());
         if(passed){
             passed = HandleInput.validatePriceString(fdlWage.getText());
+            if(!passed){
+                errorMessage = "Asegúrese de haber insertado un valor monetario válido";
+                frmOrganiventMenu.showErrorPopup(errorMessage);
+            }
+        }else{
+            errorMessage = "Asegúrese de haber insertado un nombre real válido";
+            frmOrganiventMenu.showErrorPopup(errorMessage);
         }
         return passed;
     }

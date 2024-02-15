@@ -15,6 +15,7 @@ public class PnlAddArtist extends javax.swing.JPanel {
     private Color btnDefaultColor = new Color(63,115,193);
     private Color btnHoverColor = new Color(48,88,149);
     private Artist artist;
+    private FrmOrganiventMenu frmOrganiventMenu;
     
     /**
      * Creates new form PnlAddEmployee
@@ -25,6 +26,10 @@ public class PnlAddArtist extends javax.swing.JPanel {
         
     }
 
+    public void setOrganiventMenu(FrmOrganiventMenu frmOrganiventMenu){
+        this.frmOrganiventMenu = frmOrganiventMenu;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -188,7 +193,7 @@ public class PnlAddArtist extends javax.swing.JPanel {
     private void txtConfirmbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmbtnMouseClicked
        boolean canContinue = validateData();
 
-        if(canContinue==true){
+        if(canContinue){
             sendArtistData();
         } 
     }//GEN-LAST:event_txtConfirmbtnMouseClicked
@@ -207,12 +212,21 @@ public class PnlAddArtist extends javax.swing.JPanel {
     }//GEN-LAST:event_txtReadArtistBtnMouseExited
 
     private boolean validateData(){
-        boolean passed = true;
+        boolean passed;
+        String errorMessage;
         
         passed = HandleInput.validateRealName(tfdName.getText());
         if(passed){
             passed = HandleInput.validatePriceString(fdlWage.getText());
+            if(!passed){
+                errorMessage = "Asegúrese de haber insertado un valor monetario válido";
+                frmOrganiventMenu.showErrorPopup(errorMessage);
+            }
+        }else{
+            errorMessage = "Asegúrese de haber insertado un nombre real válido";
+            frmOrganiventMenu.showErrorPopup(errorMessage);
         }
+        
         return passed;
     }
     
