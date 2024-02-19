@@ -260,7 +260,8 @@ public class PnlAddStaff extends javax.swing.JPanel {
     }//GEN-LAST:event_txtConfirmBtnMouseClicked
 
     private void txtReadStaffBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadStaffBtnMouseClicked
-        // TODO add your handling code here:
+        FrmReadStaff frmReadStaff = new FrmReadStaff();
+        frmReadStaff.setVisible(true);
     }//GEN-LAST:event_txtReadStaffBtnMouseClicked
 
     private void txtReadStaffBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReadStaffBtnMouseEntered
