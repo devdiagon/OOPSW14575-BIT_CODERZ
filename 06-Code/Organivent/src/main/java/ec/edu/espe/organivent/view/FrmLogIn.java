@@ -16,6 +16,7 @@ public class FrmLogIn extends javax.swing.JFrame {
      */
     public FrmLogIn() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/organivent_icon.jpeg")).getImage());
         String underlined = "<html><u>aquí</u></html>";
         txtRegisterbtn.setText(underlined);
         

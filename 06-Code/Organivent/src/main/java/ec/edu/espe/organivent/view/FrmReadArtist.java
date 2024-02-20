@@ -5,6 +5,7 @@ import ec.edu.espe.organivent.model.Artist;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +23,7 @@ public class FrmReadArtist extends javax.swing.JFrame {
      */
     public FrmReadArtist() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/organivent_icon.jpeg")).getImage());
         readArtist();
     }
 

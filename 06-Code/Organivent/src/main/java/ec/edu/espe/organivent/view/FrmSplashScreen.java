@@ -2,13 +2,14 @@ package ec.edu.espe.organivent.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 /**
  *
  * @author Frederick
  */
-public class FrmSpashcreen extends javax.swing.JFrame  {
+public class FrmSplashScreen extends javax.swing.JFrame  {
     
     
     Timer timer = new Timer(1500,new ActionListener(){
@@ -24,8 +25,9 @@ public class FrmSpashcreen extends javax.swing.JFrame  {
     /**
      * Creates new form FrmSpashcreen
      */
-    public FrmSpashcreen() {
+    public FrmSplashScreen() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/organivent_icon.jpeg")).getImage());
         timer.start();
         
     }
@@ -51,7 +53,7 @@ public class FrmSpashcreen extends javax.swing.JFrame  {
         logoImg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle(org.openide.util.NbBundle.getMessage(FrmSpashcreen.class, "FrmSpashcreen.title")); // NOI18N
+        setTitle(org.openide.util.NbBundle.getMessage(FrmSplashScreen.class, "FrmSplashScreen.title")); // NOI18N
         setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
@@ -68,11 +70,11 @@ public class FrmSpashcreen extends javax.swing.JFrame  {
 
         jLabel1.setFont(new java.awt.Font("Inter SemiBold", 0, 15)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText(org.openide.util.NbBundle.getMessage(FrmSpashcreen.class, "FrmSpashcreen.jLabel1.text")); // NOI18N
+        jLabel1.setText(org.openide.util.NbBundle.getMessage(FrmSplashScreen.class, "FrmSplashScreen.jLabel1.text")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Inter SemiBold", 0, 15)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText(org.openide.util.NbBundle.getMessage(FrmSpashcreen.class, "FrmSpashcreen.jLabel2.text")); // NOI18N
+        jLabel2.setText(org.openide.util.NbBundle.getMessage(FrmSplashScreen.class, "FrmSplashScreen.jLabel2.text")); // NOI18N
 
         javax.swing.GroupLayout pnlRectangleLayout = new javax.swing.GroupLayout(pnlRectangle);
         pnlRectangle.setLayout(pnlRectangleLayout);
@@ -101,7 +103,7 @@ public class FrmSpashcreen extends javax.swing.JFrame  {
         background.add(pnlRectangle, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 223, -1, -1));
 
         logoImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/organivent_logo.png"))); // NOI18N
-        logoImg.setText(org.openide.util.NbBundle.getMessage(FrmSpashcreen.class, "FrmSpashcreen.logoImg.text")); // NOI18N
+        logoImg.setText(org.openide.util.NbBundle.getMessage(FrmSplashScreen.class, "FrmSplashScreen.logoImg.text")); // NOI18N
         background.add(logoImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 26, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -136,20 +138,21 @@ public class FrmSpashcreen extends javax.swing.JFrame  {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmSpashcreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSplashScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmSpashcreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSplashScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmSpashcreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSplashScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmSpashcreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSplashScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmSpashcreen().setVisible(true);
+                new FrmSplashScreen().setVisible(true);
                 
             }
         });

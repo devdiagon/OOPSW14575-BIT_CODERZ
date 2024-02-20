@@ -4,6 +4,7 @@ import com.raven.glasspanepopup.GlassPanePopup;
 import ec.edu.espe.organivent.model.PenaltyFee;
 import ec.edu.espe.organivent.utils.HandleInput;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -21,6 +22,7 @@ public class FrmAddPenaltyFee extends javax.swing.JFrame {
      */
     public FrmAddPenaltyFee() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/organivent_icon.jpeg")).getImage());
         
         GlassPanePopup.install(this);
     }

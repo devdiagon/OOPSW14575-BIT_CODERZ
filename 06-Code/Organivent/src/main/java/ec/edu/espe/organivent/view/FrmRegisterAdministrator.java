@@ -21,6 +21,7 @@ public class FrmRegisterAdministrator extends javax.swing.JFrame {
     
     public FrmRegisterAdministrator() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/organivent_icon.jpeg")).getImage());
         String underlined = "<html><u>Iniciar Sesión</u></html>";
         txtReturnbtn.setText(underlined);
         

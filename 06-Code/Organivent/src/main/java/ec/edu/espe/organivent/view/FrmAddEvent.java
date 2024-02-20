@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 
@@ -51,6 +52,7 @@ public class FrmAddEvent extends javax.swing.JFrame {
      */
     public FrmAddEvent() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/organivent_icon.jpeg")).getImage());
         asignNewId();
         loadArtists();
         loadEventPlaces();

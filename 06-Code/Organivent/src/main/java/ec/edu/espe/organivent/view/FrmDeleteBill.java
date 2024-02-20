@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -24,6 +24,7 @@ public class FrmDeleteBill extends javax.swing.JFrame {
      */
     public FrmDeleteBill() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/organivent_icon.jpeg")).getImage());
         loadBill();
         
         GlassPanePopup.install(this);

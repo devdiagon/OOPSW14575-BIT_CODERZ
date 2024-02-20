@@ -13,6 +13,7 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -31,6 +32,7 @@ public class FrmGenerateBill extends javax.swing.JFrame {
      */
     public FrmGenerateBill() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/organivent_icon.jpeg")).getImage());
         loadEventIds();
     }
     

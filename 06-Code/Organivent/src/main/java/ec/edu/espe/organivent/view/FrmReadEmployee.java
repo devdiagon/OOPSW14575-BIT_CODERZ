@@ -5,6 +5,7 @@ import ec.edu.espe.organivent.model.Employee;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +23,7 @@ public class FrmReadEmployee extends javax.swing.JFrame {
      */
     public FrmReadEmployee() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/organivent_icon.jpeg")).getImage());
         readEmployee();
     }
 

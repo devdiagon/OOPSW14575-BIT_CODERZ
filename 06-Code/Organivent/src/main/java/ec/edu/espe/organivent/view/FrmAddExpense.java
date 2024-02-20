@@ -4,8 +4,7 @@ import com.raven.glasspanepopup.GlassPanePopup;
 import ec.edu.espe.organivent.model.Expense;
 import ec.edu.espe.organivent.utils.HandleInput;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -23,6 +22,7 @@ public class FrmAddExpense extends javax.swing.JFrame {
      */
     public FrmAddExpense() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/organivent_icon.jpeg")).getImage());
         
         GlassPanePopup.install(this);
     }

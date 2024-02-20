@@ -4,6 +4,7 @@ import com.raven.glasspanepopup.GlassPanePopup;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -22,6 +23,7 @@ public class FrmOrganiventMenu extends javax.swing.JFrame {
      */
     public FrmOrganiventMenu() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/organivent_icon.jpeg")).getImage());
         showPanel(new PnlEventMainMenu());
         
         GlassPanePopup.install(this);
