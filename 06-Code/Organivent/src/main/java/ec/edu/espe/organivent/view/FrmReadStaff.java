@@ -43,7 +43,8 @@ public class FrmReadStaff extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReadStaff = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -123,6 +124,7 @@ public class FrmReadStaff extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBackEmployeebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBackEmployeebtnMouseClicked
