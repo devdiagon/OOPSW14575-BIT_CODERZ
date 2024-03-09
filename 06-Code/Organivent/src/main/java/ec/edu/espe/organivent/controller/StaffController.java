@@ -110,4 +110,14 @@ public class StaffController extends ManageMongoDB implements IStaff {
         Staff staff = ManageJson.passJsonToObject(doc, classType);
         return staff;
     }
+    
+    public float calculateStaffListCost(ArrayList<Staff> staffList){
+        float totalStaffCost = 0;
+        
+        for(Staff currentStaff:staffList){
+            totalStaffCost += currentStaff.getTotalStaffCost();
+        }
+        
+        return totalStaffCost;
+    }
 }

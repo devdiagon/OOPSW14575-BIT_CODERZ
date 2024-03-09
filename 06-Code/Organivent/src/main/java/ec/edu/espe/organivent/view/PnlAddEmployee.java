@@ -142,7 +142,6 @@ public class PnlAddEmployee extends javax.swing.JPanel {
 
         fdlWage.setBorder(null);
         fdlWage.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0.00"))));
-        fdlWage.setText("0,00");
         add(fdlWage, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 192, 170, -1));
 
         sptNombre.setBackground(new java.awt.Color(116, 178, 237));

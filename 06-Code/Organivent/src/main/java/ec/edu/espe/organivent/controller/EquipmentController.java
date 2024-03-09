@@ -81,4 +81,20 @@ public class EquipmentController extends ManageMongoDB implements IEquipment {
         return equipment;
     }
     
+    public float calculateEquipmentListCost(ArrayList<Equipment> equipmentList){
+        float totalEquipmentCost=0;
+        float individualEquipmentCost=0;
+        
+        for(Equipment currentEquipment:equipmentList){
+            individualEquipmentCost=getIndividualEquipmentCost(currentEquipment);
+            totalEquipmentCost += individualEquipmentCost;
+        }
+        
+        return totalEquipmentCost;
+    }
+    
+    private float getIndividualEquipmentCost(Equipment currentEquipment){
+        return currentEquipment.getCost()*currentEquipment.getQuantity();
+    }
+    
 }

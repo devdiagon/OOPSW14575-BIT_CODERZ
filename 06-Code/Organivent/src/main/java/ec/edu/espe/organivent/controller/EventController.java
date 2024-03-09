@@ -5,11 +5,7 @@ import static com.mongodb.client.model.Projections.excludeId;
 import static com.mongodb.client.model.Projections.fields;
 import ec.edu.espe.organivent.iterfaces.IEvent;
 import ec.edu.espe.organivent.model.Bill;
-import ec.edu.espe.organivent.model.Equipment;
 import ec.edu.espe.organivent.model.Event;
-import ec.edu.espe.organivent.model.Expense;
-import ec.edu.espe.organivent.model.PenaltyFee;
-import ec.edu.espe.organivent.model.Staff;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import ec.edu.espe.organivent.utils.ManageMongoDB;
@@ -24,6 +20,7 @@ import org.bson.conversions.Bson;
 public class EventController extends ManageMongoDB implements IEvent {
     private String collectionName = "Event";
     private Class classType = Event.class;
+    private final float IVA = 0.12f;
 
     @Override
     public void create(Event event) {
@@ -94,35 +91,38 @@ public class EventController extends ManageMongoDB implements IEvent {
         return eventInDB;
     }
     
+    private float calculateIVA(float pureCost){
+        float addedValue = pureCost * IVA;    
+        return pureCost + addedValue;
+    }
+    
     public Bill calculateEventCost(Event currentEvent){
         float estimatedEventCost=0;
-        float totalStaffCost=0;
-        float totalEquipmentCost=0;
-        float individualEquipmentCost=0;
-        
         float artistHiringCost=currentEvent.getArtist().getWage();
         float placeRentCost=currentEvent.getPlace().getRentCost();
         
-        artistHiringCost = Bill.calculateIVA(artistHiringCost);
+        artistHiringCost = calculateIVA(artistHiringCost);
         estimatedEventCost += artistHiringCost;
         
-        placeRentCost += Bill.calculateIVA(placeRentCost);
+        placeRentCost += calculateIVA(placeRentCost);
         estimatedEventCost += placeRentCost;
         
-        for(Staff currentStaff:currentEvent.getStaff()){
-            totalStaffCost += currentStaff.getTotalStaffCost();
-        }
+        StaffController stfctr = new StaffController();  
+        float totalStaffCost=stfctr.calculateStaffListCost(currentEvent.getStaff());
         estimatedEventCost += totalStaffCost;
         
-        for(Equipment currentEquipment:currentEvent.getEquipment()){
-            individualEquipmentCost=Equipment.getIndividualEquipmentCost(currentEquipment);
-            totalEquipmentCost += individualEquipmentCost;
-        }
+        
+        EquipmentController eqmct = new EquipmentController();
+        float totalEquipmentCost=eqmct.calculateEquipmentListCost(currentEvent.getEquipment());
         estimatedEventCost += totalEquipmentCost;
-        float totalGeneralExpenseCost=Expense.calculateTotalCost(currentEvent.getGeneralExpenses());
+        
+        ExpenseController expsctr = new ExpenseController();
+        float totalGeneralExpenseCost=expsctr.calculateExpenseListCost(currentEvent.getGeneralExpenses());
         estimatedEventCost += totalGeneralExpenseCost;
         
-        float totalPenaltyFeeCost=PenaltyFee.calculateTotalPenaltyFeeCost(currentEvent.getPenaltyFees());
+        PenaltyFeeController pntfctr = new PenaltyFeeController();
+        
+        float totalPenaltyFeeCost=pntfctr.calculateTotalPenaltyFeeListCost(currentEvent.getPenaltyFees());
         estimatedEventCost += totalPenaltyFeeCost;
         
         return new Bill(currentEvent.getId(),artistHiringCost,placeRentCost,totalStaffCost,totalEquipmentCost,totalGeneralExpenseCost,totalPenaltyFeeCost,estimatedEventCost);
