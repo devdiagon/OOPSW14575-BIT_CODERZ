@@ -5,7 +5,12 @@ import static com.mongodb.client.model.Projections.excludeId;
 import static com.mongodb.client.model.Projections.fields;
 import ec.edu.espe.organivent.iterfaces.IEvent;
 import ec.edu.espe.organivent.model.Bill;
+import ec.edu.espe.organivent.model.Equipment;
 import ec.edu.espe.organivent.model.Event;
+import ec.edu.espe.organivent.model.Expense;
+import ec.edu.espe.organivent.model.PenaltyFee;
+import ec.edu.espe.organivent.model.Staff;
+import ec.edu.espe.organivent.utils.CalculateIVA;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
 import ec.edu.espe.organivent.utils.ManageMongoDB;
@@ -20,7 +25,6 @@ import org.bson.conversions.Bson;
 public class EventController extends ManageMongoDB implements IEvent {
     private String collectionName = "Event";
     private Class classType = Event.class;
-    private final float IVA = 0.12f;
 
     @Override
     public void create(Event event) {
@@ -91,40 +95,58 @@ public class EventController extends ManageMongoDB implements IEvent {
         return eventInDB;
     }
     
-    private float calculateIVA(float pureCost){
-        float addedValue = pureCost * IVA;    
-        return pureCost + addedValue;
-    }
     
     public Bill calculateEventCost(Event currentEvent){
         float estimatedEventCost=0;
-        float artistHiringCost=currentEvent.getArtist().getWage();
-        float placeRentCost=currentEvent.getPlace().getRentCost();
         
-        artistHiringCost = calculateIVA(artistHiringCost);
+        float artistHiringCost = considerTaxCost(currentEvent.getArtist().getWage());
         estimatedEventCost += artistHiringCost;
         
-        placeRentCost += calculateIVA(placeRentCost);
-        estimatedEventCost += placeRentCost;
+        float placeRentCost = considerTaxCost(currentEvent.getPlace().getRentCost());
+        estimatedEventCost += artistHiringCost;
         
-        StaffController stfctr = new StaffController();  
-        float totalStaffCost=stfctr.calculateStaffListCost(currentEvent.getStaff());
+        float totalStaffCost = obtainStaffCostInEvent(currentEvent.getStaff());
         estimatedEventCost += totalStaffCost;
         
-        
-        EquipmentController eqmct = new EquipmentController();
-        float totalEquipmentCost=eqmct.calculateEquipmentListCost(currentEvent.getEquipment());
+        float totalEquipmentCost = obtainEquipmentCostInEvent(currentEvent.getEquipment());
         estimatedEventCost += totalEquipmentCost;
         
-        ExpenseController expsctr = new ExpenseController();
-        float totalGeneralExpenseCost=expsctr.calculateExpenseListCost(currentEvent.getGeneralExpenses());
+        float totalGeneralExpenseCost = obtainExpenseCostInEvent(currentEvent.getGeneralExpenses());
         estimatedEventCost += totalGeneralExpenseCost;
         
-        PenaltyFeeController pntfctr = new PenaltyFeeController();
-        
-        float totalPenaltyFeeCost=pntfctr.calculateTotalPenaltyFeeListCost(currentEvent.getPenaltyFees());
+        float totalPenaltyFeeCost = obtainPenaltyFeeCostInEvent(currentEvent.getPenaltyFees());
         estimatedEventCost += totalPenaltyFeeCost;
         
         return new Bill(currentEvent.getId(),artistHiringCost,placeRentCost,totalStaffCost,totalEquipmentCost,totalGeneralExpenseCost,totalPenaltyFeeCost,estimatedEventCost);
+    }
+    
+    private float considerTaxCost(float initialCost){
+        CalculateIVA ivaCalc = CalculateIVA.getInstance();
+        
+        return ivaCalc.applyIVA(initialCost);
+    }
+    
+    private float obtainStaffCostInEvent(ArrayList<Staff> staffInEvent){
+        StaffController stfctr = new StaffController();  
+        float totalStaffCost=stfctr.calculateStaffListCost(staffInEvent);
+        return totalStaffCost;
+    }
+    
+    private float obtainEquipmentCostInEvent(ArrayList<Equipment> equipmentInEvent){
+        EquipmentController eqmct = new EquipmentController();
+        float totalEquipmentCost=eqmct.calculateEquipmentListCost(equipmentInEvent);
+        return totalEquipmentCost;
+    }
+    
+    private float obtainExpenseCostInEvent(ArrayList<Expense> expenseInEvent){
+        ExpenseController expsctr = new ExpenseController();
+        float totalGeneralExpenseCost=expsctr.calculateExpenseListCost(expenseInEvent);
+        return totalGeneralExpenseCost;
+    }
+    
+    private float obtainPenaltyFeeCostInEvent(ArrayList<PenaltyFee> penaltyFeeInEvent){
+        PenaltyFeeController pntfctr = new PenaltyFeeController();
+        float totalPenaltyFeeCost=pntfctr.calculateTotalPenaltyFeeListCost(penaltyFeeInEvent);
+        return totalPenaltyFeeCost;
     }
 }
