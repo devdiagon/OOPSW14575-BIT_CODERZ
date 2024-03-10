@@ -5,7 +5,6 @@ import ec.edu.espe.organivent.iterfaces.IArtist;
 import ec.edu.espe.organivent.model.Artist;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
-import ec.edu.espe.organivent.utils.ManageMongoDB;
 import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -14,13 +13,12 @@ import org.bson.conversions.Bson;
  *
  * @author Frederick
  */
-public class ArtistController extends ManageMongoDB implements IArtist {
+public class ArtistController extends DataBaseController implements IArtist {
     private String collectionName = "Artist";
     private Class classType = Artist.class;
 
     @Override
     public void create(Artist artist) {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Document doc = Document.parse(ManageJson.passObjectToJson(artist));
@@ -29,7 +27,6 @@ public class ArtistController extends ManageMongoDB implements IArtist {
 
     @Override
     public ArrayList<Artist> read() {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         ArrayList<Artist> artistsInDB = ManageJson.passCollectionToList(this.coll, classType);
@@ -39,7 +36,6 @@ public class ArtistController extends ManageMongoDB implements IArtist {
 
     @Override
     public void update(Artist artist) {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Bson filter = eq("id",artist.getId());
@@ -50,22 +46,19 @@ public class ArtistController extends ManageMongoDB implements IArtist {
 
     @Override
     public void delete(Artist artist) {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         Bson filter = eq("id",artist.getId());
         
         this.coll.deleteOne(filter);
     }
     
-    public int asignNewId(){        
-        this.connectToDatabase();
+    public int asignNewId(){
         this.getFromCollection(collectionName);
 
         return HandleInput.increaseMaxId(this.coll);
     }
     
     public Artist findOne(int idToSearch){
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Bson filter = eq("id",idToSearch);

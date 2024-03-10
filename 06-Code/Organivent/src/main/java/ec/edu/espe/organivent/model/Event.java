@@ -1,10 +1,6 @@
 package ec.edu.espe.organivent.model;
 
-import com.mongodb.client.MongoCollection;
-import ec.edu.espe.organivent.utils.HandleInput;
-import ec.edu.espe.organivent.utils.UseMongoDB;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *

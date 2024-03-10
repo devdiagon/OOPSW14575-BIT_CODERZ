@@ -4,7 +4,6 @@ import static com.mongodb.client.model.Filters.eq;
 import ec.edu.espe.organivent.iterfaces.IEquipment;
 import ec.edu.espe.organivent.model.Equipment;
 import ec.edu.espe.organivent.utils.ManageJson;
-import ec.edu.espe.organivent.utils.ManageMongoDB;
 import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -13,13 +12,12 @@ import org.bson.conversions.Bson;
  *
  * @author Frederick
  */
-public class EquipmentController extends ManageMongoDB implements IEquipment {
+public class EquipmentController extends DataBaseController implements IEquipment {
     private String collectionName = "Equipment";
     private Class classType = Equipment.class;
 
     @Override
     public void create(Equipment equipment) {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Document doc = Document.parse(ManageJson.passObjectToJson(equipment));
@@ -28,7 +26,6 @@ public class EquipmentController extends ManageMongoDB implements IEquipment {
 
     @Override
     public ArrayList<Equipment> read() {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         ArrayList<Equipment> equipmentInDB = ManageJson.passCollectionToList(this.coll, classType);
@@ -38,7 +35,6 @@ public class EquipmentController extends ManageMongoDB implements IEquipment {
 
     @Override
     public void update(Equipment equipment) {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Bson filter = eq("type",equipment.getType());
@@ -49,7 +45,6 @@ public class EquipmentController extends ManageMongoDB implements IEquipment {
 
     @Override
     public void delete(Equipment equipment) {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         Bson filter = eq("type",equipment.getType());
         
@@ -57,7 +52,6 @@ public class EquipmentController extends ManageMongoDB implements IEquipment {
     }
     
     public boolean validateTypeName(String typeNameToCheck){
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Bson filter = eq("type", typeNameToCheck);
@@ -71,7 +65,6 @@ public class EquipmentController extends ManageMongoDB implements IEquipment {
     }
     
     public Equipment findOne(String typeToSearch){
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Bson filter = eq("type",typeToSearch);

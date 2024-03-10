@@ -8,7 +8,6 @@ import ec.edu.espe.organivent.model.Administrator;
 import ec.edu.espe.organivent.utils.Encriptation;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
-import ec.edu.espe.organivent.utils.ManageMongoDB;
 import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -17,13 +16,12 @@ import org.bson.conversions.Bson;
  *
  * @author Frederick
  */
-public class AdministratorController extends ManageMongoDB implements IAdministrator {
+public class AdministratorController extends DataBaseController implements IAdministrator {
     private String collectionName = "Administrator";
     private Class classType = Administrator.class;
     
     @Override
     public void create(Administrator administrator) {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Document doc = Document.parse(ManageJson.passObjectToJson(administrator));
@@ -32,7 +30,6 @@ public class AdministratorController extends ManageMongoDB implements IAdministr
 
     @Override
     public ArrayList<Administrator> read() {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         ArrayList<Administrator> administratorsInDb = ManageJson.passCollectionToList(this.coll, classType);
@@ -41,7 +38,6 @@ public class AdministratorController extends ManageMongoDB implements IAdministr
     }
     
     public boolean validateUserName(String userNameToCheck){;
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
 
         Bson filter = eq("userName", userNameToCheck);
@@ -56,14 +52,12 @@ public class AdministratorController extends ManageMongoDB implements IAdministr
     }
     
     public int asignNewId(){        
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
 
         return HandleInput.increaseMaxId(this.coll);
     }
     
     public boolean validateCredentials(String insertedUserName, String insertedPassword){
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Bson filter = eq("userName", insertedUserName);

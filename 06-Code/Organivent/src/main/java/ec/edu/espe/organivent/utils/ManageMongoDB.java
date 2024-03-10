@@ -15,12 +15,32 @@ import org.bson.Document;
  * @author Frederick
  */
 public class ManageMongoDB {
-    protected String connectionString = "mongodb+srv://frederick:frederick@cluster0.gteqor0.mongodb.net/?retryWrites=true&w=majority";
-    private String dataBaseName = "OrganiventDB";
+    private static volatile ManageMongoDB instance;
+    protected String connectionString;
+    private String dataBaseName;
     protected MongoDatabase db;
     protected MongoCollection<Document> coll;
     
-    public void connectToDatabase(){
+    private ManageMongoDB(){
+        this.connectionString = "mongodb+srv://frederick:frederick@cluster0.gteqor0.mongodb.net/?retryWrites=true&w=majority";
+        this.dataBaseName = "OrganiventDB";
+        connectToDatabase();
+    }
+    
+    public static ManageMongoDB getInstance(){
+        ManageMongoDB result = instance;
+        if(result==null){
+            synchronized (ManageMongoDB.class){
+                result = instance;
+                if(result==null){
+                    instance = result = new ManageMongoDB();
+                }
+            }
+        }
+        return result;
+    }
+    
+    private void connectToDatabase(){
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
@@ -34,7 +54,11 @@ public class ManageMongoDB {
     }
     
     public void getFromCollection(String collectionName){
-        coll = db.getCollection(collectionName);
+        coll = getDB().getCollection(collectionName);
+    }
+    
+    public MongoDatabase getDB(){
+        return db;
     }
         
 }

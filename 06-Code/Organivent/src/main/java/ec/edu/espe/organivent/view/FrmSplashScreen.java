@@ -1,5 +1,6 @@
 package ec.edu.espe.organivent.view;
 
+import ec.edu.espe.organivent.utils.ManageMongoDB;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -28,6 +29,8 @@ public class FrmSplashScreen extends javax.swing.JFrame  {
     public FrmSplashScreen() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/images/organivent_icon.jpeg")).getImage());
+        ManageMongoDB dbHandler = ManageMongoDB.getInstance();
+        
         timer.start();
         
     }

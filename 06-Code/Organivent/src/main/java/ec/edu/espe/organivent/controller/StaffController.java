@@ -6,7 +6,6 @@ import ec.edu.espe.organivent.model.Employee;
 import ec.edu.espe.organivent.model.Staff;
 import ec.edu.espe.organivent.utils.HandleInput;
 import ec.edu.espe.organivent.utils.ManageJson;
-import ec.edu.espe.organivent.utils.ManageMongoDB;
 import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -15,13 +14,12 @@ import org.bson.conversions.Bson;
  *
  * @author Frederick
  */
-public class StaffController extends ManageMongoDB implements IStaff {
+public class StaffController extends DataBaseController implements IStaff {
     private String collectionName = "Staff";
     private Class classType = Staff.class;
 
     @Override
     public void create(Staff staff) {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Document doc = Document.parse(ManageJson.passObjectToJson(staff));
@@ -30,7 +28,6 @@ public class StaffController extends ManageMongoDB implements IStaff {
 
     @Override
     public ArrayList<Staff> read() {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         ArrayList<Staff> staffInDB = ManageJson.passCollectionToList(this.coll, classType);
@@ -40,7 +37,6 @@ public class StaffController extends ManageMongoDB implements IStaff {
 
     @Override
     public void update(Staff staff) {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Bson filter = eq("id",staff.getId());
@@ -51,22 +47,19 @@ public class StaffController extends ManageMongoDB implements IStaff {
 
     @Override
     public void delete(Staff staff) {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         Bson filter = eq("id",staff.getId());
         
         this.coll.deleteOne(filter);
     }
     
-    public int asignNewId(){        
-        this.connectToDatabase();
+    public int asignNewId(){
         this.getFromCollection(collectionName);
 
         return HandleInput.increaseMaxId(this.coll);
     }
     
     public boolean validateTypeName(String typeNameToCheck){
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Bson filter = eq("type", typeNameToCheck);
@@ -101,7 +94,6 @@ public class StaffController extends ManageMongoDB implements IStaff {
     }
     
     public Staff findOne(int idToSearch){
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Bson filter = eq("id",idToSearch);

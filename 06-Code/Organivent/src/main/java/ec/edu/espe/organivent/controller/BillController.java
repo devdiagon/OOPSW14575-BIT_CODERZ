@@ -6,7 +6,6 @@ import static com.mongodb.client.model.Projections.fields;
 import ec.edu.espe.organivent.iterfaces.IBill;
 import ec.edu.espe.organivent.model.Bill;
 import ec.edu.espe.organivent.utils.ManageJson;
-import ec.edu.espe.organivent.utils.ManageMongoDB;
 import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -15,13 +14,12 @@ import org.bson.conversions.Bson;
  *
  * @author Frederick
  */
-public class BillController extends ManageMongoDB implements IBill {
+public class BillController extends DataBaseController implements IBill {
     private String collectionName = "Bill";
     private Class classType = Bill.class;
 
     @Override
     public void create(Bill bill) {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Document doc = Document.parse(ManageJson.passObjectToJson(bill));
@@ -30,7 +28,6 @@ public class BillController extends ManageMongoDB implements IBill {
 
     @Override
     public Bill read(int searchId) {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Bson filter = eq("id",searchId);
@@ -42,7 +39,6 @@ public class BillController extends ManageMongoDB implements IBill {
 
     @Override
     public void update(Bill bill) {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Bson filter = eq("id",bill.getId());
@@ -53,7 +49,6 @@ public class BillController extends ManageMongoDB implements IBill {
 
     @Override
     public void delete(Bill bill) {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         Bson filter = eq("id",bill.getId());
         
@@ -62,7 +57,6 @@ public class BillController extends ManageMongoDB implements IBill {
 
     @Override
     public ArrayList<Bill> readTable() {
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         ArrayList<Bill> billInDB = ManageJson.passCollectionToList(this.coll, classType);
@@ -71,7 +65,6 @@ public class BillController extends ManageMongoDB implements IBill {
     }
     
     public Bill findOne(int idToSearch){
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Bson filter = eq("id",idToSearch);
@@ -82,7 +75,6 @@ public class BillController extends ManageMongoDB implements IBill {
     }
     
     public boolean decectIdinDB(int idToSearch){
-        this.connectToDatabase();
         this.getFromCollection(collectionName);
         
         Bson filter = eq("id",idToSearch);
